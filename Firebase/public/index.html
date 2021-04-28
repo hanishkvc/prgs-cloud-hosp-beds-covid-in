@@ -52,6 +52,14 @@
     <p id="load">Satyameva Jayathe &hellip;</p>
 
     <script>
+      function get_states(db) {
+        dcStates = db.collection('/States')
+        dcStates.get().then((qDocs) => {
+          qDocs.forEach((doc) => {
+            console.log(doc.id, doc.data());
+          })
+        })
+      }
       document.addEventListener('DOMContentLoaded', function() {
         const elLoad = document.querySelector('#load');
         const elStates = document.querySelector('#states');
@@ -59,7 +67,6 @@
         // // The Firebase SDK is initialized and available here!
         //
         // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
         // firebase.messaging().requestPermission().then(() => { });
         // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
         // firebase.analytics(); // call to activate
@@ -70,7 +77,10 @@
 
         try {
           let app = firebase.app();
+          let db = firebase.firestore();
+          console.log("INFO:DOMContentLoaded: main logic started...");
           elLoad.textContent = 'Save Nature Save Earth';
+          get_states(db);
         } catch (e) {
           console.error(e);
           loadEl.textContent = 'Error loading main logic, check the console.';
@@ -79,3 +89,4 @@
     </script>
   </body>
 </html>
+<!-- vim: set tabstop=2 expandtab :-->
