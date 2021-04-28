@@ -36,7 +36,7 @@
       }
       #states { background: white; max-width: 360px; margin: 16px auto 16px; padding: 32px 24px; border-radius: 3px; }
       #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #states a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #states a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; margin: 16px; padding: 16px; border-radius: 4px; }
     </style>
   </head>
   <body>
@@ -52,17 +52,25 @@
     <p id="load">Satyameva Jayathe &hellip;</p>
 
     <script>
+      let elStates = null
       function get_states(db) {
         dcStates = db.collection('/States')
-        dcStates.get().then((qDocs) => {
-          qDocs.forEach((doc) => {
-            console.log(doc.id, doc.data());
+        dcStates
+          .get()
+          .then((qDocs) => {
+            qDocs.forEach((doc) => {
+              tState = doc.data()
+              console.log("INFO:GetStates:", doc.id, tState);
+              elStates.textContent += tState['Name']
+            });
           })
-        })
+          .catch((error) => {
+            console.log("ERRR:GetStates:", error);
+          });
       }
       document.addEventListener('DOMContentLoaded', function() {
         const elLoad = document.querySelector('#load');
-        const elStates = document.querySelector('#states');
+        elStates = document.querySelector('#states');
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
