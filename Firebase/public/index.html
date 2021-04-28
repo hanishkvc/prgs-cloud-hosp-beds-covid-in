@@ -42,12 +42,11 @@
   <body>
     <div id="message">
       <h2>Hospital Beds Status Covid India</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <div id="states">
-      <p id="states.text"> Place holder </p>
+    </div>
+    <div id="districts">
     </div>
     <p id="load">Satyameva Jayathe &hellip;</p>
 
@@ -61,7 +60,7 @@
             qDocs.forEach((doc) => {
               tState = doc.data()
               console.log("INFO:GetStates:", doc.id, tState);
-              elStates.textContent += tState['Name']
+              elStates.innerHTML += `<a>${tState['Name']}</a> `
             });
           })
           .catch((error) => {
