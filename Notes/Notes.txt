@@ -73,4 +73,13 @@ firebase apps:list --project hosp-beds-covid-in
 
 firebase init
 
+firebase auth:export --format json tocheck/auth.export.json
+
+Misc: sudo apt install openjdk-11-jre
+
+firebase emulators:start
+
+Misc: Add set modeline and syntax on to ~/.vimrc
+
+Open a browser and load the local url specified when emulators got started.
 
