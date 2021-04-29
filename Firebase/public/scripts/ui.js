@@ -98,12 +98,15 @@ function ui_sync() {
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
-        lHead = [ "Name", 'Pincode', 'FreeICU', 'FreeNormal' ]
-        lTest = []
-        lTest.push([1, 2, 3, 4])
-        lTest.push([10, 20, 30, 40])
-        lTest.push([1000000, 2000000, 30, 40])
-        ui_table(elMain, lTest, lHead);
+        lHead = [ "HospId", "Name", 'Pincode', 'FreeICU', 'FreeNormal' ]
+        db_get_hospitals(gDB, gStateId, gDistrictId)
+            .then((lHosps) => {
+                console.log(lHosps)
+                ui_table(elMain, lHosps, lHead);
+            })
+            .catch((error) => {
+                console.log("ERRR:UISync:State+Dist", error);
+            })
     }
 }
 

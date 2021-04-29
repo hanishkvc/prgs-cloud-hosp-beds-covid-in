@@ -52,10 +52,11 @@ async function db_get_hospitals(db, stateId, districtId) {
     dcHosps = db.collection('/Hospitals')
     try {
         var qDocs = await dcHosps.where('StateId', '==', stateId).where('DistrictId', '==', districtId)
-                                    .where(bedType, '>=', minFree).order_by(bedType, direction=db.Query.DESCENDING).limit(10);
+                                    .where(bedType, '>=', minFree).orderBy(bedType, direction=firebase.firestore.Query.DESCENDING).limit(10).get();
+        console.log("INFO:GetHosps:",stateId, districtId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
-            lHosps.push([doc.id, tHosp['Name'], tHosp['Pincode'], tHosp['ICUsBeds'], tHosp['NormalBeds']])
+            lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal']])
             console.log("INFO:GetHosps:", doc.id, tHosp);
             });
     } catch(error){
