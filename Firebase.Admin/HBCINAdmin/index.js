@@ -27,19 +27,23 @@ let lStates = {
 console.log('Hello world')
 console.log(lStates['KA'])
 
+function cs_success(sStateKey) {
+    console.log("DONE:CreateStates:adding ", sStateKey, "to States Collection");
+}
+
+function cs_failure(sStateKey, error) {
+    console.log("ERRR:CreateStates:adding", sStateKey, "to States Collection:", error.details);
+}
+
 function create_states(db) {
     for(tStateKey in lStates) {
         tName = null
-        dStates=db.collection("States");
+        dcStates=db.collection("States");
         tState = lStates[tStateKey]
-        dStates.doc(tStateKey)
+        dcStates.doc(tStateKey)
             .set(tState)
-            .then(() => {
-                console.log("INFO:CreateStates:", tStateKey, "Added to States Collection");
-            })
-            .catch((error) => {
-                console.log("ERRR:CreateStates:", tStateKey, "Failed adding to States Collection");
-            })
+            .then(cs_success.bind(null, tStateKey))
+            .catch(cs_failure.bind(null, tStateKey))
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
