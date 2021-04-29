@@ -36,9 +36,9 @@ function cs_failure(sStateKey, error) {
 }
 
 function create_states(db) {
+    dcStates=db.collection("States");
     for(tStateKey in lStates) {
         tName = null
-        dcStates=db.collection("States");
         tState = lStates[tStateKey]
         dcStates.doc(tStateKey)
             .set(tState)
@@ -55,6 +55,35 @@ function create_states(db) {
 }
 
 
+function create_hosps(db, lStates) {
+    dcHosps = db.collection('Hospitals');
+    iHosp = 0
+    for(tStateK in lStates) {
+        tState = lStates[tStateK];
+        for(tKey in tState) {
+            iHosp += 1
+            if (tKey === 'Name') {
+                tName = tState[tKey]
+                continue;
+            }
+            tHosp = {
+                'Name': 'HospName',
+                'PinCode': 123456,
+                'DistrictId': tKey,
+                'StateId': tStateK,
+                'BedsICU': 1,
+                'BedsNormal': 2,
+                }
+            tHospKey = `Hosp${iHosp}`
+            dcHosps.doc(tHospKey)
+                .set(tHosp)
+                .then(cs_success.bind(null, tHospKey))
+                .catch(cs_failure.bind(null, tHospKey));
+        }
+    }
+}
+
+
 var app = admin.initializeApp({
     credential: admin.credential.applicationDefault(),
     databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
@@ -63,6 +92,7 @@ var db = app.firestore();
 
 
 create_states(db)
+create_hosps(db, lStates)
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
