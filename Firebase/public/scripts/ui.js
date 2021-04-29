@@ -44,7 +44,7 @@ function ui_sync() {
             ui_list_buttons(elStates, lStates, state_handler);
             });
     }
-    if (gStateId !== null) && (gDistId === null) {
+    if ((gStateId !== null) && (gDistrictId === null)) {
         db_get_state(gDB, gStateId).then((lDists) => {
             console.log(lDists)
             ui_list_buttons(elStates, lDists, state_handler);

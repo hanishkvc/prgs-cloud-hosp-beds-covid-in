@@ -35,13 +35,6 @@ async function db_get_state(db, stateId) {
         } else {
             console.log("ERRR:GetState:", stateId, ":Not found");
         }
-        /*
-        qDocs.forEach((doc) => {
-            tState = doc.data();
-            lStates.push([doc.id, tState['Name']])
-            console.log("INFO:GetStates:", doc.id, tState);
-            });
-        */
     } catch(error){
         console.log("ERRR:GetState:", stateId, error);
     }
