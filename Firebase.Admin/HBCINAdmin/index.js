@@ -27,12 +27,12 @@ let lStates = {
 console.log('Hello world')
 console.log(lStates['KA'])
 
-function cs_success(sStateKey) {
-    console.log("DONE:CreateStates:adding ", sStateKey, "to States Collection");
+function msg_success(sStateKey, sMsg) {
+    console.log("DONE:",sMsg, sStateKey);
 }
 
-function cs_failure(sStateKey, error) {
-    console.log("ERRR:CreateStates:adding", sStateKey, "to States Collection:", error.details);
+function msg_failure(sStateKey, sMsg, error) {
+    console.log("ERRR:", sMsg, sStateKey, error.details);
 }
 
 function create_states(db) {
@@ -42,8 +42,8 @@ function create_states(db) {
         tState = lStates[tStateKey]
         dcStates.doc(tStateKey)
             .set(tState)
-            .then(cs_success.bind(null, tStateKey))
-            .catch(cs_failure.bind(null, tStateKey))
+            .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
+            .catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
@@ -74,11 +74,11 @@ function create_hosps(db, lStates) {
                 'BedsICU': 1,
                 'BedsNormal': 2,
                 }
-            tHospKey = `Hosp${iHosp}`
+            tHospKey = `H${tStateK}${tKey}-${iHosp}`
             dcHosps.doc(tHospKey)
                 .set(tHosp)
-                .then(cs_success.bind(null, tHospKey))
-                .catch(cs_failure.bind(null, tHospKey));
+                .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
+                .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
         }
     }
 }
