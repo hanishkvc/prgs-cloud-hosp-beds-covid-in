@@ -13,8 +13,10 @@ function ui_onclick_handler(e) {
 function back_handler(e) {
     if (gDistrictId !== null) {
         gDistrictId = null;
+        elCurPath.textContent = gStateName
     } else {
         gStateId = null;
+        elCurPath.textContent = "Select State - District"
     }
     ui_sync();
 }
@@ -41,15 +43,19 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 
 
 function state_handler(e) {
-    console.log("INFO:StateHandler:", this.id);
+    console.log("INFO:StateHandler:", this.id, this.textContent);
     gStateId = this.id;
+    gStateName = this.textContent;
+    elCurPath.textContent = gStateName;
     ui_sync();
 }
 
 
 function district_handler(e) {
-    console.log("INFO:DistrictHandler:", this.id);
+    console.log("INFO:DistrictHandler:", this.id, this.textContent);
     gDistrictId = this.id;
+    gDistrictName = this.textContent;
+    elCurPath.textContent = ` ${gStateName} [${gDistrictName}] `
     ui_sync();
 }
 
