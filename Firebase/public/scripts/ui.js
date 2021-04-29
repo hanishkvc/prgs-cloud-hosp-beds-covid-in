@@ -5,6 +5,11 @@
  */
 
 
+function ui_onclick_handler(e) {
+    console.log(this.id);
+}
+
+
 function ui_list_anchors(el, lDataNx2) {
     el.innerHTML = ""
     for(lCur of lDataNx2) {
@@ -16,7 +21,11 @@ function ui_list_anchors(el, lDataNx2) {
 function ui_list_buttons(el, lDataNx2) {
     el.innerHTML = ""
     for(lCur of lDataNx2) {
-        el.innerHTML += `<button name="${lCur[0]}">${lCur[1]}</button> `
+        el.innerHTML += `<button id="${lCur[0]}" name="${lCur[0]}">${lCur[1]}</button> `;
+    }
+    for(lCur of lDataNx2) {
+        elBtn = document.getElementById(lCur[0]);
+        elBtn.onclick = ui_onclick_handler;
     }
 }
 
