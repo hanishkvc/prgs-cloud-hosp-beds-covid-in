@@ -6,23 +6,7 @@
 
 var admin = require('firebase-admin');
 
-let lStates = {
-    'KA': {
-        'Name': 'Karnataka',
-        'DId0': 'Tumakuru',
-        'DId1': 'Bengaluru',
-        },
-    'KL': {
-        'Name': 'Kerala',
-        'DId0': 'Ernakulam',
-        'DId1': 'Thiruvananthapuram',
-        },
-    'TN': {
-        'Name': 'Tamilnadu',
-        'DId0': 'Chennai',
-        'DId1': 'Vellore',
-        }
-    }
+var lStates = require("./statesuts_districts");
 
 console.log('Hello world')
 console.log(lStates['KA'])
@@ -96,7 +80,7 @@ var db = app.firestore();
 
 
 create_states(db)
-create_hosps(db, lStates)
+/*create_hosps(db, lStates)*/
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
