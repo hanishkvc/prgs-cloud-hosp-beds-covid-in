@@ -56,16 +56,6 @@
       let gApp = null
       let gDB = null
 
-      function ui_sync() {
-        if (gStateId === null) {
-          get_states(gDB).then((lStates) => {
-            console.log(lStates)
-            list_anchors(elStates, lStates);
-            });
-        } else {
-        }
-      }
-
       document.addEventListener('DOMContentLoaded', function() {
         elLoad = document.querySelector('#load');
         elStates = document.querySelector('#states');
