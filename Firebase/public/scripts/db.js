@@ -42,4 +42,24 @@ async function db_get_state(db, stateId) {
 }
 
 
+async function db_get_hospitals(db, stateId, districtId) {
+    let lHosps = []
+    bedType = 'BedsNormal'
+    minFree = 5
+    dcHosps = db.collection('/Hospitals')
+    try {
+        var qDocs = await dcHosps.where('StateId', '==', stateId).where('DistrictId', '==', districtId)
+                                    .where(bedType, '>=', minFree).order_by(bedType, direction=db.Query.DESCENDING).limit(10);
+        qDocs.forEach((doc) => {
+            tHosp = doc.data();
+            lHosps.push([doc.id, tHosp['Name'], tHosp['Pincode'], tHosp['ICUsBeds'], tHosp['NormalBeds']])
+            console.log("INFO:GetHosps:", doc.id, tHosp);
+            });
+    } catch(error){
+        console.log("ERRR:GetHosps:", error);
+    }
+    return lHosps
+}
+
+
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/

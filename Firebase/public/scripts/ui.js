@@ -45,6 +45,7 @@ function ui_table(el, lDataMxN, lHead) {
     el.innerHTML = tHTML;
 }
 
+
 function ui_list_anchors(el, lDataNx2) {
     el.innerHTML = ""
     for(lCur of lDataNx2) {
