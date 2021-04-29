@@ -2,16 +2,23 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /States/{StateId} {
+      // Allow anyone to read the states and districts list
       allow read: if true;
+      // No one can modify the states and districts list
       allow write: if false;
     }
     match /Hospitals/{HospitalId} {
-      allow read: if true;
+      // Dont allow listing more than 25 hospitals at a time.
+      // As we will be looking for hospitals with free beds, this should be fine.
+      allow read: if request.query.limit <= 25;
+      // Only allow authorised users to update the hospital info for their respective hospital.
       allow write: if request.auth != null
                    && get(/databases/$(database)/documents/HospExtras/$(resource.id)).data.AdminId == request.auth.uid
                    && request.resource.id == HospitalId;
     }
     match /HospExtras/{HospitalId} {
+      // Hospital admin authorisation is controlled manuall using admin app
+      // and not from any web/mobile app.
       allow read, write: if false;
     }
   }
