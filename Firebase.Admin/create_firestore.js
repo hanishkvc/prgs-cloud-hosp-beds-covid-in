@@ -1,10 +1,11 @@
 
 
 let lStates = {
-    'KA': [
-        'Tumakuru',
-        'Bengaluru',
-        ],
+    'KA': {
+        'Name': 'Karnataka',
+        'DId0': 'Tumakuru',
+        'DId1': 'Bengaluru',
+        },
     'KL': [
         'Ernakulam',
         'Thiruvananthapuram',
