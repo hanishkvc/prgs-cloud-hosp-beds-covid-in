@@ -65,6 +65,9 @@ There were some errors seen when installing, need to look at that later.
 Use Firebase CLI
 ==================
 
+NOTE: Best run these within the directory which will contain the files
+related to the firebase project/app.
+
 firebase login
 
 firebase projects:list
@@ -90,6 +93,9 @@ Update firestore.rules as required.
 
 Create Admin tool
 ===================
+
+NOTE: Run these npm commands in the directory which will contain the
+project/program code/files.
 
 npm init
 
