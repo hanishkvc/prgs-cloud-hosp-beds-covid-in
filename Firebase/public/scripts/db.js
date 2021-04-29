@@ -56,7 +56,7 @@ async function db_get_hospitals(db, stateId, districtId) {
         console.log("INFO:GetHosps:",stateId, districtId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
-            lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal']])
+            lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal'], tHosp['TimeStamp']])
             console.log("INFO:GetHosps:", doc.id, tHosp);
             });
     } catch(error){

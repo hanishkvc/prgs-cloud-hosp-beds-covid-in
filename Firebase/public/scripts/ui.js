@@ -26,16 +26,16 @@ function ui_table(el, lDataMxN, lHead) {
     tHTML = "<table> ";
     tHTML += "<thead> <tr> ";
     for (lPart of lHead) {
-        console.log(lPart)
+        //console.log(lPart)
         tHTML += ` <th>${lPart}</th> `;
     }
     tHTML += " </tr> </thead> ";
     tHTML += "<tbody> ";
     for (lCur of lDataMxN) {
         tHTML += "<tr> ";
-        console.log(lCur)
+        //console.log(lCur)
         for (lPart of lCur) {
-            console.log(lPart)
+            //console.log(lPart)
             tHTML += ` <td>${lPart}</td> `;
         }
         tHTML += " </tr>";
@@ -98,7 +98,7 @@ function ui_sync() {
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
-        lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal' ]
+        lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
                 console.log(lHosps)
