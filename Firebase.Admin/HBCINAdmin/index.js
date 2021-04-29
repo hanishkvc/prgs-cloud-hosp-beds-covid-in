@@ -71,8 +71,8 @@ function create_hosps(db, lStates) {
                 'PinCode': 123456,
                 'DistrictId': tKey,
                 'StateId': tStateK,
-                'BedsICU': 1,
-                'BedsNormal': 2,
+                'BedsICU': Math.round(Math.random()*20),
+                'BedsNormal': Math.round(Math.random()*20),
                 'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                 }
             tHospKey = `H${tStateK}${tKey}-${iHosp}`
