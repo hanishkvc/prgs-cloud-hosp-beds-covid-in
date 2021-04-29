@@ -27,10 +27,19 @@ let lStates = {
 console.log('Hello world')
 console.log(lStates['KA'])
 
-function create_states() {
+function create_states(db) {
     for(tStateKey in lStates) {
         tName = null
+        dStates=db.collection("States");
         tState = lStates[tStateKey]
+        dStates.doc(tStateKey)
+            .set(tState)
+            .then(() => {
+                console.log("INFO:CreateStates:", tStateKey, "Added to States Collection");
+            })
+            .catch((error) => {
+                console.log("ERRR:CreateStates:", tStateKey, "Failed adding to States Collection");
+            })
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
@@ -41,12 +50,15 @@ function create_states() {
     }
 }
 
+
 var app = admin.initializeApp({
     credential: admin.credential.applicationDefault(),
     databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
     });
+var db = app.firestore();
 
-create_states()
+
+create_states(db)
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
