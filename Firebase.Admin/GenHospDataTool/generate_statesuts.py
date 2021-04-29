@@ -16,14 +16,22 @@ dStates['Telangana'] = 'TS'
 
 p=pandas.read_csv("hospital_directory.csv")
 f = open("/tmp/t.1","w+")
+print('{', file=f)
 for s in p.State.unique():
 	if s.startswith('North Twenty'):
 		continue
 	print('    "{}": '.format(dStates[s])+"{", file=f)
 	print('{:8}"Name": "{}",'.format(" ",s), file=f)
 	i = 0
-	for d in p[p.State == s].District.unique():
+	tDistricts = p[p.State == s].District.unique()
+	print(tDistricts.shape[0])
+	for d in tDistricts:
 		i += 1
-		print('{:8}"DId{:02}": "{}",'.format(" ",i,d), file=f)
+		if (i >= tDistricts.shape[0]):
+			tTerm = ""
+		else:
+			tTerm = ","
+		print('{:8}"DId{:02}": "{}"{}'.format(" ",i,d,tTerm), file=f)
 	print("{:8}".format(' ')+"},", file=f)
+print('}', file=f)
 f.close()
