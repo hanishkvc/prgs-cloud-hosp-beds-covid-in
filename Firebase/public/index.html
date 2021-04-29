@@ -50,21 +50,6 @@
 
     <script>
       let elStates = null
-      function get_states(db) {
-        dcStates = db.collection('/States')
-        dcStates
-          .get()
-          .then((qDocs) => {
-            qDocs.forEach((doc) => {
-              tState = doc.data()
-              console.log("INFO:GetStates:", doc.id, tState);
-              elStates.innerHTML += `<a>${tState['Name']}</a> `
-            });
-          })
-          .catch((error) => {
-            console.log("ERRR:GetStates:", error);
-          });
-      }
       document.addEventListener('DOMContentLoaded', function() {
         const elLoad = document.querySelector('#load');
         elStates = document.querySelector('#states');
@@ -92,6 +77,7 @@
         }
       });
     </script>
+    <script src="/scripts/db.js"></script>
   </body>
 </html>
 <!-- vim: set tabstop=2 expandtab :-->
