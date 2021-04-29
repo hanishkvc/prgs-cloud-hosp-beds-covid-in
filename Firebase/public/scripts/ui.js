@@ -23,19 +23,20 @@ function back_handler(e) {
 
 
 function ui_table(el, lDataMxN) {
-    el.innerHTML = "<table> ";
-    el.innerHTML += "<tbody> ";
+    tHTML = "<table> ";
+    tHTML += "<tbody> ";
     for (lCur of lDataMxN) {
-        el.innerHTML += "<tr> ";
+        tHTML += "<tr> ";
         console.log(lCur)
         for (lPart of lCur) {
             console.log(lPart)
-            el.innerHTML += ` <td>${lPart}</td> `;
+            tHTML += ` <td>${lPart}</td> `;
         }
-        el.innerHTML += " </tr>";
+        tHTML += " </tr>";
     }
-    el.innerHTML += " </tbody>";
-    el.innerHTML += " </table>";
+    tHTML += " </tbody>";
+    tHTML += " </table>";
+    el.innerHTML = tHTML;
 }
 
 function ui_list_anchors(el, lDataNx2) {
@@ -93,6 +94,7 @@ function ui_sync() {
         lTest = []
         lTest.push([1, 2, 3, 4])
         lTest.push([10, 20, 30, 40])
+        lTest.push([1000000, 2000000, 30, 40])
         ui_table(elMain, lTest);
     }
 }
