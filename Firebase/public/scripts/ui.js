@@ -13,11 +13,19 @@ function ui_list_anchors(el, lDataNx2) {
 }
 
 
+function ui_list_buttons(el, lDataNx2) {
+    el.innerHTML = ""
+    for(lCur of lDataNx2) {
+        el.innerHTML += `<button name="${lCur[0]}">${lCur[1]}</button> `
+    }
+}
+
+
 function ui_sync() {
     if (gStateId === null) {
         db_get_states(gDB).then((lStates) => {
             console.log(lStates)
-            ui_list_anchors(elStates, lStates);
+            ui_list_buttons(elStates, lStates);
             });
     } else {
     }
