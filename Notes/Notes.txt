@@ -5,6 +5,18 @@ Author: HanishKVC
 Date: 20210428IST2332
 
 
+Data sources
+################
+
+https://slusi.dacnet.nic.in/watershedatlas/list_of_state_abbreviation.htm
+
+	List of state/ut abbreviations
+
+data.gov.in
+
+	Hospitals database
+
+
 At Firebase site
 ####################
 
