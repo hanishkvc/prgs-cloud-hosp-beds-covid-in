@@ -46,7 +46,7 @@ function busy_sleep(x,y) {
     }
 }
 
-function create_hosps(db, lStates) {
+async function create_hosps(db, lStates) {
     dcHosps = db.collection('Hospitals');
     iHosp = 0
     for(tStateK in lStates) {
@@ -68,7 +68,7 @@ function create_hosps(db, lStates) {
                     'BedsNormal': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
-                busy_sleep(8192, 8192)
+                await new Promise(r => setTimeout(r, 200));
                 tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
