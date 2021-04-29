@@ -65,21 +65,24 @@ function create_hosps(db, lStates) {
                 tName = tState[tKey]
                 continue;
             }
-            iHosp += 1
-            tHosp = {
-                'Name': 'HospName',
-                'PinCode': 123456,
-                'DistrictId': tKey,
-                'StateId': tStateK,
-                'BedsICU': Math.round(Math.random()*20),
-                'BedsNormal': Math.round(Math.random()*20),
-                'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
-                }
-            tHospKey = `H${tStateK}${tKey}-${iHosp}`
-            dcHosps.doc(tHospKey)
-                .set(tHosp)
-                .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
-                .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+            tHospNums = Math.round(Math.random()*10);
+            for(i = 0; i < tHospNums; i++) {
+                iHosp += 1
+                tHosp = {
+                    'Name': 'HospName',
+                    'PinCode': 123456,
+                    'DistrictId': tKey,
+                    'StateId': tStateK,
+                    'BedsICU': Math.round(Math.random()*20),
+                    'BedsNormal': Math.round(Math.random()*20),
+                    'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
+                    }
+                tHospKey = `H${tStateK}${tKey}-${iHosp}`
+                dcHosps.doc(tHospKey)
+                    .set(tHosp)
+                    .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
+                    .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+            }
         }
     }
 }
