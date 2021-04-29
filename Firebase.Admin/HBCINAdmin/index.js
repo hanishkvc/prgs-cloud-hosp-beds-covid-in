@@ -39,6 +39,13 @@ function create_states(db) {
 }
 
 
+function busy_sleep(x,y) {
+    for(t1=0; t1 < x; t1++) {
+        for(t2=0; t2 < y; t2++) {
+        }
+    }
+}
+
 function create_hosps(db, lStates) {
     dcHosps = db.collection('Hospitals');
     iHosp = 0
@@ -49,7 +56,7 @@ function create_hosps(db, lStates) {
                 tName = tState[tKey]
                 continue;
             }
-            tHospNums = Math.round(Math.random()*10);
+            tHospNums = Math.round(Math.random()*5);
             for(i = 0; i < tHospNums; i++) {
                 iHosp += 1
                 tHosp = {
@@ -61,6 +68,7 @@ function create_hosps(db, lStates) {
                     'BedsNormal': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
+                busy_sleep(8192, 8192)
                 tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
@@ -79,8 +87,11 @@ var app = admin.initializeApp({
 var db = app.firestore();
 
 
+console.log("INFO:T1")
+busy_sleep(81920, 8192)
+console.log("INFO:T2")
 create_states(db)
-/*create_hosps(db, lStates)*/
+create_hosps(db, lStates)
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
