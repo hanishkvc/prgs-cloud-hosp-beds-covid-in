@@ -50,8 +50,9 @@
 
     <script>
       let elStates = null
+      let elLoad = null
       document.addEventListener('DOMContentLoaded', function() {
-        const elLoad = document.querySelector('#load');
+        elLoad = document.querySelector('#load');
         elStates = document.querySelector('#states');
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -64,19 +65,10 @@
         // firebase.performance(); // call to activate
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let db = firebase.firestore();
-          console.log("INFO:DOMContentLoaded: main logic started...");
-          elLoad.textContent = 'Save Nature Save Earth';
-          get_states(db);
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading main logic, check the console.';
-        }
+        fb_init()
       });
     </script>
+    <script src="/scripts/fb.js"></script>
     <script src="/scripts/db.js"></script>
   </body>
 </html>
