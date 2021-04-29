@@ -29,6 +29,9 @@ async function db_get_state(db, stateId) {
         var tState = await ddState.get();
         if (tState.exists) {
             for(tDistKey in tState.data()) {
+                if (tDistKey === 'Name') {
+                    continue
+                }
                 console.log("INFO:GetState:", stateId, tDistKey);
                 lDistricts.push([tDistKey, tState.data()[tDistKey]])
             }
