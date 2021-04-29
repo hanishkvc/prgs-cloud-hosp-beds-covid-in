@@ -1,3 +1,9 @@
+/*
+ * Firebase related helper logics
+ * HanishKVC, 2021
+ * GPL
+ */
+
 
 function fb_init() {
     try {
@@ -10,5 +16,6 @@ function fb_init() {
         return false
     }
 }
+
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/

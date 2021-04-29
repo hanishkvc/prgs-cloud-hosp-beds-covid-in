@@ -1,5 +1,11 @@
+/*
+ * Firestore related helper logics
+ * HanishKVC, 2021
+ * GPL
+ */
 
-async function get_states(db) {
+
+async function db_get_states(db) {
     let lStates = []
     dcStates = db.collection('/States')
     try {
@@ -14,5 +20,6 @@ async function get_states(db) {
     }
     return lStates
 }
+
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
