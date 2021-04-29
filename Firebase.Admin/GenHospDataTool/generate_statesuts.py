@@ -19,11 +19,11 @@ f = open("/tmp/t.1","w+")
 for s in p.State.unique():
 	if s.startswith('North Twenty'):
 		continue
-	print("    '{}': ".format(dStates[s])+"{", file=f)
-	print("{:8}'Name': '{}',".format(" ",s), file=f)
+	print('    "{}": '.format(dStates[s])+"{", file=f)
+	print('{:8}"Name": "{}",'.format(" ",s), file=f)
 	i = 0
 	for d in p[p.State == s].District.unique():
 		i += 1
-		print("{:8}'DId{:02}': '{}',".format(" ",i,d), file=f)
+		print('{:8}"DId{:02}": "{}",'.format(" ",i,d), file=f)
 	print("{:8}".format(' ')+"},", file=f)
 f.close()
