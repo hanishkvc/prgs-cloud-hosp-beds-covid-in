@@ -73,6 +73,7 @@ function create_hosps(db, lStates) {
                 'StateId': tStateK,
                 'BedsICU': 1,
                 'BedsNormal': 2,
+                'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                 }
             tHospKey = `H${tStateK}${tKey}-${iHosp}`
             dcHosps.doc(tHospKey)
