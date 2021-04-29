@@ -57,9 +57,9 @@ async function db_get_hospitals(db, stateId, districtId) {
         qDocs.forEach((doc) => {
             tHosp = doc.data();
             tTS = new Date(tHosp['TimeStamp'].seconds*1000);
-            tDate = (tTS.getFullYear()*100+(tTS.getMonth()+1))*100+tTS.getDay();
-            tTime = tTS.getHours()*100+tTS.getMinutes();
-            sTS = `${tDate}T${tTime}`;
+            const options = { year: '2-digit', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
+            sTS = Intl.DateTimeFormat('en-IN', options).format(tTS)
             lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal'], sTS])
             console.log("INFO:GetHosps:", doc.id, tHosp);
             });
