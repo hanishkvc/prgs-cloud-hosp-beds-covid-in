@@ -1,0 +1,22 @@
+{
+  "name": "hbcin_admin",
+  "version": "0.0.1",
+  "description": "Administor Hosp-Beds-Covid-In ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "opensource",
+    "covid",
+    "hospitals",
+    "beds",
+    "india"
+  ],
+  "author": "HanishKVC",
+  "website": "https://github.com/hanishkvc",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "firebase-admin": "^9.7.0"
+  }
+}
