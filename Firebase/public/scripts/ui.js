@@ -22,6 +22,22 @@ function back_handler(e) {
 }
 
 
+function ui_table(el, lDataMxN) {
+    el.innerHTML = "<table> ";
+    el.innerHTML += "<tbody> ";
+    for (lCur of lDataMxN) {
+        el.innerHTML += "<tr> ";
+        console.log(lCur)
+        for (lPart of lCur) {
+            console.log(lPart)
+            el.innerHTML += ` <td>${lPart}</td> `;
+        }
+        el.innerHTML += " </tr>";
+    }
+    el.innerHTML += " </tbody>";
+    el.innerHTML += " </table>";
+}
+
 function ui_list_anchors(el, lDataNx2) {
     el.innerHTML = ""
     for(lCur of lDataNx2) {
@@ -72,6 +88,12 @@ function ui_sync() {
             console.log(lDists)
             ui_list_buttons(elMain, lDists, district_handler);
             });
+    }
+    if ((gStateId !== null) && (gDistrictId !== null)) {
+        lTest = []
+        lTest.push([1, 2, 3, 4])
+        lTest.push([10, 20, 30, 40])
+        ui_table(elMain, lTest);
     }
 }
 
