@@ -83,3 +83,20 @@ Misc: Add set modeline and syntax on to ~/.vimrc
 
 Open a browser and load the local url specified when emulators got started.
 
+Update public/index.html as required.
+
+Update firestore.rules as required.
+
+
+Create Admin tool
+===================
+
+npm init
+
+	meta data for a new package/program is captured and saved.
+
+npm install firebase-admin --save
+
+	bring in the bazooka, to administer firebase applications.
+
+
