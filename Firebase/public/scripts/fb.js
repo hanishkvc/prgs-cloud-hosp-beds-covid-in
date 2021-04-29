@@ -1,14 +1,13 @@
 
 function fb_init() {
     try {
-        let app = firebase.app();
-        let db = firebase.firestore();
+        gApp = firebase.app();
+        gDB = firebase.firestore();
         console.log("INFO:FBInit: started...");
-        elLoad.textContent = 'Save Nature Save Earth';
-        get_states(db);
+        return true
     } catch (e) {
         console.error(e);
-        elLoad.textContent = 'Error loading main logic, check the console.';
+        return false
     }
 }
 

@@ -51,6 +51,18 @@
     <script>
       let elStates = null
       let elLoad = null
+      let gStateId = null
+      let gDistrictId = null
+      let gApp = null
+      let gDB = null
+
+      function ui_sync() {
+        if (gStateId === null) {
+          get_states(gDB);
+        } else {
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', function() {
         elLoad = document.querySelector('#load');
         elStates = document.querySelector('#states');
@@ -65,7 +77,12 @@
         // firebase.performance(); // call to activate
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        fb_init()
+        if (fb_init()) {
+          elLoad.textContent = 'Save Nature Save Earth';
+          ui_sync()
+        } else {
+          elLoad.textContent = 'Error loading main logic, check the console.';
+        }
       });
     </script>
     <script src="/scripts/fb.js"></script>
