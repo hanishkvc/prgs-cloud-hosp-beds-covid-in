@@ -10,6 +10,16 @@ function ui_onclick_handler(e) {
 }
 
 
+function back_handler(e) {
+    if (gDistrictId !== null) {
+        gDistrictId = null;
+    } else {
+        gStateId = null;
+    }
+    ui_sync();
+}
+
+
 function ui_list_anchors(el, lDataNx2) {
     el.innerHTML = ""
     for(lCur of lDataNx2) {
