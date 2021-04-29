@@ -22,8 +22,14 @@ function back_handler(e) {
 }
 
 
-function ui_table(el, lDataMxN) {
+function ui_table(el, lDataMxN, lHead) {
     tHTML = "<table> ";
+    tHTML += "<thead> <tr> ";
+    for (lPart of lHead) {
+        console.log(lPart)
+        tHTML += ` <th>${lPart}</th> `;
+    }
+    tHTML += " </tr> </thead> ";
     tHTML += "<tbody> ";
     for (lCur of lDataMxN) {
         tHTML += "<tr> ";
@@ -91,11 +97,12 @@ function ui_sync() {
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
+        lHead = [ "Name", 'Pincode', 'FreeICU', 'FreeNormal' ]
         lTest = []
         lTest.push([1, 2, 3, 4])
         lTest.push([10, 20, 30, 40])
         lTest.push([1000000, 2000000, 30, 40])
-        ui_table(elMain, lTest);
+        ui_table(elMain, lTest, lHead);
     }
 }
 
