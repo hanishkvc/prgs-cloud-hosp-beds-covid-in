@@ -37,6 +37,13 @@ function state_handler(e) {
 }
 
 
+function district_handler(e) {
+    console.log("INFO:DistrictHandler:", this.id);
+    gDistrictId = this.id;
+    ui_sync();
+}
+
+
 function ui_sync() {
     if (gStateId === null) {
         db_get_states(gDB).then((lStates) => {
@@ -47,7 +54,7 @@ function ui_sync() {
     if ((gStateId !== null) && (gDistrictId === null)) {
         db_get_state(gDB, gStateId).then((lDists) => {
             console.log(lDists)
-            ui_list_buttons(elStates, lDists, state_handler);
+            ui_list_buttons(elStates, lDists, district_handler);
             });
     }
 }
