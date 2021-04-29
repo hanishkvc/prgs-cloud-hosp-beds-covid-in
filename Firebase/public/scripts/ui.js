@@ -98,7 +98,7 @@ function ui_sync() {
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
-        lHead = [ "HospId", "Name", 'Pincode', 'FreeICU', 'FreeNormal' ]
+        lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
                 console.log(lHosps)
