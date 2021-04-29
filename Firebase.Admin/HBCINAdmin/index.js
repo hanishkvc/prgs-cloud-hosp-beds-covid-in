@@ -61,11 +61,11 @@ function create_hosps(db, lStates) {
     for(tStateK in lStates) {
         tState = lStates[tStateK];
         for(tKey in tState) {
-            iHosp += 1
             if (tKey === 'Name') {
                 tName = tState[tKey]
                 continue;
             }
+            iHosp += 1
             tHosp = {
                 'Name': 'HospName',
                 'PinCode': 123456,
