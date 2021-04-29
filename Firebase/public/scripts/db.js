@@ -1,18 +1,18 @@
 
-function get_states(db) {
+async function get_states(db) {
+    let lStates = []
     dcStates = db.collection('/States')
-    dcStates
-        .get()
-        .then((qDocs) => {
-            qDocs.forEach((doc) => {
-                tState = doc.data()
-                console.log("INFO:GetStates:", doc.id, tState);
-                elStates.innerHTML += `<a>${tState['Name']}</a> `
+    try {
+        var qDocs = await dcStates.get()
+        qDocs.forEach((doc) => {
+            tState = doc.data();
+            lStates.push([doc.id, tState['Name']])
+            console.log("INFO:GetStates:", doc.id, tState);
             });
-        })
-        .catch((error) => {
-            console.log("ERRR:GetStates:", error);
-        });
+    } catch(error){
+        console.log("ERRR:GetStates:", error);
+    }
+    return lStates
 }
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
