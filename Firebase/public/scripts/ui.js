@@ -43,7 +43,12 @@ function ui_sync() {
             console.log(lStates)
             ui_list_buttons(elStates, lStates, state_handler);
             });
-    } else {
+    }
+    if (gStateId !== null) && (gDistId === null) {
+        db_get_state(gDB, gStateId).then((lDists) => {
+            console.log(lDists)
+            ui_list_buttons(elStates, lDists, state_handler);
+            });
     }
 }
 
