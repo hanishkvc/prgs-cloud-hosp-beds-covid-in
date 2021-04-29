@@ -4,6 +4,8 @@
  * GPL
  */
 
+var admin = require('firebase-admin');
+
 let lStates = {
     'KA': {
         'Name': 'Karnataka',
@@ -38,6 +40,11 @@ function create_states() {
         }
     }
 }
+
+var app = admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
+    });
 
 create_states()
 
