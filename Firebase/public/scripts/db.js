@@ -28,13 +28,14 @@ async function db_get_state(db, stateId) {
     try {
         var tState = await ddState.get();
         if (tState.exists) {
-            for(tDistKey in tState.data()) {
-                if (tDistKey === 'Name') {
-                    continue
-                }
-                console.log("INFO:GetState:", stateId, tDistKey);
-                lDistricts.push([tDistKey, tState.data()[tDistKey]])
-            }
+            tDistKeys = Object.keys(tState.data()).sort();
+            tDistKeys.forEach((tDistKey) => {
+                    if (tDistKey === 'Name') {
+                        return
+                    }
+                    console.log("INFO:GetState:", stateId, tDistKey);
+                    lDistricts.push([tDistKey, tState.data()[tDistKey]])
+                })
         } else {
             console.log("ERRR:GetState:", stateId, ":Not found");
         }
