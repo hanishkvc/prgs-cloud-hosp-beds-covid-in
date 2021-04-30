@@ -33,7 +33,7 @@ function popstate_handler(e) {
 }
 
 
-function ui_table(el, lDataMxN, lHead) {
+function ui_table(el, lDataMxN, lHead, mTypes={}) {
     tHTML = "<table> ";
     tHTML += "<thead> <tr> ";
     for (lPart of lHead) {
@@ -45,9 +45,17 @@ function ui_table(el, lDataMxN, lHead) {
     for (lCur of lDataMxN) {
         tHTML += "<tr> ";
         //console.log(lCur)
+        i = -1
         for (lPart of lCur) {
+            i += 1
             //console.log(lPart)
-            tHTML += ` <td>${lPart}</td> `;
+            tType = mTypes[lHead[i]]
+            //console.log("ui_table:", mTypes, lHead[i], tType);
+            if (tType === 'input') {
+                tHTML += ` <td> <input type="number" name="${lHead[i]}" value="${lPart}" size="4" > </td> `;
+            } else {
+                tHTML += ` <td>${lPart}</td> `;
+            }
         }
         tHTML += " </tr>";
     }
@@ -124,9 +132,10 @@ function authed_handler(authResult, redirectUrl) {
 
 function ui_update(el) {
     lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal' ]
+    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input' }
     db_get_adminhospitals(gDB, gGotAuth)
         .then((lHosps) => {
-            ui_table(el, lHosps, lHead);
+            ui_table(el, lHosps, lHead, mTypes);
         })
         .catch((error) => {
             console.log("ERRR:UIUpdate:", error);
