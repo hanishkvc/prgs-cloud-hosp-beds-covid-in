@@ -6,7 +6,7 @@ import pandas
 
 p = pandas.read_csv("./statesuts.code.csv")
 dStates = {}
-for i in range(37):
+for i in range(p.shape[0]):
 	dStates[p.iloc[i,0].strip()] = p.iloc[i,1].strip()
 print(dStates)
 
@@ -23,7 +23,9 @@ for s in p.State.unique():
 	print('    "{}": '.format(dStates[s])+"{", file=f)
 	print('{:8}"Name": "{}",'.format(" ",s), file=f)
 	i = 0
-	tDistricts = p[p.State == s].District.unique()
+	tDistricts = p[p.State == s].District.unique().astype(str)
+	print(s, tDistricts)
+	tDistricts.sort()
 	print(tDistricts.shape[0])
 	for d in tDistricts:
 		i += 1
