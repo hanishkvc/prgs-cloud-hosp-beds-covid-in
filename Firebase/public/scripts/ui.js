@@ -78,14 +78,14 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 
 
 function update_handler(e) {
-    if (!gbGotPass) {
-        gbGetPass = true
+    if (!gbGotAuth) {
+        gbGetAuth = true
     }
     ui_sync()
 }
 
 
-function ui_getpass(el) {
+function ui_getauth(el) {
     el.innerHTML = "<h1>This is needed only for people updating status</h1>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
 }
@@ -112,8 +112,8 @@ function district_handler(e) {
 
 
 function ui_sync() {
-    if (!gbGotPass && gbGetPass) {
-        ui_getpass(elMain);
+    if (!gbGotAuth && gbGetAuth) {
+        ui_getauth(elMain);
         aui_start();
         return;
     }
