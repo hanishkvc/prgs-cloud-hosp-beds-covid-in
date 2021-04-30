@@ -78,7 +78,7 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 
 
 function update_handler(e) {
-    if (gGotAuth == null) {
+    if (gGotAuth === null) {
         gbGetAuth = true
     } else {
         gbUpdate = true
@@ -123,7 +123,7 @@ function authed_handler(authResult, redirectUrl) {
 
 
 function ui_update(el) {
-    db_get_adminhosps(gDB, gGotAuth).then((lHosps) => {
+    db_get_adminhosps(gDB, gGotAuth).then((lHospIds) => {
         });
 }
 
