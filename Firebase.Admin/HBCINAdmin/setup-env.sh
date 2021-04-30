@@ -10,5 +10,5 @@ function emulator() {
 }
 
 server_auth
-emulator
+#emulator
 
