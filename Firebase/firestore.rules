@@ -15,6 +15,9 @@ service cloud.firestore {
       allow create, delete: if false;
       // Only allow authorised users to update the hospital info for their respective hospital.
       // Inturn restrict them to update only the free beds data and nothing else.
+      // Maybe add request.auth.token.email_verified, so that in case I forget and provide
+      // access to any user(id) even if they have not had their email verified, the system
+      // will trap it.
       allow update: if request.auth != null
                     && get(/databases/$(database)/documents/HospExtras/$(request.resource.id)).data.AdminId == request.auth.uid
                     && request.resource.id == HospitalId
