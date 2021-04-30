@@ -98,7 +98,8 @@ function update_handler(e) {
 
 
 function ui_getauth(el) {
-    el.innerHTML = "<h1>This is needed only for people updating status</h1>"
+    el.innerHTML = "<h1>For use by authorised people updating freebeds status</h1>"
+    el.innerHTML += "<h2>People checking free bed status, do not sign in</h2>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
 }
 
