@@ -57,7 +57,7 @@
     </div>
     <div id="bottom">
       <button id="Back" name="Back"> Back </button>
-      <button id="Update" name="Update"> Update </button>
+      <button id="UpdateMode" name="UpdateMode"> UpdateMode </button>
       <p id="load">Satyameva Jayathe &hellip;</p>
     </div>
 
@@ -70,15 +70,15 @@
       let gDistrictId = null
       let gbGetAuth = false
       let gGotAuth = null
-      let gbUpdate = false
+      let gbUpdateMode = false
       let gApp = null
       let gDB = null
       let gAUI = null
       const elCurPath = document.querySelector('#curpath');
       const elBack = document.querySelector('#Back');
-      const elUpdate = document.querySelector('#Update');
+      const elUpdateMode = document.querySelector('#UpdateMode');
       elBack.onclick = back_handler;
-      elUpdate.onclick = update_handler;
+      elUpdateMode.onclick = update_handler;
 
       ui_init();
       document.addEventListener('DOMContentLoaded', function() {

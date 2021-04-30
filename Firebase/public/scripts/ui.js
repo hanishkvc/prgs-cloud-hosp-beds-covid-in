@@ -91,7 +91,7 @@ function update_handler(e) {
     if (gGotAuth === null) {
         gbGetAuth = true
     } else {
-        gbUpdate = true
+        gbUpdateMode = true
     }
     ui_sync()
 }
@@ -156,7 +156,7 @@ function ui_sync() {
         aui_start(authed_handler);
         return;
     }
-    if ((gGotAuth !== null) && gbUpdate) {
+    if ((gGotAuth !== null) && gbUpdateMode) {
         ui_update(elMain)
         return;
     }
