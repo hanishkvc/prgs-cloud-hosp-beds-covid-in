@@ -143,6 +143,7 @@ function ui_sync() {
     }
     if ((gGotAuth !== null) && gbUpdate) {
         ui_update(elMain)
+        return;
     }
     if (gStateId === null) {
         db_get_states(gDB).then((lStates) => {
