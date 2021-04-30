@@ -117,7 +117,7 @@ function authed_handler(authResult, redirectUrl) {
     console.log("INFO:Auth:Ok", authResult, redirectUrl);
     gGotAuth = authResult.user.uid;
     elAuth.innerHTML = "";
-    setTimeout(ui_sync)
+    setTimeout(update_handler, 0, null)
     return false;
 }
 
