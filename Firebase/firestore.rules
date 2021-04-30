@@ -26,8 +26,10 @@ service cloud.firestore {
     match /HospitalsExtra/{HospitalId} {
       // Hospital admin authorisation controlled manualy using admin scripts
       // and not from any web/mobile app.
+      // && request.auth.token.email_verified == true;
+      // Is this && request.resource.data.AdminId == request.auth.uid; less secure than below
       allow read: if request.auth != null
-                  && request.auth.token.email_verified == true;
+                  && resource.data.AdminId == request.auth.uid;
       allow write: if false;
     }
   }
