@@ -1,4 +1,23 @@
 {
-  "indexes": [],
+  "indexes": [
+    {
+      "collectionGroup": "Hospitals",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "DistrictId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "StateId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "BedsNormal",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
   "fieldOverrides": []
 }
