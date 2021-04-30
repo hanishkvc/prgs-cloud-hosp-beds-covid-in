@@ -53,6 +53,8 @@
     </div>
     <div id="main">
     </div>
+    <div id="auth">
+    </div>
     <div id="bottom">
       <button id="Back" name="Back"> Back </button>
       <button id="Update" name="Update"> Update </button>
@@ -62,6 +64,7 @@
     <script src="/scripts/ui.js"></script>
     <script>
       let elMain = null
+      let elAuth = null
       let elLoad = null
       let gStateId = null
       let gDistrictId = null
@@ -80,6 +83,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         elLoad = document.querySelector('#load');
         elMain = document.querySelector('#main');
+        elAuth = document.querySelector('#auth');
         // // The Firebase SDK is initialized and available here!
         //
         // firebase.auth().onAuthStateChanged(user => { });

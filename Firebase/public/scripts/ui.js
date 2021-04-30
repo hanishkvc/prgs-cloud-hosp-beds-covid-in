@@ -111,10 +111,19 @@ function district_handler(e) {
 }
 
 
+function authed_handler(authResult, redirectUrl) {
+    console.log("INFO:Auth:Ok", authResult, redirectUrl);
+    gbGotAuth = true;
+    elAuth.innerHTML = "";
+    return false;
+}
+
+
 function ui_sync() {
     if (!gbGotAuth && gbGetAuth) {
-        ui_getauth(elMain);
-        aui_start();
+        elMain.innerHTML = ""
+        ui_getauth(elAuth);
+        aui_start(authed_handler);
         return;
     }
     if (gStateId === null) {

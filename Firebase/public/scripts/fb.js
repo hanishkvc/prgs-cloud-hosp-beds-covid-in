@@ -5,17 +5,14 @@
  */
 
 
-function aui_start() {
+function aui_start(authed_handler) {
     gAUI.start('#firebaseui-auth-container', {
         signInSuccessUrl: 'GotAuthed',
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
         callbacks: {
-            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                console.log("INFO:Auth:Ok", authResult, redirectUrl);
-                return true;
-                }
+            signInSuccessWithAuthResult: authed_handler
             },
         });
 }
