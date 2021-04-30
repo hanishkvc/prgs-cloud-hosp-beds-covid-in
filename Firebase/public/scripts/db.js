@@ -71,4 +71,23 @@ async function db_get_hospitals(db, stateId, districtId) {
 }
 
 
+/*
+ * THe logic limits a user to administer 10 hospitals for now.
+ */
+async function db_get_adminhospitals(db, userId) {
+    let lHospIds = []
+    dcHospsExtra = db.collection('/HospitalsExtra')
+    try {
+        var qDocs = await dcHospsExtra.where('AdminId', '==', userId).limit(10).get();
+        console.log("INFO:GetAdminHosps:",userId, qDocs);
+        qDocs.forEach((doc) => {
+            lHospIds.push(doc.id);
+            });
+    } catch(error){
+        console.log("ERRR:GetAdminHosps:", error);
+    }
+    return lHospIds
+}
+
+
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/

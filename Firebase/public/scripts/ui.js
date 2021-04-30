@@ -123,7 +123,7 @@ function authed_handler(authResult, redirectUrl) {
 
 
 function ui_update(el) {
-    db_get_adminhosps(gDB, gGotAuth).then((lHospIds) => {
+    db_get_adminhospitals(gDB, gGotAuth).then((lHospIds) => {
         });
 }
 
