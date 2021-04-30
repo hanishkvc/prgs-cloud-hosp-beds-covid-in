@@ -133,6 +133,7 @@ function authed_handler(authResult, redirectUrl) {
 
 
 function ui_update(el) {
+    elCurPath.textContent = ` Update Free Hospital Beds info [${firebase.auth().currentUser.email}]`
     lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'SyncIt' ]
     mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
