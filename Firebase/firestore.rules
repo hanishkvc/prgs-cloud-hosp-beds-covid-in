@@ -19,14 +19,16 @@ service cloud.firestore {
       // access to any user(id) even if they have not had their email verified, the system
       // will trap it.
       allow update: if request.auth != null
-                    && get(/databases/$(database)/documents/HospExtras/$(request.resource.id)).data.AdminId == request.auth.uid
+                    && get(/databases/$(database)/documents/HospitalsExtra/$(request.resource.id)).data.AdminId == request.auth.uid
                     && request.resource.id == HospitalId
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['BedsICU', 'BedsNormal']);
     }
-    match /HospExtras/{HospitalId} {
+    match /HospitalsExtra/{HospitalId} {
       // Hospital admin authorisation controlled manualy using admin scripts
       // and not from any web/mobile app.
-      allow read, write: if false;
+      allow read: if request.auth != null
+                  && request.auth.token.email_verified == true;
+      allow write: if false;
     }
   }
 }
