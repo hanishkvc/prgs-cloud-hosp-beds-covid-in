@@ -53,6 +53,8 @@ function ui_table(el, lDataMxN, lHead, mTypes={}) {
             //console.log("ui_table:", mTypes, lHead[i], tType);
             if (tType === 'input') {
                 tHTML += ` <td> <input type="number" name="${lHead[i]}" value="${lPart}" size="4" > </td> `;
+            } else if (tType === 'button') {
+                tHTML += ` <td> <button type="button" name="${lHead[i]}"> ${lPart} </button> </td> `;
             } else {
                 tHTML += ` <td>${lPart}</td> `;
             }
@@ -131,10 +133,13 @@ function authed_handler(authResult, redirectUrl) {
 
 
 function ui_update(el) {
-    lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal' ]
-    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input' }
+    lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'SyncIt' ]
+    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
         .then((lHosps) => {
+            for(i = 0; i < lHosps.length; i++) {
+                lHosps[i].push("sync");
+            }
             ui_table(el, lHosps, lHead, mTypes);
         })
         .catch((error) => {
