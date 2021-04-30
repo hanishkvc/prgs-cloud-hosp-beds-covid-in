@@ -11,7 +11,13 @@ function ui_onclick_handler(e) {
 
 
 function back_handler(e) {
-    if (gDistrictId !== null) {
+    if (gbGetAuth) {
+        gbGetAuth = false
+        elAuth.innerHTML = ""
+    } else if (gbUpdateMode) {
+        gbUpdateMode = false
+        elAuth.innerHTML = ""
+    } else if (gDistrictId !== null) {
         gDistrictId = null;
         elCurPath.textContent = gStateName
     } else {
