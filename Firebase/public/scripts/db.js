@@ -13,10 +13,10 @@ async function db_get_states(db) {
         qDocs.forEach((doc) => {
             tState = doc.data();
             lStates.push([doc.id, tState['Name']])
-            console.log("INFO:GetStates:", doc.id, tState);
+            console.debug("INFO:GetStates:", doc.id, tState);
             });
     } catch(error){
-        console.log("ERRR:GetStates:", error);
+        console.error("ERRR:GetStates:", error);
     }
     return lStates
 }
@@ -33,14 +33,14 @@ async function db_get_state(db, stateId) {
                     if (tDistKey === 'Name') {
                         return
                     }
-                    console.log("INFO:GetState:", stateId, tDistKey);
+                    console.debug("INFO:GetState:", stateId, tDistKey);
                     lDistricts.push([tDistKey, tState.data()[tDistKey]])
                 })
         } else {
-            console.log("ERRR:GetState:", stateId, ":Not found");
+            console.error("ERRR:GetState:", stateId, ":Not found");
         }
     } catch(error){
-        console.log("ERRR:GetState:", stateId, error);
+        console.error("ERRR:GetState:", stateId, error);
     }
     return lDistricts
 }
@@ -54,7 +54,7 @@ async function db_get_hospitals(db, stateId, districtId) {
     try {
         var qDocs = await dcHosps.where('StateId', '==', stateId).where('DistrictId', '==', districtId)
                                     .where(bedType, '>=', minFree).orderBy(bedType, direction=firebase.firestore.Query.DESCENDING).limit(10).get();
-        console.log("INFO:GetHosps:",stateId, districtId, qDocs);
+        console.debug("INFO:GetHosps:",stateId, districtId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
             tTS = new Date(tHosp['TimeStamp'].seconds*1000);
@@ -62,10 +62,10 @@ async function db_get_hospitals(db, stateId, districtId) {
                 hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
             sTS = Intl.DateTimeFormat('en-IN', options).format(tTS)
             lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal'], sTS])
-            console.log("INFO:GetHosps:", doc.id, tHosp);
+            console.debug("INFO:GetHosps:", doc.id, tHosp);
             });
     } catch(error){
-        console.log("ERRR:GetHosps:", error);
+        console.error("ERRR:GetHosps:", error);
     }
     return lHosps
 }
@@ -79,12 +79,13 @@ async function db_get_adminhospitals(db, userId) {
     dcHospsExtra = db.collection('/HospitalsExtra')
     try {
         var qDocs = await dcHospsExtra.where('AdminId', '==', userId).limit(10).get();
-        console.log("INFO:GetAdminHosps:",userId, qDocs);
+        console.debug("INFO:GetAdminHosps:",userId, qDocs);
         qDocs.forEach((doc) => {
             lHospIds.push(doc.id);
+            console.debug("INFO:GetAdminHosps:", doc.id, doc.data());
             });
     } catch(error){
-        console.log("ERRR:GetAdminHosps:", error);
+        console.error("ERRR:GetAdminHosps:", error);
     }
     return lHospIds
 }
