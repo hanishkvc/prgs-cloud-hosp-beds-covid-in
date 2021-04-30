@@ -78,8 +78,10 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 
 
 function update_handler(e) {
-    if (!gbGotAuth) {
+    if (gGotAuth == null) {
         gbGetAuth = true
+    } else {
+        gbUpdate = true
     }
     ui_sync()
 }
@@ -113,18 +115,28 @@ function district_handler(e) {
 
 function authed_handler(authResult, redirectUrl) {
     console.log("INFO:Auth:Ok", authResult, redirectUrl);
-    gbGotAuth = true;
+    gGotAuth = authResult.user.uid;
     elAuth.innerHTML = "";
+    setTimeout(ui_sync)
     return false;
 }
 
 
+function ui_update(el) {
+    db_get_adminhosps(gDB, gGotAuth).then((lHosps) => {
+        });
+}
+
+
 function ui_sync() {
-    if (!gbGotAuth && gbGetAuth) {
+    if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
         ui_getauth(elAuth);
         aui_start(authed_handler);
         return;
+    }
+    if ((gGotAuth !== null) && gbUpdate) {
+        ui_update(elMain)
     }
     if (gStateId === null) {
         db_get_states(gDB).then((lStates) => {
