@@ -18,7 +18,18 @@ function back_handler(e) {
         gStateId = null;
         elCurPath.textContent = "Select State - District"
     }
+    if (!gbNavSystem) {
+        history.back();
+    }
     ui_sync();
+}
+
+
+let gbNavSystem = false
+function popstate_handler(e) {
+    gbNavSystem = true
+    back_handler(e)
+    gbNavSystem = false
 }
 
 
@@ -71,6 +82,7 @@ function state_handler(e) {
     gStateId = this.id;
     gStateName = this.textContent;
     elCurPath.textContent = gStateName;
+    history.pushState({state: 'S2D'}, 'Districts');
     ui_sync();
 }
 
@@ -80,6 +92,7 @@ function district_handler(e) {
     gDistrictId = this.id;
     gDistrictName = this.textContent;
     elCurPath.textContent = ` ${gStateName} [${gDistrictName}] `
+    history.pushState({state: 'D2H'}, 'Hospitals');
     ui_sync();
 }
 
@@ -108,6 +121,11 @@ function ui_sync() {
                 console.log("ERRR:UISync:State+Dist", error);
             })
     }
+}
+
+
+function ui_init() {
+    window.onpopstate = popstate_handler;
 }
 
 
