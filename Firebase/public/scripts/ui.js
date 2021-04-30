@@ -123,7 +123,13 @@ function authed_handler(authResult, redirectUrl) {
 
 
 function ui_update(el) {
-    db_get_adminhospitals(gDB, gGotAuth).then((lHospIds) => {
+    lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal' ]
+    db_get_adminhospitals(gDB, gGotAuth)
+        .then((lHosps) => {
+            ui_table(el, lHosps, lHead);
+        })
+        .catch((error) => {
+            console.log("ERRR:UIUpdate:", error);
         });
 }
 
