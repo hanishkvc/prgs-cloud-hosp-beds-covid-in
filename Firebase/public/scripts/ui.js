@@ -77,6 +77,12 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 }
 
 
+function ui_getpass(el) {
+    el.innerHTML = "<h1>This is needed only for people updating status</h1>"
+    el.innerHTML += '<div id="firebaseui-auth-container"></div>'
+}
+
+
 function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
     gStateId = this.id;
@@ -98,6 +104,11 @@ function district_handler(e) {
 
 
 function ui_sync() {
+    if (gbGetPass) {
+        ui_getpass(elMain);
+        aui_start();
+        return;
+    }
     if (gStateId === null) {
         db_get_states(gDB).then((lStates) => {
             console.log(lStates)
