@@ -66,12 +66,15 @@
       let gStateId = null
       let gDistrictId = null
       let gbGetPass = false
+      let gbGotPass = false
       let gApp = null
       let gDB = null
       let gAUI = null
       const elCurPath = document.querySelector('#curpath');
       const elBack = document.querySelector('#Back');
+      const elUpdate = document.querySelector('#Update');
       elBack.onclick = back_handler;
+      elUpdate.onclick = update_handler;
 
       ui_init();
       document.addEventListener('DOMContentLoaded', function() {
