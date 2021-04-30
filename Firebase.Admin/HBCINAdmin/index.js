@@ -8,8 +8,8 @@ var admin = require('firebase-admin');
 
 var lStates = require("./statesuts_districts");
 
-console.log('Hello world')
-console.log(lStates['KA'])
+console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
+console.log('INFO: Also setup sample hospital data for now')
 
 function msg_success(sStateKey, sMsg) {
     console.log("DONE:",sMsg, sStateKey);
@@ -68,7 +68,7 @@ async function create_hosps(db, lStates) {
                     'BedsNormal': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
-                await new Promise(r => setTimeout(r, 200));
+                await new Promise(r => setTimeout(r, 500));
                 tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
@@ -87,9 +87,6 @@ var app = admin.initializeApp({
 var db = app.firestore();
 
 
-console.log("INFO:T1")
-busy_sleep(81920, 8192)
-console.log("INFO:T2")
 create_states(db)
 create_hosps(db, lStates)
 
