@@ -16,7 +16,7 @@ service cloud.firestore {
       // Only allow authorised users to update the hospital info for their respective hospital.
       // Inturn restrict them to update only the free beds data and nothing else.
       allow update: if request.auth != null
-                    && get(/databases/$(database)/documents/HospExtras/$(resource.id)).data.AdminId == request.auth.uid
+                    && get(/databases/$(database)/documents/HospExtras/$(request.resource.id)).data.AdminId == request.auth.uid
                     && request.resource.id == HospitalId
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['BedsICU', 'BedsNormal']);
     }
