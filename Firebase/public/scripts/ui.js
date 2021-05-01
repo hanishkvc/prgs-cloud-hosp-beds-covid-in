@@ -93,9 +93,15 @@ function ui_list_buttons(el, lDataNx2, clickHandler) {
 
 function update_handler(e) {
     if (gGotAuth === null) {
-        gbGetAuth = true
+        if (!gbGetAuth) {
+            gbGetAuth = true
+            history.pushState({state: 'ATH'}, 'UserAuth');
+        }
     } else {
-        gbUpdateMode = true
+        if (!gbUpdateMode) {
+            gbUpdateMode = true
+            history.pushState({state: 'UPD'}, 'UpdateStatus');
+        }
     }
     ui_sync()
 }
