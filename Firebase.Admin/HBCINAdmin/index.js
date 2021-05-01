@@ -6,7 +6,7 @@
 
 var admin = require('firebase-admin');
 
-var lStates = require("./statesuts_districts");
+var goStates = require("./statesuts_districts");
 
 console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
 console.log('INFO: Also setup sample hospital data for now')
@@ -19,11 +19,11 @@ function msg_failure(sStateKey, sMsg, error) {
     console.log("ERRR:", sMsg, sStateKey, error.details);
 }
 
-function create_states(db) {
+function create_states(db, oStates) {
     dcStates=db.collection("States");
-    for(tStateKey in lStates) {
+    for(tStateKey in oStates) {
         tName = null
-        tState = lStates[tStateKey]
+        tState = oStates[tStateKey]
         dcStates.doc(tStateKey)
             .set(tState)
             .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
@@ -46,11 +46,11 @@ function busy_sleep(x,y) {
     }
 }
 
-async function create_hosps(db, lStates) {
+async function create_hosps(db, oStates) {
     dcHosps = db.collection('Hospitals');
     iHosp = 0
-    for(tStateK in lStates) {
-        tState = lStates[tStateK];
+    for(tStateK in oStates) {
+        tState = oStates[tStateK];
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
@@ -87,8 +87,8 @@ var app = admin.initializeApp({
 var db = app.firestore();
 
 
-create_states(db)
-create_hosps(db, lStates)
+create_states(db, goStates)
+create_hosps(db, goStates)
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
