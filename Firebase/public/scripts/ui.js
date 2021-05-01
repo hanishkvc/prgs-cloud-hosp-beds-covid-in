@@ -10,7 +10,7 @@ function ui_onclick_handler(e) {
 }
 
 
-function back_handler(e) {
+function popstate_handler(e) {
     if (gbGetAuth) {
         gbGetAuth = false
         elAuth.innerHTML = ""
@@ -22,18 +22,7 @@ function back_handler(e) {
     } else {
         gStateId = null;
     }
-    if (!gbNavSystem) {
-        history.back();
-    }
     ui_sync();
-}
-
-
-let gbNavSystem = false
-function popstate_handler(e) {
-    gbNavSystem = true
-    back_handler(e)
-    gbNavSystem = false
 }
 
 

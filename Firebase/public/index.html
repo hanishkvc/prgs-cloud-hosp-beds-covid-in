@@ -56,7 +56,7 @@
     <div id="auth">
     </div>
     <div id="bottom">
-      <button id="Back" name="Back"> Back </button>
+      <button id="Home" name="Home"> Home </button>
       <button id="UpdateMode" name="UpdateMode"> UpdateMode </button>
       <p id="load">Satyameva Jayathe &hellip;</p>
     </div>
@@ -75,9 +75,9 @@
       let gDB = null
       let gAUI = null
       const elCurPath = document.querySelector('#curpath');
-      const elBack = document.querySelector('#Back');
+      const elHome = document.querySelector('#Home');
       const elUpdateMode = document.querySelector('#UpdateMode');
-      elBack.onclick = back_handler;
+      elHome.onclick = home_handler;
       elUpdateMode.onclick = update_handler;
 
       ui_init();
