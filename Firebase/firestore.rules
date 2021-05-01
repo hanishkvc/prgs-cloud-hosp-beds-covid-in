@@ -21,7 +21,7 @@ service cloud.firestore {
       allow update: if request.auth != null
                     && get(/databases/$(database)/documents/HospitalsExtra/$(request.resource.id)).data.AdminId == request.auth.uid
                     && request.resource.id == HospitalId
-                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['BedsICU', 'BedsNormal']);
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['BedsICU', 'BedsNormal', 'TimeStamp']);
     }
     match /HospitalsExtra/{HospitalId} {
       // Hospital admin authorisation controlled manualy using admin scripts

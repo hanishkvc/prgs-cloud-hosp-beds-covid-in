@@ -157,7 +157,7 @@ async function db_get_adminhospitals(db, userId) {
 function db_update_hospital(db, hospId, bedsICU, bedsNormal) {
     dcHosps = db.collection('/Hospitals')
     dcHosps.doc(hospId)
-        .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal })
+        .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
         .then(msg_success.bind(null, hospId, "UpdateHosp:"))
         .catch(msg_failure.bind(null, hospId, "UpdateHosp:"))
 }
