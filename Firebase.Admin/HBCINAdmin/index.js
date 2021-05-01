@@ -27,7 +27,10 @@ function create_states(db, oStates) {
         dcStates.doc(tStateKey)
             .set(tState)
             .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
-            .catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
+            .catch((error) => {
+                console.log("ERRR:CreateStates:Adding",tStateKey,error.details)
+            });
+            //.catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
@@ -73,22 +76,28 @@ async function create_hosps(db, oStates) {
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
                     .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
-                    .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+                    .catch((error) => {
+                        console.log("ERRR:CreateHosps:Adding",tHospKey,error.details)
+                    });
+                    //.catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
             }
         }
     }
 }
 
+try {
+    var app = admin.initializeApp({
+        credential: admin.credential.applicationDefault(),
+        databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
+        });
+    var db = app.firestore();
+    create_states(db, goStates)
+    create_hosps(db, goStates)
+} catch(error) {
+    console.error("ERRR:CreateSampleDataMain:", error.errorInfo);
+}
 
-var app = admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
-    });
-var db = app.firestore();
 
-
-create_states(db, goStates)
-create_hosps(db, goStates)
 
 
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
