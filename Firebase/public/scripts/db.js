@@ -5,16 +5,20 @@
  */
 
 
-function msg_success(sKey, sMsg) {
+function msg_success(sKey, sMsg, elUI) {
     tMsg = `DONE:${sMsg}:${sKey}`
     console.log(tMsg);
+    if (elUI !== null)
+        elUI.style.backgroundColor=''
     alert(tMsg);
 }
 
 
-function msg_failure(sKey, sMsg, error) {
+function msg_failure(sKey, sMsg, elUI, error) {
     tMsg = `ERRR:${sMsg}:${sKey}:${error.details}`
     console.error(tMsg);
+    if (elUI !== null)
+        elUI.style.backgroundColor=''
     alert(tMsg);
 }
 
@@ -158,12 +162,12 @@ async function db_get_adminhospitals(db, userId) {
 }
 
 
-function db_update_hospital(db, hospId, bedsICU, bedsNormal) {
+function db_update_hospital(db, hospId, bedsICU, bedsNormal, elUI=null) {
     dcHosps = db.collection('/Hospitals')
     dcHosps.doc(hospId)
         .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
-        .then(msg_success.bind(null, hospId, "UpdateHosp:"))
-        .catch(msg_failure.bind(null, hospId, "UpdateHosp:"))
+        .then(msg_success.bind(null, hospId, "UpdateHosp:", elUI))
+        .catch(msg_failure.bind(null, hospId, "UpdateHosp:", elUI))
 }
 
 

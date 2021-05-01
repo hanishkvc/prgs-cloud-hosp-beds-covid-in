@@ -31,13 +31,14 @@ function popstate_handler(e) {
 
 
 function updtbl_handler(e) {
-    console.log("DBUG:UTHandler:",e);
+    //console.debug("DBUG:UTHandler:",e);
+    e.target.style.backgroundColor = 'Blue';
     tId = e.target.id;
     hospId = e.target.name;
     iBedsICU = 0
     tIns = document.getElementsByName('BedsICU');
     for(i=0; i<tIns.length; i++) {
-        console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
+        //console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsICU = parseInt(tIns[i].value)
         }
@@ -45,13 +46,13 @@ function updtbl_handler(e) {
     iBedsNormal = 0
     tIns = document.getElementsByName('BedsNormal');
     for(i=0; i<tIns.length; i++) {
-        console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
+        //console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsNormal = Number(tIns[i].value)
         }
     }
-    console.log("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
-    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal);
+    console.debug("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
+    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, e.target);
 }
 
 
