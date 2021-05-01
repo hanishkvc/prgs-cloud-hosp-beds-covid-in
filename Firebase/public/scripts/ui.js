@@ -51,7 +51,7 @@ function ui_table(el, lDataMxN, lHead, mTypes={}) {
             if (tType === 'input') {
                 tHTML += ` <td> <input type="number" name="${lHead[i]}" value="${lPart}" size="4" > </td> `;
             } else if (tType === 'button') {
-                tHTML += ` <td> <button type="button" name="${lHead[i]}"> ${lPart} </button> </td> `;
+                tHTML += ` <td> <button type="button" class="h7med" name="${lHead[i]}"> ${lPart} </button> </td> `;
             } else {
                 tHTML += ` <td>${lPart}</td> `;
             }
@@ -152,7 +152,7 @@ function ui_update(el) {
             }
             ui_table(el, lHosps, lHead, mTypes);
             if (lHosps.length === 0)
-                elMain.innerHTML = "<h1> No Hospitals assigned yet </h1>"
+                el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
         })
         .catch((error) => {
             console.log("ERRR:UIUpdate:", error);
@@ -168,7 +168,8 @@ function ui_sync() {
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
-        ui_update(elMain)
+        elMain.innerHTML = ""
+        ui_update(elAuth)
         return;
     }
     if (gStateId === null) {
