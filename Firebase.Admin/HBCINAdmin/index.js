@@ -4,9 +4,9 @@
  * GPL
  */
 
-var admin = require('firebase-admin');
+import * as admin from 'firebase-admin';
 
-var goStates = require("./statesuts_districts");
+import { goStates } from "./statesuts_districts.mjs";
 
 console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
 console.log('INFO: Also setup sample hospital data for now')
