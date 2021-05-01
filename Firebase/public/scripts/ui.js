@@ -33,16 +33,16 @@ function popstate_handler(e) {
 function dbupdate_callback(bSuccess, sKey, sMsg, elUI) {
     if (elUI === null) return;
     if (bSuccess) {
-        elUI.style.backgroundColor='#80a080';
+        elUI.style.backgroundColor='#a0c0a0';
     } else {
-        elUI.style.backgroundColor='#a08080';
+        elUI.style.backgroundColor='#c0a0a0';
     }
 }
 
 
 function updtbl_handler(e) {
     //console.debug("DBUG:UTHandler:",e);
-    e.target.style.backgroundColor = 'Blue';
+    e.target.style.backgroundColor = '#a0a0c0';
     tId = e.target.id;
     hospId = e.target.name;
     iBedsICU = 0
@@ -148,7 +148,7 @@ function update_handler(e) {
 
 function ui_getauth(el) {
     el.innerHTML = "<h1>For use by authorised people updating freebeds status</h1>"
-    el.innerHTML += "<h2>People checking free bed status, do not sign in</h2>"
+    el.innerHTML += "<h2>People checking free bed status, do not sign in, there is no need for same</h2>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
 }
 
