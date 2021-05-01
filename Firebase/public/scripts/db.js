@@ -5,13 +5,17 @@
  */
 
 
-function msg_success(sStateKey, sMsg) {
-    console.log("DONE:",sMsg, sStateKey);
+function msg_success(sKey, sMsg) {
+    tMsg = `DONE:${sMsg}:${sKey}`
+    console.log(tMsg);
+    alert(tMsg);
 }
 
 
-function msg_failure(sStateKey, sMsg, error) {
-    console.error("ERRR:", sMsg, sStateKey, error.details);
+function msg_failure(sKey, sMsg, error) {
+    tMsg = `ERRR:${sMsg}:${sKey}:${error.details}`
+    console.error(tMsg);
+    alert(tMsg);
 }
 
 
