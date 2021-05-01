@@ -30,6 +30,16 @@ function popstate_handler(e) {
 }
 
 
+function dbupdate_callback(bSuccess, sKey, sMsg, elUI) {
+    if (elUI === null) return;
+    if (bSuccess) {
+        elUI.style.backgroundColor='#80a080';
+    } else {
+        elUI.style.backgroundColor='#a08080';
+    }
+}
+
+
 function updtbl_handler(e) {
     //console.debug("DBUG:UTHandler:",e);
     e.target.style.backgroundColor = 'Blue';
@@ -52,7 +62,7 @@ function updtbl_handler(e) {
         }
     }
     console.debug("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
-    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, e.target);
+    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, dbupdate_callback, e.target);
 }
 
 
@@ -176,6 +186,7 @@ function fixup_elcurpath(msg) {
         elCurPath.textContent += ` [${firebase.auth().currentUser.email}] `
     }
 }
+
 
 function ui_update(el) {
     fixup_elcurpath('Update Free Hospital Beds info')

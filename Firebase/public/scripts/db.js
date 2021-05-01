@@ -5,21 +5,19 @@
  */
 
 
-function msg_success(sKey, sMsg, elUI) {
+function msg_success(sKey, sMsg, uiCallback, callbackData) {
     tMsg = `DONE:${sMsg}:${sKey}`
     console.log(tMsg);
-    if (elUI !== null)
-        elUI.style.backgroundColor=''
-    alert(tMsg);
+    if (uiCallback !== null)
+        uiCallback(true, sKey, tMsg, callbackData);
 }
 
 
-function msg_failure(sKey, sMsg, elUI, error) {
-    tMsg = `ERRR:${sMsg}:${sKey}:${error.details}`
+function msg_failure(sKey, sMsg, uiCallback, callbackData, error) {
+    tMsg = `ERRR:${sMsg}:${sKey}:${error.message}`
     console.error(tMsg);
-    if (elUI !== null)
-        elUI.style.backgroundColor=''
-    alert(tMsg);
+    if (uiCallback !== null)
+        uiCallback(false, sKey, tMsg, callbackData);
 }
 
 
@@ -162,12 +160,12 @@ async function db_get_adminhospitals(db, userId) {
 }
 
 
-function db_update_hospital(db, hospId, bedsICU, bedsNormal, elUI=null) {
+function db_update_hospital(db, hospId, bedsICU, bedsNormal, uiCallback=null, callbackData=null) {
     dcHosps = db.collection('/Hospitals')
     dcHosps.doc(hospId)
         .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
-        .then(msg_success.bind(null, hospId, "UpdateHosp:", elUI))
-        .catch(msg_failure.bind(null, hospId, "UpdateHosp:", elUI))
+        .then(msg_success.bind(null, hospId, "UpdateHosp:", uiCallback, callbackData))
+        .catch(msg_failure.bind(null, hospId, "UpdateHosp:", uiCallback, callbackData))
 }
 
 
