@@ -33,6 +33,7 @@ function popstate_handler(e) {
 function updtbl_handler(e) {
     console.log("DBUG:UTHandler:",e);
     tId = e.target.id;
+    hospId = e.target.name;
     iBedsICU = 0
     tIns = document.getElementsByName('BedsICU');
     for(i=0; i<tIns.length; i++) {
@@ -50,6 +51,7 @@ function updtbl_handler(e) {
         }
     }
     console.log("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
+    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal);
 }
 
 
@@ -67,6 +69,7 @@ function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
         r += 1
         tHTML += "<tr> ";
         //console.log(lCur)
+        tEntityId = lCur[0]
         c = -1
         for (lPart of lCur) {
             c += 1
@@ -77,7 +80,7 @@ function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
             if (tType === 'input') {
                 tHTML += ` <td> <input type="number" class="h7in" id="${r}" name="${tField}" value="${lPart}"> </td> `;
             } else if (tType === 'button') {
-                tHTML += ` <td> <button type="button" class="h7btn" id="${r}" name="${tField}"> ${lPart} </button> </td> `;
+                tHTML += ` <td> <button type="button" class="h7btn" id="${r}" name="${tEntityId}"> ${lPart} </button> </td> `;
             } else {
                 tHTML += ` <td>${lPart}</td> `;
             }

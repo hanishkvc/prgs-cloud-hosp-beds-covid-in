@@ -5,6 +5,16 @@
  */
 
 
+function msg_success(sStateKey, sMsg) {
+    console.log("DONE:",sMsg, sStateKey);
+}
+
+
+function msg_failure(sStateKey, sMsg, error) {
+    console.log("ERRR:", sMsg, sStateKey, error.details);
+}
+
+
 async function db_get_states(db) {
     let lStates = []
     dcStates = db.collection('/States')
@@ -109,6 +119,15 @@ async function db_get_adminhospitals(db, userId) {
         console.error("ERRR:GetAdminHosps:", error);
     }
     return lHosps
+}
+
+
+function db_update_hospital(db, hospId, bedsICU, bedsNormal) {
+    dcHosps = db.collection('/Hospitals')
+    dcHosps.doc(hospId)
+        .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal })
+        .then(msg_success.bind(null, hospId, "UpdateHosp:"))
+        .catch(msg_failure.bind(null, hospId, "UpdateHosp:"))
 }
 
 
