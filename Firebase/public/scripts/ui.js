@@ -31,10 +31,12 @@ function popstate_handler(e) {
 
 
 function updtbl_handler(e) {
-    tId = e.id;
+    console.log("DBUG:UTHandler:",e);
+    tId = e.target.id;
     iBedsICU = 0
     tIns = document.getElementsByName('BedsICU');
     for(i=0; i<tIns.length; i++) {
+        console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsICU = tIns[i].value
         }
@@ -42,10 +44,12 @@ function updtbl_handler(e) {
     iBedsNormal = 0
     tIns = document.getElementsByName('BedsNormal');
     for(i=0; i<tIns.length; i++) {
+        console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsNormal = tIns[i].value
         }
     }
+    console.log("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
 }
 
 
@@ -178,7 +182,7 @@ function ui_update(el) {
             for(i = 0; i < lHosps.length; i++) {
                 lHosps[i].push("sync");
             }
-            ui_table(el, lHosps, lHead, mTypes);
+            ui_table(el, lHosps, lHead, mTypes, updtbl_handler);
             if (lHosps.length === 0)
                 el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
         })
