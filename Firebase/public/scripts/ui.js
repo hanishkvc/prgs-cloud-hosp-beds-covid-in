@@ -49,9 +49,9 @@ function ui_table(el, lDataMxN, lHead, mTypes={}) {
             tType = mTypes[lHead[i]]
             //console.log("ui_table:", mTypes, lHead[i], tType);
             if (tType === 'input') {
-                tHTML += ` <td> <input type="number" name="${lHead[i]}" value="${lPart}" size="4" > </td> `;
+                tHTML += ` <td> <input type="number" class="h7in" name="${lHead[i]}" value="${lPart}"> </td> `;
             } else if (tType === 'button') {
-                tHTML += ` <td> <button type="button" class="h7med" name="${lHead[i]}"> ${lPart} </button> </td> `;
+                tHTML += ` <td> <button type="button" class="h7btn" name="${lHead[i]}"> ${lPart} </button> </td> `;
             } else {
                 tHTML += ` <td>${lPart}</td> `;
             }
