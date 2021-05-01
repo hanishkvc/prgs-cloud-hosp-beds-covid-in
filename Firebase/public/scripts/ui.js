@@ -10,6 +10,10 @@ function ui_onclick_handler(e) {
 }
 
 
+function home_handler(e) {
+    //history.deleteAll()
+}
+
 function popstate_handler(e) {
     if (gbGetAuth) {
         gbGetAuth = false
