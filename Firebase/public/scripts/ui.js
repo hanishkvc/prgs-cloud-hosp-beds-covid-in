@@ -39,7 +39,7 @@ function updtbl_handler(e) {
     for(i=0; i<tIns.length; i++) {
         console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
         if (tIns[i].id === tId) {
-            iBedsICU = tIns[i].value
+            iBedsICU = parseInt(tIns[i].value)
         }
     }
     iBedsNormal = 0
@@ -47,7 +47,7 @@ function updtbl_handler(e) {
     for(i=0; i<tIns.length; i++) {
         console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
         if (tIns[i].id === tId) {
-            iBedsNormal = tIns[i].value
+            iBedsNormal = Number(tIns[i].value)
         }
     }
     console.log("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
