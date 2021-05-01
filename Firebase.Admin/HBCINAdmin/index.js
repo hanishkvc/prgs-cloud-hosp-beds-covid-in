@@ -16,7 +16,7 @@ function msg_success(sStateKey, sMsg) {
 }
 
 function msg_failure(sStateKey, sMsg, error) {
-    console.log("ERRR:", sMsg, sStateKey, error.details);
+    console.error("ERRR:", sMsg, sStateKey, error.message);
 }
 
 function create_states(db, oStates) {
@@ -27,13 +27,7 @@ function create_states(db, oStates) {
         dcStates.doc(tStateKey)
             .set(tState)
             .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
-            .catch((error) => {
-                console.log(typeof(error))
-                for (i in error)
-                    console.log("DBUG:", i, error[i]);
-                console.log(`ERRR:CreateStates:Adding: ${tStateKey}, [${error.code}], [${error.message}] [${error.details}]`)
-            });
-            //.catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
+            .catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
@@ -79,12 +73,7 @@ async function create_hosps(db, oStates) {
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
                     .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
-                    .catch((error) => {
-                        for (i in error)
-                            console.log("DBUG:", i, error[i]);
-                        console.log(`ERRR:CreateHosps:Adding: ${tHospKey}, [${error.code}], [${error.message}] [${error.details}]`)
-                    });
-                    //.catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+                    .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
             }
         }
     }
