@@ -30,7 +30,26 @@ function popstate_handler(e) {
 }
 
 
-function ui_table(el, lDataMxN, lHead, mTypes={}) {
+function updtbl_handler(e) {
+    tId = e.id;
+    iBedsICU = 0
+    tIns = document.getElementsByName('BedsICU');
+    for(i=0; i<tIns.length; i++) {
+        if (tIns[i].id === tId) {
+            iBedsICU = tIns[i].value
+        }
+    }
+    iBedsNormal = 0
+    tIns = document.getElementsByName('BedsNormal');
+    for(i=0; i<tIns.length; i++) {
+        if (tIns[i].id === tId) {
+            iBedsNormal = tIns[i].value
+        }
+    }
+}
+
+
+function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     tHTML = "<table> ";
     tHTML += "<thead> <tr> ";
     for (lPart of lHead) {
@@ -64,6 +83,12 @@ function ui_table(el, lDataMxN, lHead, mTypes={}) {
     tHTML += " </tbody>";
     tHTML += " </table>";
     el.innerHTML = tHTML;
+    if (clickHandler === null) return;
+    elBtns = document.getElementsByClassName('h7btn')
+    for(i = 0; i < elBtns.length; i++) {
+        elBtns[i].onclick = clickHandler
+        console.log(elBtns[i])
+    }
 }
 
 
