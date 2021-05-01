@@ -93,10 +93,10 @@ async function db_get_adminhospitalids(db, userId) {
 
 async function db_get_adminhospitals(db, userId) {
     let lHosps = []
-    var lHospIds = await db_get_adminhospitalids(db, userId);
-    if (lHospIds.length <= 0) return;
     dcHosps = db.collection('/Hospitals')
     try {
+        var lHospIds = await db_get_adminhospitalids(db, userId);
+        if (lHospIds.length <= 0) return lHosps;
         var qDocs = await dcHosps.where(firebase.firestore.FieldPath.documentId(), 'in', lHospIds).limit(10).get();
         console.debug("INFO:GetAdminHosps:",userId, qDocs);
         qDocs.forEach((doc) => {

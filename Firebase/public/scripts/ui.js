@@ -151,6 +151,8 @@ function ui_update(el) {
                 lHosps[i].push("sync");
             }
             ui_table(el, lHosps, lHead, mTypes);
+            if (lHosps.length === 0)
+                elMain.innerHTML = "<h1> No Hospitals assigned yet </h1>"
         })
         .catch((error) => {
             console.log("ERRR:UIUpdate:", error);
@@ -166,7 +168,6 @@ function ui_sync() {
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
-        elMain.innerHTML = ""
         ui_update(elMain)
         return;
     }
