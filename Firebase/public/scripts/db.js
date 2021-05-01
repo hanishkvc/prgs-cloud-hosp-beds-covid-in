@@ -11,11 +11,11 @@ function msg_success(sStateKey, sMsg) {
 
 
 function msg_failure(sStateKey, sMsg, error) {
-    console.log("ERRR:", sMsg, sStateKey, error.details);
+    console.error("ERRR:", sMsg, sStateKey, error.details);
 }
 
 
-async function db_get_states(db) {
+async function _db_get_states(db) {
     let lStates = []
     dcStates = db.collection('/States')
     try {
@@ -23,16 +23,31 @@ async function db_get_states(db) {
         qDocs.forEach((doc) => {
             tState = doc.data();
             lStates.push([doc.id, tState['Name']])
-            console.debug("INFO:GetStates:", doc.id, tState);
+            console.debug("INFO:_dbGetStates:", doc.id, tState);
             });
     } catch(error){
-        console.error("ERRR:GetStates:", error);
+        console.error("ERRR:_dbGetStates:", error);
     }
     return lStates
 }
 
 
-async function db_get_state(db, stateId) {
+async function _l_get_states(db) {
+    let lStates = []
+    sortedKeys = Object.keys(gmStates).sort();
+    sortedKeys.forEach((key) => {
+        tCur = [key, gmStates[key]['Name']]
+        lStates.push(tCur)
+        console.debug("INFO:_lGetStates:", tCur);
+        })
+    return lStates
+}
+
+
+db_get_states = _l_get_states
+
+
+async function _db_get_state(db, stateId) {
     let lDistricts = []
     ddState = db.collection('/States').doc(stateId);
     try {
@@ -43,17 +58,34 @@ async function db_get_state(db, stateId) {
                     if (tDistKey === 'Name') {
                         return
                     }
-                    console.debug("INFO:GetState:", stateId, tDistKey);
+                    console.debug("INFO:_dbGetState:", stateId, tDistKey);
                     lDistricts.push([tDistKey, tState.data()[tDistKey]])
                 })
         } else {
-            console.error("ERRR:GetState:", stateId, ":Not found");
+            console.error("ERRR:_dbGetState:", stateId, ":Not found");
         }
     } catch(error){
-        console.error("ERRR:GetState:", stateId, error);
+        console.error("ERRR:_dbGetState:", stateId, error);
     }
     return lDistricts
 }
+
+
+async function _l_get_state(db, stateId) {
+    let lDistricts = []
+    tState = gmStates[stateId];
+    sortedKeys = Object.keys(tState).sort();
+    sortedKeys.forEach((key) => {
+        if (key === 'Name') return;
+        tCur = [key, tState[key]]
+        lDistricts.push(tCur)
+        console.debug("INFO:_lGetState:", tCur);
+        })
+    return lDistricts
+}
+
+
+db_get_state = _l_get_state
 
 
 async function db_get_hospitals(db, stateId, districtId) {
