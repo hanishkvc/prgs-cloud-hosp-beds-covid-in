@@ -19,10 +19,8 @@ function back_handler(e) {
         elAuth.innerHTML = ""
     } else if (gDistrictId !== null) {
         gDistrictId = null;
-        elCurPath.textContent = gStateName
     } else {
         gStateId = null;
-        elCurPath.textContent = "Select State - District"
     }
     if (!gbNavSystem) {
         history.back();
@@ -114,7 +112,6 @@ function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
     gStateId = this.id;
     gStateName = this.textContent;
-    elCurPath.textContent = gStateName;
     history.pushState({state: 'S2D'}, 'Districts');
     ui_sync();
 }
@@ -124,7 +121,6 @@ function district_handler(e) {
     console.log("INFO:DistrictHandler:", this.id, this.textContent);
     gDistrictId = this.id;
     gDistrictName = this.textContent;
-    elCurPath.textContent = ` ${gStateName} [${gDistrictName}] `
     history.pushState({state: 'D2H'}, 'Hospitals');
     ui_sync();
 }
@@ -168,18 +164,21 @@ function ui_sync() {
         return;
     }
     if (gStateId === null) {
+        elCurPath.textContent = "Select State - District"
         db_get_states(gDB).then((lStates) => {
             console.log(lStates)
             ui_list_buttons(elMain, lStates, state_handler);
             });
     }
     if ((gStateId !== null) && (gDistrictId === null)) {
+        elCurPath.textContent = gStateName
         db_get_state(gDB, gStateId).then((lDists) => {
             console.log(lDists)
             ui_list_buttons(elMain, lDists, district_handler);
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
+        elCurPath.textContent = ` ${gStateName} [${gDistrictName}] `
         lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
