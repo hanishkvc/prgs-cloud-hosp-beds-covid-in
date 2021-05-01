@@ -29,10 +29,9 @@ function create_states(db, oStates) {
             .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
             .catch((error) => {
                 console.log(typeof(error))
-                for (i in error) {
-                    console.log("DBUG:", i);
-                }
-                console.log(`ERRR:CreateStates:Adding: ${tStateKey}, [${error.code}], ${error.message}`)
+                for (i in error)
+                    console.log("DBUG:", i, error[i]);
+                console.log(`ERRR:CreateStates:Adding: ${tStateKey}, [${error.code}], [${error.message}] [${error.details}]`)
             });
             //.catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
@@ -81,7 +80,9 @@ async function create_hosps(db, oStates) {
                     .set(tHosp)
                     .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
                     .catch((error) => {
-                        console.log("ERRR:CreateHosps:Adding",tHospKey,error.details)
+                        for (i in error)
+                            console.log("DBUG:", i, error[i]);
+                        console.log(`ERRR:CreateHosps:Adding: ${tHospKey}, [${error.code}], [${error.message}] [${error.details}]`)
                     });
                     //.catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
             }
