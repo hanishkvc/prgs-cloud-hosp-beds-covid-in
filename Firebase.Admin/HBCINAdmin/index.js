@@ -28,7 +28,11 @@ function create_states(db, oStates) {
             .set(tState)
             .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
             .catch((error) => {
-                console.log("ERRR:CreateStates:Adding",tStateKey,error.details)
+                console.log(typeof(error))
+                for (i in error) {
+                    console.log("DBUG:", i);
+                }
+                console.log(`ERRR:CreateStates:Adding: ${tStateKey}, [${error.code}], ${error.message}`)
             });
             //.catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
