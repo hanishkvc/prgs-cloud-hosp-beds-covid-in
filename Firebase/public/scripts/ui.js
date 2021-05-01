@@ -159,6 +159,7 @@ function ui_sync() {
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
+        elMain.innerHTML = ""
         ui_update(elMain)
         return;
     }
