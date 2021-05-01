@@ -134,8 +134,15 @@ function authed_handler(authResult, redirectUrl) {
 }
 
 
+function fixup_elcurpath(msg) {
+    elCurPath.textContent = msg
+    if (gGotAuth !== null) {
+        elCurPath.textContent += ` [${firebase.auth().currentUser.email}] `
+    }
+}
+
 function ui_update(el) {
-    elCurPath.textContent = ` Update Free Hospital Beds info [${firebase.auth().currentUser.email}]`
+    fixup_elcurpath('Update Free Hospital Beds info')
     lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'SyncIt' ]
     mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
@@ -164,21 +171,21 @@ function ui_sync() {
         return;
     }
     if (gStateId === null) {
-        elCurPath.textContent = "Select State - District"
+        fixup_elcurpath("Select State - District")
         db_get_states(gDB).then((lStates) => {
             console.log(lStates)
             ui_list_buttons(elMain, lStates, state_handler);
             });
     }
     if ((gStateId !== null) && (gDistrictId === null)) {
-        elCurPath.textContent = gStateName
+        fixup_elcurpath(gStateName)
         db_get_state(gDB, gStateId).then((lDists) => {
             console.log(lDists)
             ui_list_buttons(elMain, lDists, district_handler);
             });
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
-        elCurPath.textContent = ` ${gStateName} [${gDistrictName}] `
+        fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
         lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
