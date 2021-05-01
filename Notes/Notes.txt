@@ -126,3 +126,36 @@ Use Environment variables to either specify the service auth token and
 or for targetting the local emulators, instead of the server.
 
 
+JS and Firebase
+=================
+
+
+JS and its Multiple module mechanisms
+---------------------------------------
+
+THere is atleast two mechanisms, one may encounter normally, and these are
+the relatively long lived CommonJS module and related mechanism along with
+its require and the relatively new ECMA module mechanism along with its
+import and export. It seems like Firebase has still not been updated to
+support the newer ecma fully yet, in a stable way.
+
+
+
+
+Status/Errors
+---------------
+
+By default the error/success messages from the asyncrounous database/fs
+operations dont contain info as to what data/entity it relates to.
+Use error.message to get atleast some idea about any error during
+the async operations with firebase. Inturn to be able to map a async
+error or success callback with the actual data entity, use the bind
+mechanism available for functions to attach additional info/argument
+on top of what the callback provides by default, thus having a super
+changed callback with the original data as well as the additional
+arguments if any one might specify.
+
+On a casual glance, the minimal data about error wrt javascript (be it web
+or nodejs) seems to be in admin.FirebaseError and or firebase.FirebaseError.
+
+
