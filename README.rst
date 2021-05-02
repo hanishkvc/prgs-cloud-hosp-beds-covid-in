@@ -47,6 +47,11 @@ hospitals.
 
     Each administrator could be data owner for more than 1 hospital.
 
+    When a new user sign's into the system, a verification email is sent to the
+    specified email, to validate the same. The user needs to complete the verification.
+    In future the store rules will be updated to cross check that the admin user
+    has a verified email.
+
 The data owner needs to login to the system and inturn periodically update the availability
 status wrt the parameters being tracked in the system. As the data owner updates the data,
 the system will automatically update the time stamp wrt the corresponding hospital.

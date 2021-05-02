@@ -232,8 +232,17 @@ function district_handler(e) {
 
 
 function authed_handler(authResult, redirectUrl) {
-    console.log("INFO:Auth:Ok", authResult, redirectUrl);
+    console.log("INFO:Auth:Ok", redirectUrl);
     gGotAuth = authResult.user.uid;
+    if (!authResult.user.emailVerified) {
+        authResult.user.sendEmailVerification().then(function() {
+                console.log("INFO:AuthHandler:Sent verification email");
+            }).catch(function(error) {
+                console.error("ERRR:AuthHandler:Failed to send verification email");
+            });
+    } else {
+        console.log("INFO:AuthHandler: User with verified email");
+    }
     elAuth.innerHTML = "";
     setTimeout(update_handler, 0, null)
     return false;
