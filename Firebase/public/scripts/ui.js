@@ -66,6 +66,20 @@ function updtbl_handler(e) {
 }
 
 
+/**
+ * Create a html table with the passed arguments.
+ * el: The element whose innerHTML should be set with the table
+ * lDataMxN: The array of arrays which contains the data.
+ *     This is a list of rows.
+ * lHead: The list of column field names, which is shown.
+ * mTypes: A map/object which specifies how fields should be represented.
+ *     The fields are specified using using their field names.
+ *     If a field's type
+ *         is not specified, it is treated as a normal cell.
+ *         is 'input', a input cell is created.
+ *         is 'button', a button cell is created.
+ * clickHandler: handler which will be called when button is clicked.
+ */
 function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     tHTML = "<table> ";
     tHTML += "<thead> <tr> ";
@@ -147,8 +161,8 @@ function update_handler(e) {
 
 
 function ui_getauth(el) {
-    el.innerHTML = "<h1>For use by authorised people updating freebeds status</h1>"
-    el.innerHTML += "<h2>People checking free bed status, do not sign in, there is no need for same</h2>"
+    el.innerHTML = "<h1>For use by authorised people updating hospital beds+ status</h1>"
+    el.innerHTML += "<h2>People checking availability status, do not sign in, there is no need for same</h2>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
 }
 
