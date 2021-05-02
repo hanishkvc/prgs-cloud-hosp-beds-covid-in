@@ -21,7 +21,7 @@ Inturn the user can choose for which parameter they want to see the list of hosp
 Thus people can query the availability status wrt the predefined set of parameters.
 
 THe timestamp wrt when the data for any given hospital was last updated is also shown,
-so that users can have a rough idea of current the data may be wrt each hospital.
+so that users can have a rough idea of how current the data may be wrt each hospital.
 
 Any person can access the availability status maintained by the system, without needing
 to login to the system.

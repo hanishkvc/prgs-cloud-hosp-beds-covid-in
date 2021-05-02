@@ -80,8 +80,10 @@ function updtbl_handler(e) {
  *         is 'button', a button cell is created.
  * clickHandler: handler which will be called when button is clicked.
  */
-function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
-    tHTML = "<table> ";
+function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
+    bOverwrite = opts['bOverwrite'];
+    if (bOverwrite === undefined) bOverwrite = true;
+    tHTML = " <table> ";
     tHTML += "<thead> <tr> ";
     for (lPart of lHead) {
         //console.log(lPart)
@@ -114,13 +116,42 @@ function ui_table(el, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     }
     tHTML += " </tbody>";
     tHTML += " </table>";
-    el.innerHTML = tHTML;
+    if (bOverwrite) {
+        console.log("DBUG:UiTable: OVERWRITE");
+        el.innerHTML = tHTML;
+    } else {
+        console.log("DBUG:UiTable: NO OVERWRITE");
+        el.innerHTML += tHTML;
+    }
     if (clickHandler === null) return;
     elBtns = document.getElementsByClassName('h7btn')
     for(i = 0; i < elBtns.length; i++) {
         elBtns[i].onclick = clickHandler
         console.log(elBtns[i])
     }
+}
+
+
+function selparam_change(e) {
+    console.log(e.target.value);
+}
+
+
+function ui_select(el, sId, lChoices, changeHandler) {
+    sHTML = `<select class="h7sel" id="${sId}" name="${sId}">`
+    for (tChoice of lChoices) {
+        sHTML += `<option>${tChoice}</option>`
+    }
+    sHTML += "</select>"
+    el.innerHTML = sHTML;
+    elSel = document.getElementById(sId);
+    elSel.onchange = changeHandler
+}
+
+
+function ui_select_changehandler(sId, changeHandler) {
+    elSel = document.getElementById(sId);
+    elSel.onchange = changeHandler
 }
 
 
@@ -211,7 +242,7 @@ function ui_update(el) {
             for(i = 0; i < lHosps.length; i++) {
                 lHosps[i].push("sync");
             }
-            ui_table(el, lHosps, lHead, mTypes, updtbl_handler);
+            ui_table(el, {}, lHosps, lHead, mTypes, updtbl_handler);
             if (lHosps.length === 0)
                 el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
         })
@@ -249,11 +280,13 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
+        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ], selparam_change);
         lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
                 console.log(lHosps)
-                ui_table(elMain, lHosps, lHead);
+                //ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
+                //ui_select_changehandler('bedType', selparam_change);
             })
             .catch((error) => {
                 console.log("ERRR:UISync:State+Dist", error);
