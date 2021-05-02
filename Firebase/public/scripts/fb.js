@@ -25,10 +25,12 @@ function aui_init() {
 
 function fb_init() {
     try {
+        console.log("INFO:FBInit: started...");
         gApp = firebase.app();
         gDB = firebase.firestore();
         aui_init()
-        console.log("INFO:FBInit: started...");
+        firebase.analytics();
+        console.log("INFO:FBInit: doing ok...");
         return true
     } catch (e) {
         console.error(e);
