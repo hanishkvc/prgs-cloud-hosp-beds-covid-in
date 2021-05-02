@@ -68,6 +68,7 @@ async function create_hosps(db, oStates) {
                     'StateId': tStateK,
                     'BedsICU': Math.round(Math.random()*20),
                     'BedsNormal': Math.round(Math.random()*20),
+                    'BedsVntltr': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
                 tHospExtra = {

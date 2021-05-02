@@ -108,7 +108,7 @@ async function db_get_hospitals(db, stateId, districtId, hospParam="BedsNormal")
             const options = { year: '2-digit', month: '2-digit', day: '2-digit',
                 hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
             sTS = Intl.DateTimeFormat('en-IN', options).format(tTS)
-            lHosps.push([doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal'], sTS])
+            lHosps.push([doc.id, tHosp['BedsICU'], tHosp['BedsNormal'], tHosp['BedsVntltr'], tHosp['Name'], tHosp['PinCode'], sTS])
             console.debug("INFO:GetHosps:", doc.id, tHosp);
             });
     } catch(error){
@@ -148,7 +148,7 @@ async function db_get_adminhospitals(db, userId) {
         console.debug("INFO:GetAdminHosps:",userId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
-            tData = [doc.id, tHosp['Name'], tHosp['PinCode'], tHosp['BedsICU'], tHosp['BedsNormal']]
+            tData = [doc.id, tHosp['BedsICU'], tHosp['BedsNormal'], tHosp['BedsVntltr'], tHosp['Name'], tHosp['PinCode'] ]
             lHosps.push(tData);
             console.debug("INFO:GetAdminHosps:", tData);
             });
@@ -159,10 +159,10 @@ async function db_get_adminhospitals(db, userId) {
 }
 
 
-function db_update_hospital(db, hospId, bedsICU, bedsNormal, uiCallback=null, callbackData=null) {
+function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallback=null, callbackData=null) {
     dcHosps = db.collection('/Hospitals')
     dcHosps.doc(hospId)
-        .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
+        .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'BedsVntltr': bedsVntltr, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
         .then(msg_success.bind(null, hospId, "UpdateHosp:", uiCallback, callbackData))
         .catch(msg_failure.bind(null, hospId, "UpdateHosp:", uiCallback, callbackData))
 }

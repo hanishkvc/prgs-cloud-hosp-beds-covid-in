@@ -61,8 +61,15 @@ function updtbl_handler(e) {
             iBedsNormal = Number(tIns[i].value)
         }
     }
-    console.debug("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal);
-    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, dbupdate_callback, e.target);
+    iBedsVntltr = 0
+    tIns = document.getElementsByName('BedsVntltr');
+    for(i=0; i<tIns.length; i++) {
+        if (tIns[i].id === tId) {
+            iBedsVntltr = Number(tIns[i].value)
+        }
+    }
+    console.debug("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal, iBedsVntltr);
+    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, iBedsVntltr, dbupdate_callback, e.target);
 }
 
 
@@ -243,8 +250,8 @@ function fixup_elcurpath(msg) {
 
 function ui_update(el) {
     fixup_elcurpath('Update Free Hospital Beds info')
-    lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'SyncIt' ]
-    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'SyncIt': 'button' }
+    lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'SyncIt' ]
+    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'BedsVntltr': 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
         .then((lHosps) => {
             for(i = 0; i < lHosps.length; i++) {
@@ -288,13 +295,13 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ], gHospParam);
-        lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
+        ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
+        lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
             .then((lHosps) => {
                 console.log(lHosps)
                 ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
-                ui_select_changehandler('bedType', selparam_change);
+                ui_select_changehandler('hospParam', selparam_change);
             })
             .catch((error) => {
                 console.log("ERRR:UISync:State+Dist", error);
