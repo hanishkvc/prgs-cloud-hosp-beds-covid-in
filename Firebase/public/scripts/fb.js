@@ -12,7 +12,10 @@ function aui_start(authed_handler) {
             firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
         callbacks: {
-            signInSuccessWithAuthResult: authed_handler
+            signInSuccessWithAuthResult: authed_handler,
+            signInFailure: function(error) {
+                    console.error("ERRR:Auth:", error);
+                }
             },
         });
 }
