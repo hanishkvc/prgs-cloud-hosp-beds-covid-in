@@ -48,6 +48,7 @@ function busy_sleep(x,y) {
 
 async function create_hosps(db, oStates) {
     dcHosps = db.collection('Hospitals');
+    dcHospsExtra = db.collection('HospitalsExtra');
     iHosp = 0
     for(tStateK in oStates) {
         tState = oStates[tStateK];
@@ -57,7 +58,7 @@ async function create_hosps(db, oStates) {
                 continue;
             }
             tHospNums = Math.round(Math.random()*5);
-            if (iHosp === 0) tHospsNum = 15;
+            if (iHosp === 0) tHospNums = 15;
             for(i = 0; i < tHospNums; i++) {
                 iHosp += 1
                 tHosp = {
@@ -69,12 +70,19 @@ async function create_hosps(db, oStates) {
                     'BedsNormal': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
+                tHospExtra = {
+                    'AdminId': "999-555*AAA-+-888"
+                    }
                 await new Promise(r => setTimeout(r, 500));
                 tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
                     .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
                     .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+                dcHospsExtra.doc(tHospKey)
+                    .set(tHospExtra)
+                    .then(msg_success.bind(null, tHospKey, "CreateHospsExtra:Adding"))
+                    .catch(msg_failure.bind(null, tHospKey, "CreateHospsExtra:Adding"));
             }
         }
     }
