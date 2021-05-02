@@ -17,8 +17,10 @@ People view
 Users select the state followed by the district for which they want to know the status.
 Inturn the system will show upto N number of hospitals with highest availability wrt one
 of the predefined set of parameters like normal beds, icu beds, ... in that district.
-Inturn the user can choose for which parameter they want to see the list of hospitals.
-Thus people can query the availability status wrt the predefined set of parameters.
+The user can choose based on which parameter they want to see the list of hospitals.
+Thus people can query the availability status wrt the predefined set of parameters,
+and inturn the hospitals in the selected state-district which have availability based
+on selected parameter will be shown.
 
 THe timestamp wrt when the data for any given hospital was last updated is also shown,
 so that users can have a rough idea of how current the data may be wrt each hospital.

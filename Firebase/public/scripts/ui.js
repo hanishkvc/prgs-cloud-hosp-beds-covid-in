@@ -130,15 +130,23 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
 }
 
 
+var gHospParam =  'BedsICU'
 function selparam_change(e) {
     console.log(e.target.value);
+    gHospParam = e.target.value;
+    ui_sync();
 }
 
 
-function ui_select(el, sId, lChoices, changeHandler=null) {
+function ui_select(el, sId, lChoices, sDefault=null, changeHandler=null) {
     sHTML = `<select class="h7sel" id="${sId}" name="${sId}">`
     for (tChoice of lChoices) {
-        sHTML += `<option>${tChoice}</option>`
+        if (tChoice === sDefault) {
+            tSelected = "selected"
+        } else {
+            tSelected = ""
+        }
+        sHTML += `<option ${tSelected}>${tChoice}</option>`
     }
     sHTML += "</select>"
     el.innerHTML = sHTML;
@@ -280,9 +288,9 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ]);
+        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ], gHospParam);
         lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
-        db_get_hospitals(gDB, gStateId, gDistrictId)
+        db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
             .then((lHosps) => {
                 console.log(lHosps)
                 ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
