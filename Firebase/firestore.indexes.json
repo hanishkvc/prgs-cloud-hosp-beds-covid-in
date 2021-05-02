@@ -13,8 +13,62 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "BedsICU",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Hospitals",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "DistrictId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "StateId",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "BedsNormal",
           "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Hospitals",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "DistrictId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "StateId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "BedsNormal",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Hospitals",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "DistrictId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "StateId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "BedsVntltr",
+          "order": "DESCENDING"
         }
       ]
     }
