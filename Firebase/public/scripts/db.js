@@ -23,13 +23,14 @@ function msg_failure(sKey, sMsg, uiCallback, callbackData, error) {
 
 async function _db_get_states(db) {
     let lStates = []
+    console.debug("INFO:_dbGetStates");
     dcStates = db.collection('/States')
     try {
         var qDocs = await dcStates.get()
         qDocs.forEach((doc) => {
             tState = doc.data();
             lStates.push([doc.id, tState['Name']])
-            console.debug("INFO:_dbGetStates:", doc.id, tState);
+            //console.debug("INFO:_dbGetStates:", doc.id, tState);
             });
     } catch(error){
         console.error("ERRR:_dbGetStates:", error);
@@ -40,11 +41,12 @@ async function _db_get_states(db) {
 
 async function _l_get_states(db) {
     let lStates = []
+    console.debug("INFO:_lGetStates");
     sortedKeys = Object.keys(gmStates).sort();
     sortedKeys.forEach((key) => {
         tCur = [key, gmStates[key]['Name']]
         lStates.push(tCur)
-        console.debug("INFO:_lGetStates:", tCur);
+        //console.debug("INFO:_lGetStates:", tCur);
         })
     return lStates
 }
@@ -55,6 +57,7 @@ db_get_states = _l_get_states
 
 async function _db_get_state(db, stateId) {
     let lDistricts = []
+    console.debug("INFO:_dbGetState");
     ddState = db.collection('/States').doc(stateId);
     try {
         var tState = await ddState.get();
@@ -64,7 +67,7 @@ async function _db_get_state(db, stateId) {
                     if (tDistKey === 'Name') {
                         return
                     }
-                    console.debug("INFO:_dbGetState:", stateId, tDistKey);
+                    //console.debug("INFO:_dbGetState:", stateId, tDistKey);
                     lDistricts.push([tDistKey, tState.data()[tDistKey]])
                 })
         } else {
@@ -79,13 +82,14 @@ async function _db_get_state(db, stateId) {
 
 async function _l_get_state(db, stateId) {
     let lDistricts = []
+    console.debug("INFO:_lGetState");
     tState = gmStates[stateId];
     sortedKeys = Object.keys(tState).sort();
     sortedKeys.forEach((key) => {
         if (key === 'Name') return;
         tCur = [key, tState[key]]
         lDistricts.push(tCur)
-        console.debug("INFO:_lGetState:", tCur);
+        //console.debug("INFO:_lGetState:", tCur);
         })
     return lDistricts
 }
@@ -96,12 +100,13 @@ db_get_state = _l_get_state
 
 async function db_get_hospitals(db, stateId, districtId, hospParam="BedsNormal") {
     let lHosps = []
+    console.debug("INFO:dbGetHosps");
     minFree = 1
     dcHosps = db.collection('/Hospitals')
     try {
         var qDocs = await dcHosps.where('StateId', '==', stateId).where('DistrictId', '==', districtId)
                                     .where(hospParam, '>=', minFree).orderBy(hospParam, 'desc').limit(10).get();
-        console.debug("INFO:GetHosps:",stateId, districtId, qDocs);
+        //console.debug("INFO:GetHosps:",stateId, districtId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
             tTS = new Date(tHosp['TimeStamp'].seconds*1000);
@@ -109,7 +114,7 @@ async function db_get_hospitals(db, stateId, districtId, hospParam="BedsNormal")
                 hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
             sTS = Intl.DateTimeFormat('en-IN', options).format(tTS)
             lHosps.push([doc.id, tHosp['BedsICU'], tHosp['BedsNormal'], tHosp['BedsVntltr'], tHosp['Name'], tHosp['PinCode'], sTS])
-            console.debug("INFO:GetHosps:", doc.id, tHosp);
+            //console.debug("INFO:GetHosps:", doc.id, tHosp);
             });
     } catch(error){
         console.error("ERRR:GetHosps:", error);
@@ -123,13 +128,14 @@ async function db_get_hospitals(db, stateId, districtId, hospParam="BedsNormal")
  */
 async function db_get_adminhospitalids(db, userId) {
     let lHospIds = []
+    console.debug("INFO:dbGetAdminHospIds");
     dcHospsExtra = db.collection('/HospitalsExtra')
     try {
         var qDocs = await dcHospsExtra.where('AdminId', '==', userId).limit(10).get();
-        console.debug("INFO:GetAdminHospIds:",userId, qDocs);
+        //console.debug("INFO:GetAdminHospIds:",userId, qDocs);
         qDocs.forEach((doc) => {
             lHospIds.push(doc.id);
-            console.debug("INFO:GetAdminHospIds:", doc.id, doc.data());
+            //console.debug("INFO:GetAdminHospIds:", doc.id, doc.data());
             });
     } catch(error){
         console.error("ERRR:GetAdminHospIds:", error);
@@ -140,17 +146,18 @@ async function db_get_adminhospitalids(db, userId) {
 
 async function db_get_adminhospitals(db, userId) {
     let lHosps = []
+    console.debug("INFO:dbGetAdminHosps");
     dcHosps = db.collection('/Hospitals')
     try {
         var lHospIds = await db_get_adminhospitalids(db, userId);
         if (lHospIds.length <= 0) return lHosps;
         var qDocs = await dcHosps.where(firebase.firestore.FieldPath.documentId(), 'in', lHospIds).limit(10).get();
-        console.debug("INFO:GetAdminHosps:",userId, qDocs);
+        //console.debug("INFO:GetAdminHosps:",userId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
             tData = [doc.id, tHosp['BedsICU'], tHosp['BedsNormal'], tHosp['BedsVntltr'], tHosp['Name'], tHosp['PinCode'] ]
             lHosps.push(tData);
-            console.debug("INFO:GetAdminHosps:", tData);
+            //console.debug("INFO:GetAdminHosps:", tData);
             });
     } catch(error){
         console.error("ERRR:GetAdminHosps:", error);
@@ -160,6 +167,7 @@ async function db_get_adminhospitals(db, userId) {
 
 
 function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallback=null, callbackData=null) {
+    console.debug("INFO:dbUpdHosp");
     dcHosps = db.collection('/Hospitals')
     dcHosps.doc(hospId)
         .update({ 'BedsICU': bedsICU, 'BedsNormal': bedsNormal, 'BedsVntltr': bedsVntltr, 'TimeStamp': firebase.firestore.FieldValue.serverTimestamp() })
