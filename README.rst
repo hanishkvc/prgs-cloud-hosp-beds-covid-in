@@ -131,8 +131,47 @@ only, cloud makes sense. Else one may need to think twice before going with a pu
 system.
 
 
+Screens
+##########
+
+.. image:: Notes/Images/HBCIn_Main.png
+   :alt: The Main screen
+
+The Main screen
+
+.. image:: Notes/Images/HBCIn_StateLvl1.png
+   :alt: State Lvl screen
+
+State level screen
+
+.. image:: Notes/Images/HBCIn_DistrictLvl1.png
+   :alt: District Lvl screen - filter on BedsICU
+
+District level screen - Filter on BedsICU
+
+.. image:: Notes/Images/HBCIn_DistrictLvl2.png
+   :alt: District Lvl screen - filter on BedsVntltr
+
+District level screen - Filter on BedsVntltr
+
+.. image:: Notes/Images/HBCIn_UpdateModeSignIn.png
+   :alt: UpdateMode SignIn screen
+
+UpdateMode signin screen
+
+.. image:: Notes/Images/HBCIn_UpdateModeUpdate.png
+   :alt: UpdateMode Update screen
+
+UpdateMode update screen
+
+.. image:: Notes/Images/HBCIn_StateLvl2.png
+   :alt: State Lvl screen - signed in
+
+State level screen (signed in)
+
+
 At the End
-============
+############
 
 Save Nature Save Earth.
 
