@@ -57,6 +57,7 @@ async function create_hosps(db, oStates) {
                 continue;
             }
             tHospNums = Math.round(Math.random()*5);
+            if (iHosp === 0) tHospsNum = 15;
             for(i = 0; i < tHospNums; i++) {
                 iHosp += 1
                 tHosp = {
