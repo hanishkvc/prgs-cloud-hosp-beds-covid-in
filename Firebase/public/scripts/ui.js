@@ -117,10 +117,8 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     tHTML += " </tbody>";
     tHTML += " </table>";
     if (bOverwrite) {
-        console.log("DBUG:UiTable: OVERWRITE");
         el.innerHTML = tHTML;
     } else {
-        console.log("DBUG:UiTable: NO OVERWRITE");
         el.innerHTML += tHTML;
     }
     if (clickHandler === null) return;
@@ -137,15 +135,17 @@ function selparam_change(e) {
 }
 
 
-function ui_select(el, sId, lChoices, changeHandler) {
+function ui_select(el, sId, lChoices, changeHandler=null) {
     sHTML = `<select class="h7sel" id="${sId}" name="${sId}">`
     for (tChoice of lChoices) {
         sHTML += `<option>${tChoice}</option>`
     }
     sHTML += "</select>"
     el.innerHTML = sHTML;
-    elSel = document.getElementById(sId);
-    elSel.onchange = changeHandler
+    if (changeHandler !== null) {
+        elSel = document.getElementById(sId);
+        elSel.onchange = changeHandler
+    }
 }
 
 
@@ -280,13 +280,13 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ], selparam_change);
+        ui_select(elMain, 'bedType', [ 'BedsICU', 'BedsNormal' ]);
         lHead = [ "HospId", "Name", 'Pincode', 'BedsICU', 'BedsNormal', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId)
             .then((lHosps) => {
                 console.log(lHosps)
-                //ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
-                //ui_select_changehandler('bedType', selparam_change);
+                ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
+                ui_select_changehandler('bedType', selparam_change);
             })
             .catch((error) => {
                 console.log("ERRR:UISync:State+Dist", error);
