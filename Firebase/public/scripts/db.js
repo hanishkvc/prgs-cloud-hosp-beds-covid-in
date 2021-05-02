@@ -100,7 +100,7 @@ async function db_get_hospitals(db, stateId, districtId, hospParam="BedsNormal")
     dcHosps = db.collection('/Hospitals')
     try {
         var qDocs = await dcHosps.where('StateId', '==', stateId).where('DistrictId', '==', districtId)
-                                    .where(hospParam, '>=', minFree).orderBy(hospParam, direction=firebase.firestore.Query.DESCENDING).limit(10).get();
+                                    .where(hospParam, '>=', minFree).orderBy(hospParam, 'desc').limit(10).get();
         console.debug("INFO:GetHosps:",stateId, districtId, qDocs);
         qDocs.forEach((doc) => {
             tHosp = doc.data();
