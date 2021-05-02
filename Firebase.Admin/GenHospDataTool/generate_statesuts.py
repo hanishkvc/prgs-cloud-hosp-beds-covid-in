@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+# Generate States/UTs/Districts/Regions json from csv files
+# HanishKVC, 2021
+# GPL
 
 import pandas
 
