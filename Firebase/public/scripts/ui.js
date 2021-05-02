@@ -132,7 +132,7 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     elBtns = document.getElementsByClassName('h7btn')
     for(i = 0; i < elBtns.length; i++) {
         elBtns[i].onclick = clickHandler
-        console.log(elBtns[i])
+        //console.log(elBtns[i])
     }
 }
 
