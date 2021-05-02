@@ -55,9 +55,23 @@ the system will automatically update the time stamp wrt the corresponding hospit
     the admin. Inturn it gives the option to update the availability status wrt all the
     hospitals from a single view.
 
+    Once the admin has updated availability data wrt any of the hospital. They need to
+    click on the corresponding sync button to trigger the same to be updated to the
+    system's backend.
+
     The sync button associated with each hospital is color coded to indicate, the status
     of the last update/sync operation triggered wrt that hospital. So they can know, if
     they need to trigger the sync again or not.
+
+        Gray/DefaultColor: Sync has not yet been triggered for the hospital.
+
+        Blue: A sync has been triggered, and is in process.
+
+        Red: The sync operation has failed. (User can press sync button to try again).
+
+        Green: The sync operation has succeeded.
+
+        NOTE: Moving away from the page will clear the color coding.
 
     NOTE: If one has modified data wrongly and has not yet synced it to the server, one
     can press the UpdateMode button and the logic will refresh the data in the shown table
@@ -105,6 +119,13 @@ The state/uts/districts/regions info even thou available in the database, is not
 picked from it, but instead picked from a json file maintained on the hosting server. Thus
 avoiding unnecessary eating into the data base queries quota, but instead chipping into the
 hosting quota, which should be fine, as nothing else is hosted other than the html+js files.
+
+
+General Note
+==============
+
+Reloading the page will reset the app to main screen and the user will have to login again,
+if they are data owners/hospital admins.
 
 
 History
