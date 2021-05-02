@@ -2,13 +2,14 @@
 A Online Hospital Beds+ status system
 #######################################
 Author: HanishKVC
-Version: 20210502IST1035
+Version: 20210502IST1822
 
 Overview
 ###########
 
 This is a keep it simple online hospital beds+ status system, where the hospitals are
-grouped into states and inturn districts.
+grouped into states and inturn districts. One can look at the status of availability
+of the tracked type of resources wrt the hospitals.
 
 
 People view
@@ -16,7 +17,7 @@ People view
 
 Users select the state followed by the district for which they want to know the status.
 Inturn the system will show upto N number of hospitals with highest availability wrt one
-of the predefined set of parameters like normal beds, icu beds, ... in that district.
+of the predefined set of parameters like normal/icu/ventilator beds, ... in that district.
 The user can choose based on which parameter they want to see the list of hospitals.
 Thus people can query the availability status wrt the predefined set of parameters,
 and inturn the hospitals in the selected state-district which have availability based
@@ -29,8 +30,8 @@ Any person can access the availability status maintained by the system, without 
 to login to the system.
 
 
-Admins view
-=============
+Data Owner's view
+=====================
 
 The system allows data owners to be assigned wrt the hospitals in the system.
 
@@ -58,6 +59,11 @@ the system will automatically update the time stamp wrt the corresponding hospit
     of the last update/sync operation triggered wrt that hospital. So they can know, if
     they need to trigger the sync again or not.
 
+    NOTE: If one has modified data wrongly and has not yet synced it to the server, one
+    can press the UpdateMode button and the logic will refresh the data in the shown table
+    to what is stored in the system. Inturn the data owner can change/update to the needed
+    value and press sync button to sync it to the backend server.
+
 
 Developer view
 ===============
@@ -79,7 +85,7 @@ the end users of the system, the NoSQL allows the schema to evolve as and when r
 
         Oxygen availability (may be normalised per Bed).
 
-        Ventilator availability.
+        ...
 
 It is relatively easy to add such additional fields to the system.
 
@@ -97,7 +103,8 @@ Admin scripts are used to
 
 The state/uts/districts/regions info even thou available in the database, is not directly
 picked from it, but instead picked from a json file maintained on the hosting server. Thus
-avoiding unnecessary eating into the data base queries quota.
+avoiding unnecessary eating into the data base queries quota, but instead chipping into the
+hosting quota, which should be fine, as nothing else is hosted other than the html+js files.
 
 
 History
@@ -110,7 +117,7 @@ way of doing something hopefully positive. This could either be used as such by 
 it, and or with modifications as people find fit to their needs, and or as some initial
 thoughts for ones own experimentation.
 
-This is something which has been created over a 3 day period, with minimal previous experimenting
+This is something which has been created over a 3-5 day period, with minimal previous experimenting
 wrt html and javascript, as well as first time use of cloud from my end. I have done quick glances
 at docs based on need, as I went about developing this. So do take this with a pinch of salt, as it
 may not follow the usual conventions used by developers in these domains. However hopefully here
@@ -118,7 +125,7 @@ is a simple yet working system, using the cloud resources available to get it up
 scalable way in a very short time.
 
 At the same time one needs to keep the costing of clouds in mind when working with the cloud. For
-this current system, which is needed to come up on short notice and be able to scale massively
+this current system, which was needed to come up on short notice and be able to scale massively
 potentially if required, while at the same time being needed for a relatively short period of time
 only, cloud makes sense. Else one may need to think twice before going with a purely cloud based
 system.

@@ -103,9 +103,9 @@ Update public/index.html as required.
 Update firestore.rules as required.
 
 If you update firestore indexes configuration using firebase console online,
-then use firebase init firestore to update the indexes configuration on the
-local machine, by ensuring to overwrite only the indexes file and not any
-other configurations/files during this init run.
+then use firebase firestore:indexes to retrieve the currently defined set of
+indexes from the backend server and update the indexes configuration on the
+local machine.
 
 
 Create Admin tool
