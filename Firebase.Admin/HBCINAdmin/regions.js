@@ -5,6 +5,9 @@
  */
 
 
+var hlpr = require('./hlpr');
+
+
 exports.create_states = function (db, oStates) {
     dcStates=db.collection("States");
     for(tStateKey in oStates) {
@@ -12,8 +15,8 @@ exports.create_states = function (db, oStates) {
         tState = oStates[tStateKey]
         dcStates.doc(tStateKey)
             .set(tState)
-            .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
-            .catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
+            .then(hlpr.msg_success.bind(null, tStateKey, "CreateStates:Adding"))
+            .catch(hlpr.msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
         for(tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]

@@ -5,6 +5,10 @@
  */
 
 
+var admin = require('firebase-admin');
+var hlpr = require('./hlpr');
+
+
 exports.create_hosps = async function(db, oStates) {
     dcHosps = db.collection('Hospitals');
     dcHospsExtra = db.collection('HospitalsExtra');
@@ -37,12 +41,12 @@ exports.create_hosps = async function(db, oStates) {
                 tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
-                    .then(msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
-                    .catch(msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
+                    .then(hlpr.msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
+                    .catch(hlpr.msg_failure.bind(null, tHospKey, "CreateHosps:Adding"));
                 dcHospsExtra.doc(tHospKey)
                     .set(tHospExtra)
-                    .then(msg_success.bind(null, tHospKey, "CreateHospsExtra:Adding"))
-                    .catch(msg_failure.bind(null, tHospKey, "CreateHospsExtra:Adding"));
+                    .then(hlpr.msg_success.bind(null, tHospKey, "CreateHospsExtra:Adding"))
+                    .catch(hlpr.msg_failure.bind(null, tHospKey, "CreateHospsExtra:Adding"));
             }
         }
     }

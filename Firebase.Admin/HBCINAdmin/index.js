@@ -14,24 +14,6 @@ console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
 console.log('INFO: Also setup sample hospital data for now')
 
 
-function msg_success(sStateKey, sMsg) {
-    console.log("DONE:",sMsg, sStateKey);
-}
-
-
-function msg_failure(sStateKey, sMsg, error) {
-    console.error("ERRR:", sMsg, sStateKey, error.message);
-}
-
-
-function busy_sleep(x,y) {
-    for(t1=0; t1 < x; t1++) {
-        for(t2=0; t2 < y; t2++) {
-        }
-    }
-}
-
-
 function create_testdata() {
     console.log("INFO:creating testdata...");
     regions.create_states(db, goStates)
