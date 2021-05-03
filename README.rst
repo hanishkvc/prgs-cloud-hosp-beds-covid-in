@@ -209,6 +209,14 @@ A initial take at a very very rough dumb calculation of the Google cloud costing
 I have included the csv file which I did to make this initial guess of cloud costing with
 this repo.
 
+On a parallel/side note, If someone wants to use such a system in a small closed setup/group,
+where they use such a system to distribute/share info from across a wide geographic area
+in a controlled and fast manner and then inturn share the data with general public using other
+mechanisms, then one may be able to take advantage of the free tier provided by Google/Firebase
+and keep the running cost very low. However if one is opening up the system for general public
+use, then the loading and its cost implications need to be thought through bit more carefully
+and then the decision taken.
+
 
 Screens
 ##########
