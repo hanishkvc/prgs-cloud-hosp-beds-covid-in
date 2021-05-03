@@ -160,6 +160,29 @@ system.
 Things to cross check
 =======================
 
+JavaScript modules
+--------------------
+
+The logic has been implemented by avoiding use of any front end related js or any other
+web related modules. Only firebase modules are used to provide the cloud support.
+Currently the firebase modules dont support a newer javascript modular mechanisms.
+So the full library needs to be pulled in, whether all of it is used or only some
+parts are used.
+
+    This has the side effect of impacting the initial load time wrt the webpage for the
+    1st time and some of the inbetween visits wrt any/each individual user to the site.
+    As also having a higher hosting load and cost.
+
+    If hosting site uses/supports gzip before/wrt transfering things, the -ve impact
+    will be lesser.
+
+Also google is in the process of moving to a fully modular and choppable version of firebase,
+which has entered beta recently, once it has a stable release, it should be relatively easy
+to switch to the same and that should help optimise things wrt size, load and cost.
+
+The core logic and the states/uts/districts data together take around 60KB. While the firebase
+modules together take around 900KB. These are raw figures, gzip should help matters a bit here.
+
 
 Cloud cost
 -----------
@@ -182,6 +205,9 @@ A initial take at a very very rough dumb calculation of the Google cloud costing
     messed up my calculations and or misinterpreted costing mechanisms of the cloud
     infrastructure provider. At the same time, I am putting this here, so that anyone
     looking into this is not working blind, but has some estimate (good or bad).
+
+I have included the csv file which I did to make this initial guess of cloud costing with
+this repo.
 
 
 Screens
