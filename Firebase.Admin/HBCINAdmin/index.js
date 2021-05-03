@@ -7,7 +7,7 @@
 var admin = require('firebase-admin');
 var regions = require('./regions');
 var goStates = require("./statesuts_districts");
-var hospitals = require('.hospitals');
+var hospitals = require('./hospitals');
 
 
 console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
@@ -32,17 +32,25 @@ function busy_sleep(x,y) {
 }
 
 
-appArgs=console.log(process.argv.slice(2)); // skip node and scriptName args
+function create_testdata() {
+    console.log("INFO:creating testdata...");
+    regions.create_states(db, goStates)
+    hospitals.create_hosps(db, goStates)
+}
+
+
+var appArgs=process.argv.slice(2); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
         credential: admin.credential.applicationDefault(),
         databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
         });
     var db = app.firestore();
-    regions.create_states(db, goStates)
-    hospitals.create_hosps(db, goStates)
+    if (appArgs[0] === 'create_testdata') {
+        create_testdata();
+    }
 } catch(error) {
-    console.error("ERRR:CreateSampleDataMain:", error.errorInfo);
+    console.error("ERRR:AdminTool:", error);
 }
 
 
