@@ -11,8 +11,10 @@ var hospitals = require('./hospitals');
 var dbx = require('./dbx');
 
 
-console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
-console.log('INFO: Also setup sample hospital data for now')
+console.log('INFO: HBCIn Admin tool')
+console.log('INFO: Setup States/UTs and their Districts/Regions')
+console.log('INFO: Create a sample hospital dataset')
+console.log('INFO: Import hospitals, hospitals admins, ...')
 
 
 function create_testdata() {

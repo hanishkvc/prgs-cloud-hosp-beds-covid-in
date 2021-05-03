@@ -1,6 +1,6 @@
 {
   "name": "hbcin_admin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Administor Hosp-Beds-Covid-In ",
   "main": "index.js",
   "scripts": {
