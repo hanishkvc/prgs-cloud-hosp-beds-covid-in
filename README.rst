@@ -157,6 +157,33 @@ only, cloud makes sense. Else one may need to think twice before going with a pu
 system.
 
 
+Things to cross check
+=======================
+
+
+Cloud cost
+-----------
+
+A initial take at a very very rough dumb calculation of the Google cloud costing assuming
+
+    ~50 Lakh users per day (i.e around 15 Crore people in a month) using the site
+
+    and around 1000 data owners updating details of about 10K hospitals
+    multiple times in a day.
+
+    seems to indicate a monthly google cloud cost of around ~10 Lakh Rs (12K$).
+
+    I need to think through as well as cross check my calculations again as well as
+    run the numbers through google's cloud team to cross check that I am not
+    misinterpreting their costing mechanism and or goofing up my calculation anywhere.
+
+    NOTE: This is the first time I am looking at public cloud. Also I havent reviewed
+    my initial take at the costing yet, SO there is a high probability that I might have
+    messed up my calculations and or misinterpreted costing mechanisms of the cloud
+    infrastructure provider. At the same time, I am putting this here, so that anyone
+    looking into this is not working blind, but has some estimate (good or bad).
+
+
 Screens
 ##########
 
