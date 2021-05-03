@@ -159,3 +159,13 @@ On a casual glance, the minimal data about error wrt javascript (be it web
 or nodejs) seems to be in admin.FirebaseError and or firebase.FirebaseError.
 
 
+HTML and related
+====================
+
+Cross check how the page is performing
+
+	In chrome browser => developer tools => Lighthouse
+
+	https://developers.google.com/speed/pagespeed/insights/
+
+
