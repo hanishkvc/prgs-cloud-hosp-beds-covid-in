@@ -68,7 +68,7 @@
     </div>
 
     <script defer src="/data/statesuts_districts.js"></script>
-    <script src="/scripts/ui.js"></script>
+    <script defer src="/scripts/ui.js"></script>
     <script>
       let elMain = null
       let elAuth = null
@@ -84,10 +84,7 @@
       const elCurPath = document.querySelector('#curpath');
       const elHome = document.querySelector('#Home');
       const elUpdateMode = document.querySelector('#UpdateMode');
-      elHome.onclick = home_handler;
-      elUpdateMode.onclick = update_handler;
 
-      ui_init();
       document.addEventListener('DOMContentLoaded', function() {
         elLoad = document.querySelector('#load');
         elMain = document.querySelector('#main');
@@ -98,6 +95,7 @@
         // firebase.analytics().logEvent('tutorial_completed');
         //
         // //
+        ui_init();
         if (fb_init()) {
           elLoad.textContent = 'Save Nature Save Earth';
           ui_sync()

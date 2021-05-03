@@ -321,6 +321,8 @@ function ui_sync() {
 
 function ui_init() {
     window.onpopstate = popstate_handler;
+    elHome.onclick = home_handler;
+    elUpdateMode.onclick = update_handler;
 }
 
 
