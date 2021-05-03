@@ -33,6 +33,7 @@ function fb_init() {
         gDB = firebase.firestore();
         aui_init()
         firebase.analytics();
+        firebase.performance();
         console.log("INFO:FBInit: doing ok...");
         return true
     } catch (e) {
