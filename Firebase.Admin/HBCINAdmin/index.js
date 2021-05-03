@@ -5,7 +5,7 @@
  */
 
 var admin = require('firebase-admin');
-
+var regions = require('./regions');
 var goStates = require("./statesuts_districts");
 
 console.log('INFO: HBCIn Setup States/UTs and their Districts/Regions')
@@ -18,26 +18,6 @@ function msg_success(sStateKey, sMsg) {
 function msg_failure(sStateKey, sMsg, error) {
     console.error("ERRR:", sMsg, sStateKey, error.message);
 }
-
-function create_states(db, oStates) {
-    dcStates=db.collection("States");
-    for(tStateKey in oStates) {
-        tName = null
-        tState = oStates[tStateKey]
-        dcStates.doc(tStateKey)
-            .set(tState)
-            .then(msg_success.bind(null, tStateKey, "CreateStates:Adding"))
-            .catch(msg_failure.bind(null, tStateKey, "CreateStates:Adding"))
-        for(tKey in tState) {
-            if (tKey === 'Name') {
-                tName = tState[tKey]
-            } else {
-                console.log(tStateKey, tName, tKey, tState[tKey])
-            }
-        }
-    }
-}
-
 
 function busy_sleep(x,y) {
     for(t1=0; t1 < x; t1++) {
@@ -89,13 +69,15 @@ async function create_hosps(db, oStates) {
     }
 }
 
+
+appArgs=console.log(process.argv.slice(2)); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
         credential: admin.credential.applicationDefault(),
         databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
         });
     var db = app.firestore();
-    create_states(db, goStates)
+    regions.create_states(db, goStates)
     create_hosps(db, goStates)
 } catch(error) {
     console.error("ERRR:CreateSampleDataMain:", error.errorInfo);
