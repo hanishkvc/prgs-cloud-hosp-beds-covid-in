@@ -8,6 +8,7 @@ var admin = require('firebase-admin');
 var regions = require('./regions');
 var goStates = require("./statesuts_districts");
 var hospitals = require('./hospitals');
+var hospAdmins = require('./hospadmins');
 var dbx = require('./dbx');
 
 
@@ -36,6 +37,12 @@ function import_collection(db, cName, cFile) {
 }
 
 
+function import_hospadmins(db, cAdminsFile) {
+    console.log(`INFO:importing admins [${cAdminsFile}]...`);
+    hospAdmins.import(db, cAdminsFile);
+}
+
+
 var appArgs=process.argv.slice(2); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
@@ -49,6 +56,8 @@ try {
         create_regions();
     } else if (appArgs[0] === 'import_collection') {
         import_collection(db, appArgs[1], appArgs[2])
+    } else if (appArgs[0] === 'import_hospadmins') {
+        import_hospadmins(db, appArgs[1])
     }
 } catch(error) {
     console.error("ERRR:AdminTool:", error);
