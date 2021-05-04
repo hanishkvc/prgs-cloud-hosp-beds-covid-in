@@ -29,6 +29,9 @@ so that users can have a rough idea of how current the data may be wrt each hosp
 Any person can access the availability status maintained by the system, without needing
 to login to the system.
 
+If for some reason the logic is not able to retrieve data within a predefined time, then
+a message is shown at the bottom to alert the user to the same and asking them to check
+internet connection and or ...
 
 Data Owner's view
 =====================

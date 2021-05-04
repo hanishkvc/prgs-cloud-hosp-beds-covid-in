@@ -276,7 +276,23 @@ function ui_update(el) {
 }
 
 
-let gbUISyncShowLoadingData = false
+function set_loadingdata_timeout() {
+    gLoadingDataTimeOut = window.setTimeout(function() {
+        elAuth.innerHTML = "<p> Loading data...</p>"
+        elAuth.innerHTML += "<p> If it is taking too much time, cross check internet connection once </p>"
+        elAuth.innerHTML += "<p> You could either wait or try reloading...</p>"
+        }, 10*1000);
+}
+
+
+function clear_loadingdata_timeout() {
+    window.clearTimeout(gLoadingDataTimeOut);
+    gLoadingDataTimeOut = null;
+    elAuth.innerHTML = "";
+}
+
+
+let gLoadingDataTimeOut = null
 function ui_sync() {
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
@@ -305,16 +321,12 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        if (gbUISyncShowLoadingData) {
-            elAuth.innerHTML = "<p> Loading data...</p>"
-            elAuth.innerHTML += "<p> If it is taking too much time, cross check internet connection once </p>"
-            elAuth.innerHTML += "<p> You could either wait or try reloading...</p>"
-        }
+        set_loadingdata_timeout();
         lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
             .then((lHosps) => {
                 //console.log(lHosps)
-                if (gbUISyncShowLoadingData) elAuth.innerHTML = "";
+                clear_loadingdata_timeout();
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
                 ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
                 ui_select_changehandler('hospParam', selparam_change);
