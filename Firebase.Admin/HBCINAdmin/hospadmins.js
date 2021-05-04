@@ -10,14 +10,19 @@ var admin = require('firebase-admin');
 var hlpr = require('./hlpr');
 
 
-async function getUserId(userEmail) {
+/**
+ * Get the Users' auth uid, given their email id.
+ * It returns valid uid only for verified email ids
+ * hospId dummy argument, used only as part of logged messages
+ */
+async function getUserId(userEmail, hospId=null) {
     userAuth = await admin.auth().getUserByEmail(userEmail);
     //console.log(userAuth);
     if (userAuth.emailVerified) {
-        console.error(`INFO:HospAdmins:User:${userEmail}: verified`);
+        console.error(`INFO:HospAdmins:Hosp:${hospId}:User:${userEmail}:Ok:WillUpdate`);
         return userAuth.uid;
     }
-    console.error(`WARN:HospAdmins:User:${userEmail}: email Not yet verified, skipping`);
+    console.error(`WARN:HospAdmins:Hosp:${hospId}:User:${userEmail}:NotVerified:WillBlockHospDataUpdates`);
     return 'INVALID'+crypto.randomBytes(16).toString('hex');
 }
 
@@ -42,11 +47,11 @@ exports.import = async function (db, cAdminsFile) {
     dcHospsExtra = db.collection('HospitalsExtra');
     for(tHosp in oAdmins) {
         try {
-            adminUid = await getUserId(oAdmins[tHosp])
+            adminUid = await getUserId(oAdmins[tHosp], tHosp)
             await dcHospsExtra.doc(tHosp)
                 .set({ 'AdminId': adminUid });
         } catch(error) {
-            console.error(`ERRR:HospAdmins:Hosp:${tHosp}:User:${oAdmins[tHosp]}:${error.message}`);
+            console.error(`ERRR:HospAdmins:Hosp:${tHosp}:User:${oAdmins[tHosp]}:Invalid:WontModifyOnServer:${error.message}`);
         }
     }
 }
