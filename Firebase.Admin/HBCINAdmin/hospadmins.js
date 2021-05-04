@@ -33,7 +33,12 @@ async function transform(db, oData, mTransform) {
 
 
 exports.import = async function (db, cAdminsFile) {
-    oAdmins = require(cAdminsFile);
+    try {
+        oAdmins = require(cAdminsFile);
+    } catch(error) {
+        console.error(`ERRR:HospAdmins:Import:[${cAdminsFile}] invalid???:${error.message}`);
+        return
+    }
     dcHospsExtra = db.collection('HospitalsExtra');
     for(tHosp in oAdmins) {
         try {
