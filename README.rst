@@ -116,7 +116,7 @@ Admin scripts are used to
     initialise the database wrt the states/uts and their districts/regions, as well as
     the hospitals in the system.
 
-    assign administrators to hospitals. [ToDo]
+    assign administrators to hospitals.
 
     Firebase-Admin sdk is used to build these admin scripts.
 
@@ -124,6 +124,57 @@ The state/uts/districts/regions info even thou available in the database, is not
 picked from it, but instead picked from a json file maintained on the hosting server. Thus
 avoiding unnecessary eating into the data base queries quota, but instead chipping into the
 hosting quota, which should be fine, as nothing else is hosted other than the html+js files.
+
+
+System administrator view
+=============================
+
+The system is administered using a set of admin commands to a admin script.
+
+On a admin system (which could even be a local (non cloud) machine) the service account token
+for the system is maintained. Inturn the admin script in the Firebase.Admin/HBCINAdmin folder
+is run to manage the system. Ensure that the service account token is stored securely and not
+uploaded to source control system or so.
+
+Update the path in setup-env.sh shell script and run source setup-env.sh to make the same
+available to the admin script.
+
+To create a test dataset containing the states/uts and districts/regions of india along
+with a randomly generated set of hospitals data, run
+
+    node index.js create_testdata
+
+To create a actual dataset for deployment, one could use the default regions data, which
+is already there for India, or create a new statesuts_districts.json file. Inturn create
+the json file containing hospitals data and the json file containing the hospital admins
+data and then run
+
+    node index.js create_regions
+
+    node index.js import_collection Hospitals ./config/hospitals.vDate.json
+
+    node index.js import_collection HospitalsExtra ./config/hospital.admins.vDate.json
+
+    NOTE: In the above example, it is assumed that the hospitals and their admin details
+    is stored in a folder called config, with in the folder containing admin script.
+
+    NOTE: The hospitals and their data owners/admins data is maintained as simple textual
+    json files, so that it is simple to manage it and track it when updating and or later
+    using simple text related tools.
+
+    NOTE: It is not necessary to run all these commands at the same time, it can be run
+    at seperate times. If one is changing the admin and or adding new hospitals to the
+    system. New hospitals.json can be created which contains only details for the new
+    hospitals and hospital.admins.json can be created with admin details for new hospitals
+    as well as hospitals for which the admin is being changed. Inturn run the same
+    import_collection command as before but with the new json files being passed to them.
+
+    node index.js import_collection Hospitals ./config/new.hospitals.vDate.json
+
+    node index.js import_collection HospitalsExtra ./config/updates.hospital.admins.vDate.json
+
+    NOTE: As the hospitals data and the admins data will change very rarely, it is managed
+    in a simple raw way, for now.
 
 
 General Note

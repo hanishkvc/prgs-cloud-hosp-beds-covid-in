@@ -24,6 +24,12 @@ function create_testdata() {
 }
 
 
+function create_regions() {
+    console.log("INFO:creating regions...");
+    regions.create_states(db, goStates)
+}
+
+
 function import_collection(db, cName, cFile) {
     console.log(`INFO:importing collection [${cName}] [${cFile}]...`);
     dbx.import_collection(db, cName, cFile);
@@ -39,6 +45,8 @@ try {
     var db = app.firestore();
     if (appArgs[0] === 'create_testdata') {
         create_testdata();
+    } else if (appArgs[0] === 'create_regions') {
+        create_regions();
     } else if (appArgs[0] === 'import_collection') {
         import_collection(db, appArgs[1], appArgs[2])
     }
