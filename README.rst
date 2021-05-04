@@ -29,9 +29,6 @@ so that users can have a rough idea of how current the data may be wrt each hosp
 Any person can access the availability status maintained by the system, without needing
 to login to the system.
 
-If for some reason the logic is not able to retrieve data within a predefined time, then
-a message is shown at the bottom to alert the user to the same and asking them to check
-internet connection and or ...
 
 Data Owner's view
 =====================
@@ -127,6 +124,16 @@ The state/uts/districts/regions info even thou available in the database, is not
 picked from it, but instead picked from a json file maintained on the hosting server. Thus
 avoiding unnecessary eating into the data base queries quota, but instead chipping into the
 hosting quota, which should be fine, as nothing else is hosted other than the html+js files.
+
+ToRefine
+----------
+
+If for some reason the logic is not able to retrieve data within a predefined time, then
+under some circumstances we show a message at the bottom to alert the user to the same
+and asking them to check internet connection and or ... This needs to be updated to also
+trap internally acknowledged failures at db bridge level and show same or more appropriate
+message. FOR NOW if user doesnt see any data, then they will mostly try reloading the page
+and that should take care of things at one level.
 
 
 System administrator view
