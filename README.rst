@@ -141,6 +141,9 @@ System administrator view
 
 The system is administered using a set of admin commands to a admin script.
 
+General flow
+-------------
+
 On a admin system (which could even be a local (non cloud) machine) the service account token
 for the system is maintained. Inturn the admin script in the Firebase.Admin/HBCINAdmin folder
 is run to manage the system. Ensure that the service account token is stored securely and not
@@ -163,7 +166,7 @@ data and then run
 
     node index.js import_collection Hospitals ./config/hospitals.vDate.json
 
-    node index.js import_collection HospitalsExtra ./config/hospital.admins.vDate.json
+    node index.js import_hospadmins ./config/hospital.admins.vDate.json
 
     NOTE: In the above example, it is assumed that the hospitals and their admin details
     is stored in a folder called config, with in the folder containing admin script.
@@ -177,14 +180,89 @@ data and then run
     system. New hospitals.json can be created which contains only details for the new
     hospitals and hospital.admins.json can be created with admin details for new hospitals
     as well as hospitals for which the admin is being changed. Inturn run the same
-    import_collection command as before but with the new json files being passed to them.
+    import_collection/import_hospadmins command as before but with the new json files
+    being passed to them.
 
     node index.js import_collection Hospitals ./config/new.hospitals.vDate.json
 
-    node index.js import_collection HospitalsExtra ./config/updates.hospital.admins.vDate.json
+    node index.js import_hospadmins ./config/updates.hospital.admins.vDate.json
 
     NOTE: As the hospitals data and the admins data will change very rarely, it is managed
     in a simple raw way, for now.
+
+
+Hospital DataOwners/Admins
+----------------------------
+
+One can import hospital admins by using either the import_hospadmins helper command or by
+using the generic import_collection command.
+
+It is recommended to use the import_hospadmins command in general.
+
+NOTE that in either case the json file requires to be a valid json file, with no ',' wrt
+end of last record.
+
+import_hospadmins
+~~~~~~~~~~~~~~~~~~
+
+The corresponding command is
+
+    node index.js import_hospadmins ./config/hospital.admins.vDate.json
+
+If using the import_hospadmins command, then the json file passed needs to follow a simple
+json structure of
+
+::
+
+    {
+        "HOSPID1": adminEmailId,
+        "HOSPID2": adminEmailId,
+        ...,
+        "HOSPIDN": adminEmailId
+    }
+
+Here one needs to use the admin's emailId and the logic will inturn cross check to verify
+if the specified adminEmilId is registered with the system or not. If not registered, then
+the corresponding hospital's admin id if any wont be changed.
+
+On the other hand, if the email id is found in the system's auth database, then it is checked
+as to whether the hospital admin (data owner) has got their email verified with the auth system
+or not. If email is already verified, then the related hospital's admin record is updated to
+reflect that user as the admin, else a dummy invalid auth id is written into corresponding
+hospital's admin record, so that no one else can edit that hospital's record. And the admin
+needs to get their email id verified with the system at the earliest, so that they get access
+to udpate the resource availability data wrt the hospital.
+
+In all of these 3 cases, a message is also logged to the console.
+
+import_collection
+~~~~~~~~~~~~~~~~~~~
+
+The command is
+
+    node index.js import_collection HospitalsExtra ./config/hospital.admins.vDate.json
+
+If the import_collection command is used, then the json file requires to reflect the
+HospitalsExtra collection's data schema. i.e
+
+::
+
+    {
+        "HOSPID1": {
+            'AdminId': adminUid
+            },
+        "HOSPID2": {
+            'AdminId': adminUid
+            },
+        ...,
+        "HOSPIDN": {
+            'AdminId': adminUid
+            }
+    }
+
+In this case, the admin's uid needs to be specified in the json file. The import_collection
+logic doesnt try to validate anything, it will blindly update the corresponding document
+in the systems' backend database.
 
 
 General Note
@@ -327,3 +405,5 @@ Vasudhaiva Kutumbakam.
 
 Lets all be responsible in life and work towards the good of all.
 
+
+.. vim: set sts=4 ts=4 expandtab: ..
