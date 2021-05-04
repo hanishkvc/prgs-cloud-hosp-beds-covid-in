@@ -7,6 +7,7 @@ function server_auth() {
 function emulator() {
 	echo "ALERT: Targetting emulator"
 	export FIRESTORE_EMULATOR_HOST="localhost:8080"
+	export FIREBASE_AUTH_EMULATOR_HOST="localhost:9099"
 }
 
 server_auth

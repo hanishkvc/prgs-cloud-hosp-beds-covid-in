@@ -5,14 +5,20 @@
  */
 
 
+var crypto = require('crypto');
 var admin = require('firebase-admin');
 var hlpr = require('./hlpr');
 
 
 async function getUserId(userEmail) {
     userAuth = await admin.auth().getUserByEmail(userEmail);
-    console.log(userAuth);
-    return userAuth.uid;
+    //console.log(userAuth);
+    if (userAuth.emailVerified) {
+        console.error(`INFO:HospAdmins:User:${userEmail}: verified`);
+        return userAuth.uid;
+    }
+    console.error(`WARN:HospAdmins:User:${userEmail}: email Not yet verified, skipping`);
+    return 'INVALID'+crypto.randomBytes(16).toString('hex');
 }
 
 
@@ -26,10 +32,14 @@ async function transform(db, oData, mTransform) {
 }
 
 
-exports.import = function (db, cAdminsFile) {
+exports.import = async function (db, cAdminsFile) {
     oAdmins = require(cAdminsFile);
     for(tHosp in oAdmins) {
-        getUserId(oAdmins[tHosp])
+        try {
+            adminUid = await getUserId(oAdmins[tHosp])
+        } catch(error) {
+            console.error(`ERRR:HospAdmins:User:${oAdmins[tHosp]}:${error.message}`);
+        }
     }
 }
 
