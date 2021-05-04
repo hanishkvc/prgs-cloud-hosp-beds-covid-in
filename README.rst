@@ -87,6 +87,9 @@ the system will automatically update the time stamp wrt the corresponding hospit
 Developer view
 ===============
 
+General
+---------
+
 This is a online system built on top of a cloud based NoSql database as the backend, and
 html+javascript as the front end. Thus is inturn implemented as a serverless system, thus
 not requiring any micro managing of server. The backed system selected allows the system
@@ -134,6 +137,22 @@ and asking them to check internet connection and or ... This needs to be updated
 trap internally acknowledged failures at db bridge level and show same or more appropriate
 message. FOR NOW if user doesnt see any data, then they will mostly try reloading the page
 and that should take care of things at one level.
+
+Duplication
+------------
+
+If anyone finds this logic/system useful, feel free to duplicate it and customise it for
+your specific use case. This is released under GPL.
+
+When doing the same, as part of the same, at a minimum you will need to
+
+    replace the project id in .firebaserc with the one you created for yourself.
+
+    download the service account token for your project and store in a safe place
+    and update the environment variable in setup-env.sh appropriately. This is
+    need for using the firebase-admin sdk and inturn the admin scripts which I
+    have done.
+
 
 
 System administrator view
