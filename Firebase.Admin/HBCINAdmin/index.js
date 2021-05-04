@@ -47,7 +47,6 @@ var appArgs=process.argv.slice(2); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
         credential: admin.credential.applicationDefault(),
-        databaseURL: "https://hosp-beds-covid-in.firebaseio.com"
         });
     var db = app.firestore();
     if (appArgs[0] === 'create_testdata') {
