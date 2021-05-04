@@ -9,7 +9,7 @@ var admin = require('firebase-admin');
 var hlpr = require('./hlpr');
 
 
-exports.create_hosps = async function(db, oStates) {
+exports.create_hosps_testdata = async function(db, oStates) {
     dcHosps = db.collection('Hospitals');
     dcHospsExtra = db.collection('HospitalsExtra');
     iHosp = 0

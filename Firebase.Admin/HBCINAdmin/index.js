@@ -20,7 +20,7 @@ console.log('INFO: Import hospitals, hospitals admins, ...')
 function create_testdata() {
     console.log("INFO:creating testdata...");
     regions.create_states(db, goStates)
-    hospitals.create_hosps(db, goStates)
+    hospitals.create_hosps_testdata(db, goStates)
 }
 
 
