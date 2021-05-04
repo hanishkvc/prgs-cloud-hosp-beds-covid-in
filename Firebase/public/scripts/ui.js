@@ -304,11 +304,14 @@ function ui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
+        elMain.innerHTML = "<p> Loading data...</p>"
+        elMain.innerHTML += "<p> If it is taking too much time, cross check internet connection once </p>"
+        elMain.innerHTML += "<p> You could either wait or try reloading...</p>"
         lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
             .then((lHosps) => {
                 //console.log(lHosps)
+                ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
                 ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
                 ui_select_changehandler('hospParam', selparam_change);
             })
