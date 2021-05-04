@@ -34,11 +34,14 @@ async function transform(db, oData, mTransform) {
 
 exports.import = async function (db, cAdminsFile) {
     oAdmins = require(cAdminsFile);
+    dcHospsExtra = db.collection('HospitalsExtra');
     for(tHosp in oAdmins) {
         try {
             adminUid = await getUserId(oAdmins[tHosp])
+            await dcHospsExtra.doc(tHosp)
+                .set({ 'AdminId': adminUid });
         } catch(error) {
-            console.error(`ERRR:HospAdmins:User:${oAdmins[tHosp]}:${error.message}`);
+            console.error(`ERRR:HospAdmins:Hosp:${tHosp}:User:${oAdmins[tHosp]}:${error.message}`);
         }
     }
 }
