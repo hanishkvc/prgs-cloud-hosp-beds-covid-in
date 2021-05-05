@@ -1,3 +1,4 @@
+#!/bin/bash
 
 function server_auth() {
 	echo "INFO: Setting up Server Auth"
@@ -5,11 +6,19 @@ function server_auth() {
 }
 
 function emulator() {
-	echo "ALERT: Targetting emulator"
-	export FIRESTORE_EMULATOR_HOST="localhost:8080"
-	export FIREBASE_AUTH_EMULATOR_HOST="localhost:9099"
+	eMode=$1
+	if [ "$eMode" == "yes" ]; then
+		echo "ALERT: Targetting emulator"
+		export FIRESTORE_EMULATOR_HOST="localhost:8080"
+		export FIREBASE_AUTH_EMULATOR_HOST="localhost:9099"
+	else
+		echo "ALERT: Targetting Live"
+		export FIRESTORE_EMULATOR_HOST=
+		export FIREBASE_AUTH_EMULATOR_HOST=
+	fi
 }
 
 server_auth
-emulator
+#emulator no
+emulator yes
 
