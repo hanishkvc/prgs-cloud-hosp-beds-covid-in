@@ -73,6 +73,7 @@ exports.import = async function (db, cHospsFile, mode) {
             await dcHosps.doc(tHospId)
                 .set(tHosp);
             console.log(`INFO:Hospitals:ImportHosps:${tHospId}`);
+            await new Promise(r => setTimeout(r, 100));
         } catch(error) {
             console.error(`ERRR:Hospitals:ImportHosps:${tHospId}:${tHosp}:While adding:${error.message}`);
         }
