@@ -2,7 +2,7 @@
     "AN": {
         "Name": "Andaman and Nicobar Islands",
         "DId01": "South Andaman"
-        },
+    },
     "AP": {
         "Name": "Andhra Pradesh",
         "DId01": "Anantapur",
@@ -19,7 +19,7 @@
         "DId12": "Vizianagaram",
         "DId13": "West Godavari",
         "DId14": "Y.S.R."
-        },
+    },
     "AR": {
         "Name": "Arunachal Pradesh",
         "DId01": "East Siang",
@@ -27,7 +27,7 @@
         "DId03": "Papum Pare",
         "DId04": "Tawang",
         "DId05": "Upper Subansiri"
-        },
+    },
     "AS": {
         "Name": "Assam",
         "DId01": "Barpeta",
@@ -52,7 +52,7 @@
         "DId20": "Sivasagar",
         "DId21": "Sonitpur",
         "DId22": "Tinsukia"
-        },
+    },
     "BR": {
         "Name": "Bihar",
         "DId01": "Araria",
@@ -94,11 +94,11 @@
         "DId37": "Supaul",
         "DId38": "Vaishali",
         "DId39": "West Champaran"
-        },
+    },
     "CH": {
         "Name": "Chandigarh",
         "DId01": "Chandigarh"
-        },
+    },
     "CG": {
         "Name": "Chhattisgarh",
         "DId01": "Bastar",
@@ -120,20 +120,20 @@
         "DId17": "Raipur",
         "DId18": "Rajnandgaon",
         "DId19": "Surguja"
-        },
+    },
     "DH": {
         "Name": "Dadra and Nagar Haveli",
         "DId01": "Dadra and Nagar Haveli"
-        },
+    },
     "DD": {
         "Name": "Daman and Diu",
         "DId01": "Daman"
-        },
+    },
     "GA": {
         "Name": "Goa",
         "DId01": "North Goa",
         "DId02": "South Goa"
-        },
+    },
     "GJ": {
         "Name": "Gujarat",
         "DId01": "Ahmedabad",
@@ -162,7 +162,7 @@
         "DId24": "Tapi",
         "DId25": "Vadodara",
         "DId26": "Valsad"
-        },
+    },
     "HR": {
         "Name": "Haryana",
         "DId01": "Ambala",
@@ -186,7 +186,7 @@
         "DId19": "Sirsa",
         "DId20": "Sonipat",
         "DId21": "Yamunanagar"
-        },
+    },
     "HP": {
         "Name": "Himachal Pradesh",
         "DId01": "Bilaspur",
@@ -201,7 +201,7 @@
         "DId10": "Sirmaur",
         "DId11": "Solan",
         "DId12": "Una"
-        },
+    },
     "JK": {
         "Name": "Jammu and Kashmir",
         "DId01": "Anantnag",
@@ -213,7 +213,7 @@
         "DId07": "Pulwama",
         "DId08": "Srinagar",
         "DId09": "Udhampur"
-        },
+    },
     "JH": {
         "Name": "Jharkhand",
         "DId01": "Bokaro",
@@ -241,7 +241,7 @@
         "DId23": "Simdega",
         "DId24": "West Singhbhum",
         "DId25": "khunti"
-        },
+    },
     "KA": {
         "Name": "Karnataka",
         "DId01": "Bagalkot",
@@ -274,7 +274,7 @@
         "DId28": "Uttara Kannada",
         "DId29": "Vijayapura",
         "DId30": "Yadgir"
-        },
+    },
     "KL": {
         "Name": "Kerala",
         "DId01": "Alappuzha",
@@ -292,11 +292,11 @@
         "DId13": "Thiruvananthapuram",
         "DId14": "Thrissur",
         "DId15": "Wayanad"
-        },
+    },
     "LD": {
         "Name": "Lakshadweep",
         "DId01": "Lakshadweep"
-        },
+    },
     "MP": {
         "Name": "Madhya Pradesh",
         "DId01": "Anuppur",
@@ -347,7 +347,7 @@
         "DId46": "Umaria",
         "DId47": "Vidisha",
         "DId48": "nan"
-        },
+    },
     "MH": {
         "Name": "Maharashtra",
         "DId01": "Ahmednagar",
@@ -385,14 +385,14 @@
         "DId33": "Wardha",
         "DId34": "Washim",
         "DId35": "Yavatmal"
-        },
+    },
     "MN": {
         "Name": "Manipur",
         "DId01": "Churachandpur",
         "DId02": "Imphal East",
         "DId03": "Imphal West",
         "DId04": "Thoubal"
-        },
+    },
     "ML": {
         "Name": "Meghalaya",
         "DId01": "East Garo Hills",
@@ -401,7 +401,7 @@
         "DId04": "Ri Bhoi",
         "DId05": "West Garo Hills",
         "DId06": "West Khasi Hills"
-        },
+    },
     "MZ": {
         "Name": "Mizoram",
         "DId01": "Aizawl",
@@ -412,7 +412,7 @@
         "DId06": "Mamit",
         "DId07": "Saiha",
         "DId08": "Serchhip"
-        },
+    },
     "NL": {
         "Name": "Nagaland",
         "DId01": "Dimapur",
@@ -421,7 +421,7 @@
         "DId04": "Tuensang",
         "DId05": "Wokha",
         "DId06": "Zunheboto"
-        },
+    },
     "OR": {
         "Name": "Odisha",
         "DId01": "Angul",
@@ -453,12 +453,12 @@
         "DId27": "Sambalpur",
         "DId28": "Sonepur",
         "DId29": "Sundargarh"
-        },
+    },
     "PY": {
         "Name": "Puducherry",
         "DId01": "Karaikal",
         "DId02": "Puducherry"
-        },
+    },
     "PB": {
         "Name": "Punjab",
         "DId01": "Amritsar",
@@ -481,7 +481,7 @@
         "DId18": "Sangrur",
         "DId19": "Sri Muktsar Sahib",
         "DId20": "Tarn Taran"
-        },
+    },
     "RJ": {
         "Name": "Rajasthan",
         "DId01": "Ajmer",
@@ -516,11 +516,11 @@
         "DId30": "Sirohi",
         "DId31": "Tonk",
         "DId32": "Udaipur"
-        },
+    },
     "SK": {
         "Name": "Sikkim",
         "DId01": "East Sikkim"
-        },
+    },
     "TN": {
         "Name": "Tamil Nadu",
         "DId01": "Ariyalur",
@@ -554,7 +554,7 @@
         "DId29": "Vellore",
         "DId30": "Villupuram",
         "DId31": "Virudhunagar"
-        },
+    },
     "TS": {
         "Name": "Telangana",
         "DId01": "Adilabad",
@@ -567,14 +567,14 @@
         "DId08": "Nizamabad",
         "DId09": "Ranga Reddy",
         "DId10": "Warangal"
-        },
+    },
     "TR": {
         "Name": "Tripura",
         "DId01": "Dhalai",
         "DId02": "North Tripura",
         "DId03": "South Tripura",
         "DId04": "West Tripura"
-        },
+    },
     "UP": {
         "Name": "Uttar Pradesh",
         "DId01": "Agra",
@@ -648,7 +648,7 @@
         "DId69": "Sultanpur",
         "DId70": "Unnao",
         "DId71": "Varanasi"
-        },
+    },
     "UK": {
         "Name": "Uttarakhand",
         "DId01": "Almora",
@@ -664,7 +664,7 @@
         "DId11": "Tehri Garhwal",
         "DId12": "Udham Singh Nagar",
         "DId13": "Uttarkashi"
-        },
+    },
     "WB": {
         "Name": "West Bengal",
         "DId01": "24 Pargs (N)",
@@ -687,5 +687,5 @@
         "DId18": "North 24 Parganas",
         "DId19": "Purulia",
         "DId20": "South 24 Parganas"
-        }
+    }
 }

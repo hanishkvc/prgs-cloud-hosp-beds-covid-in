@@ -24,30 +24,25 @@ def get_statecodes(fName):
 def gen_regions(fName, dStates):
     p=pandas.read_csv(fName)
     dRegions = {}
-    f = open("/tmp/regions.json","w+")
-    print('{', file=f)
+    dJRegions = {}
     for s in p.State.unique():
         if s.startswith('North Twenty'):
             continue
+        tStateId = dStates[s]
         dRegions[s] = {}
-        print('    "{}": '.format(dStates[s])+"{", file=f)
-        print('{:8}"Name": "{}",'.format(" ",s), file=f)
+        dJRegions[tStateId] = {}
+        dJRegions[tStateId]['Name'] = s
         i = 0
         tDistricts = p[p.State == s].District.unique().astype(str)
-        print(s, tDistricts)
         tDistricts.sort()
-        print(tDistricts.shape[0])
         for d in tDistricts:
             i += 1
-            if (i >= tDistricts.shape[0]):
-                tTerm = ""
-            else:
-                tTerm = ","
             tDId = "DId{:02}".format(i)
-            print('{:8}"{}": "{}"{}'.format(" ",tDId,d,tTerm), file=f)
             dRegions[s][d] = tDId
-        print("{:8}".format(' ')+"},", file=f)
-    print('}', file=f)
+            dJRegions[tStateId][tDId] = d
+    jRegions = json.dumps(dJRegions, indent=4)
+    f = open("/tmp/regions.json","w+")
+    f.write(jRegions)
     f.close()
     return dRegions
 
