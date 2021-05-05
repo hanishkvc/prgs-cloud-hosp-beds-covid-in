@@ -37,6 +37,12 @@ function import_collection(db, cName, cFile) {
 }
 
 
+function import_hospitals(db, cHospsFile) {
+    console.log(`INFO:importing hospitals [${cHospsFile}]...`);
+    hospAdmins.import(db, cHospsFile);
+}
+
+
 function import_hospadmins(db, cAdminsFile) {
     console.log(`INFO:importing admins [${cAdminsFile}]...`);
     hospAdmins.import(db, cAdminsFile);
@@ -55,6 +61,8 @@ try {
         create_regions();
     } else if (appArgs[0] === 'import_collection') {
         import_collection(db, appArgs[1], appArgs[2])
+    } else if (appArgs[0] === 'import_hospitals') {
+        import_hospitals(db, appArgs[1])
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
     }

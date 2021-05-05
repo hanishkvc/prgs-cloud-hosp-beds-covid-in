@@ -53,3 +53,24 @@ exports.create_hosps_testdata = async function(db, oStates) {
 }
 
 
+exports.import = async function (db, cHospsFile) {
+    try {
+        oHosps = require(cHospsFile);
+    } catch(error) {
+        console.error(`ERRR:Hospitals:Import:[${cHospsFile}] invalid???:${error.message}`);
+        return
+    }
+    dcHosps = db.collection('Hospitals');
+    for(tHospId in oHosps) {
+        try {
+            tHosp = oHosps[tHospId]
+            await dcHosps.doc(tHospId)
+                .set(tHosp);
+        } catch(error) {
+            console.error(`ERRR:Hospitals:Hosp:${tHospId}:${tHosp}:While adding:${error.message}`);
+        }
+    }
+}
+
+
+/* vim: set ts=4 sts=4 sw=4 expandtab :*/
