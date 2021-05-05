@@ -39,7 +39,7 @@ function import_collection(db, cName, cFile) {
 
 function import_hospitals(db, cHospsFile) {
     console.log(`INFO:importing hospitals [${cHospsFile}]...`);
-    hospAdmins.import(db, cHospsFile);
+    hospitals.import(db, cHospsFile);
 }
 
 

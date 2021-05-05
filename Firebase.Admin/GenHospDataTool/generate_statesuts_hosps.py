@@ -52,6 +52,7 @@ def gen_regions(fName, dStates):
     return dRegions
 
 
+bModeTestData = True
 def gen_hosps(fName, dStates, dRegions):
     p=pandas.read_csv(fName)
     dHosps = {}
@@ -76,14 +77,18 @@ def gen_hosps(fName, dStates, dRegions):
                 h['Pincode'] = tPincode
                 hospCnt += 1
                 tHospId = "H{}{}_{}".format(tStateId, tDistrictId, hospCnt)
+                if bModeTestData: # -1 is better to indicate Not yet entered by data owner, but for testing putting 1 for now
+                    bedsInitValue = 1
+                else:
+                    bedsInitValue = -1
                 dHosp = {
                     'Name': h['Hospital_Name'],
                     'StateId': tStateId,
                     'DistrictId': tDistrictId,
                     'PinCode': h['Pincode'],
-                    'BedsICU': -1,
-                    'BedsNormal': -1,
-                    'BedsVntltr': -1,
+                    'BedsICU': bedsInitValue,
+                    'BedsNormal': bedsInitValue,
+                    'BedsVntltr': bedsInitValue,
                     }
                 dHosps[tHospId] = dHosp
                 print(dHosp)
