@@ -98,9 +98,14 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     if (bOverwrite === undefined) bOverwrite = true;
     tHTML = " <table> ";
     tHTML += "<thead> <tr> ";
-    for (lPart of lHead) {
+    for (tField of lHead) {
         //console.log(lPart)
-        tHTML += ` <th>${lPart}</th> `;
+        tType = mTypes[tField]
+        if (tType === 'hide') {
+            tHTML += ` <th style="display:none;">${tField}</th> `;
+        } else {
+            tHTML += ` <th>${tField}</th> `;
+        }
     }
     tHTML += " </tr> </thead> ";
     tHTML += "<tbody> ";
@@ -121,6 +126,8 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
                 tHTML += ` <td> <input type="number" class="h7in" id="${r}" name="${tField}" value="${lPart}"> </td> `;
             } else if (tType === 'button') {
                 tHTML += ` <td> <button type="button" class="h7btn" id="${r}" name="${tEntityId}"> ${lPart} </button> </td> `;
+            } else if (tType === 'hide') {
+                tHTML += ` <td style="display:none;">${lPart}</td> `;
             } else {
                 tHTML += ` <td>${lPart}</td> `;
             }
@@ -334,7 +341,7 @@ function ui_sync() {
                 //console.log(lHosps)
                 clear_loadingdata_timeout();
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
-                ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead);
+                ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead, { 'HospId': 'hide' });
                 ui_select_changehandler('hospParam', selparam_change);
             })
             .catch((error) => {
