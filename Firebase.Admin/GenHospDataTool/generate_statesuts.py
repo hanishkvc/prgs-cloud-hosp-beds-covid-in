@@ -50,10 +50,39 @@ def gen_regions(fName, dStates):
     return dRegions
 
 
+def gen_hosps(fName, dStates, dRegions):
+    p=pandas.read_csv(fName)
+    dHosps = {}
+    hospCnt = 0
+    for s in p.State.unique():
+        if s.startswith('North Twenty'):
+            continue
+        tStateId = dStates[s]
+        tDistricts = p[p.State == s].District.unique().astype(str)
+        tDistricts.sort()
+        for d in tDistricts:
+            tDistrictId = dRegions[s][d]
+            tHosps = p[p.State == s][p.District == d]
+            for i in range(tHosps.shape[0]):
+                h = tHosps.iloc[i]
+                hospCnt += 1
+                tHospId = "H{}{}_{}".format(tStateId, tDistrictId, hospCnt)
+                dHosps[tHospId] = {
+                    'Name': h.Hospital_Name,
+                    'StateId': tStateId,
+                    'DistrictId': tDistrictId,
+                    'PinCode': h.Pincode,
+                    'BedsICU': -1,
+                    'BedsNormal': -1,
+                    'BedsVntltr': -1,
+                    }
+    return dHosps
+
 
 dStates = get_statecodes("./statesuts.code.csv")
 dRegions = gen_regions("hospital_directory.csv", dStates)
 print(dRegions)
-
+dHosps = gen_hosps("./hospital_directory.csv", dStates, dRegions)
+print(dHosps)
 
 # vim: set sts=4 ts=4 sw=4 expandtab: #
