@@ -331,6 +331,7 @@ function ui_sync() {
             //console.log(lDists)
             ui_list_buttons(elMain, lDists, district_handler);
             });
+        elAuth.innerHTML = "";
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
@@ -343,6 +344,7 @@ function ui_sync() {
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
                 ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead, { 'HospId': 'hide' });
                 ui_select_changehandler('hospParam', selparam_change);
+                elAuth.innerHTML = "Upto a maximum of 10 hospitals from sorted list will be shown";
             })
             .catch((error) => {
                 console.log("ERRR:UISync:State+Dist", error);
