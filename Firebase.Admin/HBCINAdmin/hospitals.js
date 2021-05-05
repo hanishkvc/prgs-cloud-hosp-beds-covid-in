@@ -25,8 +25,8 @@ exports.create_hosps_testdata = async function(db, oStates) {
             for(i = 0; i < tHospNums; i++) {
                 iHosp += 1
                 tHosp = {
-                    'Name': 'HospName',
-                    'PinCode': 123456,
+                    'Name': `HospName_${iHosp}`,
+                    'PinCode': 123456+iHosp,
                     'DistrictId': tKey,
                     'StateId': tStateK,
                     'BedsICU': Math.round(Math.random()*20),
