@@ -52,7 +52,7 @@ def gen_regions(fName, dStates):
     return dRegions
 
 
-bModeTestData = True
+bModeTestData = False
 def gen_hosps(fName, dStates, dRegions):
     p=pandas.read_csv(fName)
     dHosps = {}

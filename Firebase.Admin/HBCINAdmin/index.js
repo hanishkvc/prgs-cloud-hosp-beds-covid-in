@@ -37,9 +37,9 @@ function import_collection(db, cName, cFile) {
 }
 
 
-function import_hospitals(db, cHospsFile) {
+function import_hospitals(db, cHospsFile, cMode) {
     console.log(`INFO:importing hospitals [${cHospsFile}]...`);
-    hospitals.import(db, cHospsFile);
+    hospitals.import(db, cHospsFile, cMode);
 }
 
 
@@ -62,7 +62,7 @@ try {
     } else if (appArgs[0] === 'import_collection') {
         import_collection(db, appArgs[1], appArgs[2])
     } else if (appArgs[0] === 'import_hospitals') {
-        import_hospitals(db, appArgs[1])
+        import_hospitals(db, appArgs[1], appArgs[2])
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
     }

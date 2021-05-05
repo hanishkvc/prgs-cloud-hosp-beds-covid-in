@@ -53,7 +53,7 @@ exports.create_hosps_testdata = async function(db, oStates) {
 }
 
 
-exports.import = async function (db, cHospsFile) {
+exports.import = async function (db, cHospsFile, mode) {
     try {
         oHosps = require(cHospsFile);
     } catch(error) {
@@ -64,6 +64,11 @@ exports.import = async function (db, cHospsFile) {
     for(tHospId in oHosps) {
         try {
             tHosp = oHosps[tHospId]
+            if (mode == 'TEST') {
+                tHosp['BedsICU'] = 1
+                tHosp['BedsNormal'] = 1
+                tHosp['BedsVntltr'] = 1
+            }
             await dcHosps.doc(tHospId)
                 .set(tHosp);
             console.log(`INFO:Hospitals:ImportHosps:${tHospId}`);
