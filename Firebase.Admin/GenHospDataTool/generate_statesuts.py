@@ -4,6 +4,7 @@
 # GPL
 
 import pandas
+import json
 
 
 def get_statecodes(fName):
@@ -67,7 +68,7 @@ def gen_hosps(fName, dStates, dRegions):
                 h = tHosps.iloc[i]
                 hospCnt += 1
                 tHospId = "H{}{}_{}".format(tStateId, tDistrictId, hospCnt)
-                dHosps[tHospId] = {
+                dHosp = {
                     'Name': h.Hospital_Name,
                     'StateId': tStateId,
                     'DistrictId': tDistrictId,
@@ -76,13 +77,17 @@ def gen_hosps(fName, dStates, dRegions):
                     'BedsNormal': -1,
                     'BedsVntltr': -1,
                     }
+                dHosps[tHospId] = dHosp
+                print(dHosp)
+    jHosps = json.dumps(dHosps, indent=4)
+    f = open("/tmp/hosps.json","wt+")
+    f.write(jHosps)
+    f.close()
     return dHosps
 
 
 dStates = get_statecodes("./statesuts.code.csv")
 dRegions = gen_regions("hospital_directory.csv", dStates)
-print(dRegions)
 dHosps = gen_hosps("./hospital_directory.csv", dStates, dRegions)
-print(dHosps)
 
 # vim: set sts=4 ts=4 sw=4 expandtab: #
