@@ -21,11 +21,13 @@ def get_statecodes(fName):
 
 def gen_regions(fName, dStates):
     p=pandas.read_csv(fName)
+    dRegions = {}
     f = open("/tmp/regions.json","w+")
     print('{', file=f)
     for s in p.State.unique():
         if s.startswith('North Twenty'):
             continue
+        dRegions[dStates[s]] = {}
         print('    "{}": '.format(dStates[s])+"{", file=f)
         print('{:8}"Name": "{}",'.format(" ",s), file=f)
         i = 0
@@ -39,15 +41,19 @@ def gen_regions(fName, dStates):
                 tTerm = ""
             else:
                 tTerm = ","
-            print('{:8}"DId{:02}": "{}"{}'.format(" ",i,d,tTerm), file=f)
+            tDId = "DId{:02}".format(i)
+            print('{:8}"{}": "{}"{}'.format(" ",tDId,d,tTerm), file=f)
+            dRegions[dStates[s]][d] = tDId
         print("{:8}".format(' ')+"},", file=f)
     print('}', file=f)
     f.close()
+    return dRegions
+
 
 
 dStates = get_statecodes("./statesuts.code.csv")
-gen_regions("hospital_directory.csv", dStates)
-
+dRegions = gen_regions("hospital_directory.csv", dStates)
+print(dRegions)
 
 
 # vim: set sts=4 ts=4 sw=4 expandtab: #
