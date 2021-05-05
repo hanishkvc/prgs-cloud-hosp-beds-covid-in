@@ -29,6 +29,9 @@ so that users can have a rough idea of how current the data may be wrt each hosp
 Any person can access the availability status maintained by the system, without needing
 to login to the system.
 
+NOTE: Microsoft IE is currently not supported, On windows one will have to use the newer
+Microsoft Edge or Chrome or Firefox or ...
+
 
 Data Owner's view
 =====================
