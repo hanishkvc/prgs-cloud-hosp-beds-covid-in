@@ -5,6 +5,7 @@
 
 import pandas
 import json
+import numpy
 
 
 def get_statecodes(fName):
@@ -65,14 +66,21 @@ def gen_hosps(fName, dStates, dRegions):
             tDistrictId = dRegions[s][d]
             tHosps = p[p.State == s][p.District == d]
             for i in range(tHosps.shape[0]):
-                h = tHosps.iloc[i]
+                h = dict(tHosps.iloc[i])
+                tPincode = str(h['Pincode'])
+                if (tPincode == 'nan'):
+                    tPincode = 999999
+                else:
+                    tPincode = tPincode.strip()[:6]
+                    tPincode = int(tPincode.replace(" ", ""))
+                h['Pincode'] = tPincode
                 hospCnt += 1
                 tHospId = "H{}{}_{}".format(tStateId, tDistrictId, hospCnt)
                 dHosp = {
-                    'Name': h.Hospital_Name,
+                    'Name': h['Hospital_Name'],
                     'StateId': tStateId,
                     'DistrictId': tDistrictId,
-                    'PinCode': h.Pincode,
+                    'PinCode': h['Pincode'],
                     'BedsICU': -1,
                     'BedsNormal': -1,
                     'BedsVntltr': -1,
