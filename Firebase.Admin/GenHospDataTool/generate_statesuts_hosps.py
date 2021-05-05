@@ -3,6 +3,7 @@
 # HanishKVC, 2021
 # GPL
 
+import sys
 import pandas
 import json
 import numpy
@@ -48,7 +49,7 @@ def gen_regions(fName, dStates):
 
 
 bModeTestData = False
-def gen_hosps(fName, dStates, dRegions):
+def gen_hosps(fName, dStates, dRegions, bSkipNoCatHosps):
     p=pandas.read_csv(fName)
     dHosps = {}
     hospCnt = 0
@@ -63,6 +64,8 @@ def gen_hosps(fName, dStates, dRegions):
             tHosps = p[p.State == s][p.District == d]
             for i in range(tHosps.shape[0]):
                 h = dict(tHosps.iloc[i])
+                if bSkipNoCatHosps and (h['Hospital_Category'] == '0'):
+                    continue
                 tPincode = str(h['Pincode'])
                 if (tPincode == 'nan'):
                     tPincode = 999999
@@ -94,8 +97,13 @@ def gen_hosps(fName, dStates, dRegions):
     return dHosps
 
 
+bSkipNoCatHosps = True
+if (len(sys.argv) > 1) and (sys.argv[1] == 'ALL_HOSPITALS'):
+    bSkipNoCatHosps = False
+
+
 dStates = get_statecodes("./statesuts.code.csv")
 dRegions = gen_regions("hospital_directory.csv", dStates)
-dHosps = gen_hosps("./hospital_directory.csv", dStates, dRegions)
+dHosps = gen_hosps("./hospital_directory.csv", dStates, dRegions, bSkipNoCatHosps)
 
 # vim: set sts=4 ts=4 sw=4 expandtab: #
