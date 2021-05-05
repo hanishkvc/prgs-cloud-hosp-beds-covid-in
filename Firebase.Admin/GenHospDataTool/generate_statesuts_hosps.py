@@ -97,9 +97,9 @@ def gen_hosps(fName, dStates, dRegions, bSkipNoCatHosps):
     return dHosps
 
 
-bSkipNoCatHosps = True
-if (len(sys.argv) > 1) and (sys.argv[1] == 'ALL_HOSPITALS'):
-    bSkipNoCatHosps = False
+bSkipNoCatHosps = False
+if (len(sys.argv) > 1) and (sys.argv[1] == 'SKIP_NOCAT_HOSPITALS'):
+    bSkipNoCatHosps = True
 
 
 dStates = get_statecodes("./statesuts.code.csv")
