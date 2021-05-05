@@ -65,10 +65,11 @@ exports.import = async function (db, cHospsFile, mode) {
         try {
             tHosp = oHosps[tHospId]
             if (mode == 'TEST') {
-                tHosp['BedsICU'] = 1
-                tHosp['BedsNormal'] = 1
-                tHosp['BedsVntltr'] = 1
+                tHosp['BedsICU'] = Math.round(Math.random()*10)
+                tHosp['BedsNormal'] = Math.round(Math.random()*10)
+                tHosp['BedsVntltr'] = Math.round(Math.random()*10)
             }
+            tHosp['TimeStamp'] = admin.firestore.FieldValue.serverTimestamp()
             await dcHosps.doc(tHospId)
                 .set(tHosp);
             console.log(`INFO:Hospitals:ImportHosps:${tHospId}`);
