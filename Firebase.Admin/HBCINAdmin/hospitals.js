@@ -65,9 +65,9 @@ exports.import = async function (db, cHospsFile, mode) {
         try {
             tHosp = oHosps[tHospId]
             if (mode == 'TEST') {
-                tHosp['BedsICU'] = Math.round(Math.random()*10)
-                tHosp['BedsNormal'] = Math.round(Math.random()*10)
-                tHosp['BedsVntltr'] = Math.round(Math.random()*10)
+                tHosp['BedsICU'] = 1+Math.round(Math.random()*10)
+                tHosp['BedsNormal'] = 1+Math.round(Math.random()*10)
+                tHosp['BedsVntltr'] = 1+Math.round(Math.random()*10)
             }
             tHosp['TimeStamp'] = admin.firestore.FieldValue.serverTimestamp()
             await dcHosps.doc(tHospId)
