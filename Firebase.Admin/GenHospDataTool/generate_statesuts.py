@@ -27,7 +27,7 @@ def gen_regions(fName, dStates):
     for s in p.State.unique():
         if s.startswith('North Twenty'):
             continue
-        dRegions[dStates[s]] = {}
+        dRegions[s] = {}
         print('    "{}": '.format(dStates[s])+"{", file=f)
         print('{:8}"Name": "{}",'.format(" ",s), file=f)
         i = 0
@@ -43,7 +43,7 @@ def gen_regions(fName, dStates):
                 tTerm = ","
             tDId = "DId{:02}".format(i)
             print('{:8}"{}": "{}"{}'.format(" ",tDId,d,tTerm), file=f)
-            dRegions[dStates[s]][d] = tDId
+            dRegions[s][d] = tDId
         print("{:8}".format(' ')+"},", file=f)
     print('}', file=f)
     f.close()
