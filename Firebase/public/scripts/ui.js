@@ -116,7 +116,7 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
             //console.log(lPart)
             tField = lHead[c]
             tType = mTypes[tField]
-            console.log("ui_table:", r, c, mTypes, tField, tType);
+            //console.log("ui_table:", r, c, mTypes, tField, tType);
             if (tType === 'input') {
                 tHTML += ` <td> <input type="number" class="h7in" id="${r}" name="${tField}" value="${lPart}"> </td> `;
             } else if (tType === 'button') {
