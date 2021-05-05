@@ -266,7 +266,7 @@ function fixup_elcurpath(msg) {
 function ui_update(el) {
     fixup_elcurpath('Update Free Hospital Beds info')
     lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
-    mTypes = { gINBedsICU: 'input', gINBedsNormal: 'input', gINBedsVntltr: 'input', 'SyncIt': 'button' }
+    mTypes = { [gINBedsICU]: 'input', [gINBedsNormal]: 'input', [gINBedsVntltr]: 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
         .then((lHosps) => {
             for(i = 0; i < lHosps.length; i++) {
