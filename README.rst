@@ -186,7 +186,7 @@ data and then run
 
     node index.js create_regions
 
-    node index.js import_collection Hospitals ./config/hospitals.vDate.json
+    node index.js import_hospitals ./config/hospitals.vDate.json
 
     node index.js import_hospadmins ./config/hospital.admins.vDate.json
 
@@ -202,15 +202,79 @@ data and then run
     system. New hospitals.json can be created which contains only details for the new
     hospitals and hospital.admins.json can be created with admin details for new hospitals
     as well as hospitals for which the admin is being changed. Inturn run the same
-    import_collection/import_hospadmins command as before but with the new json files
+    import_hospitals/import_hospadmins command as before but with the new json files
     being passed to them.
 
-    node index.js import_collection Hospitals ./config/new.hospitals.vDate.json
+    node index.js import_hospitals ./config/new.hospitals.vDate.json
 
     node index.js import_hospadmins ./config/updates.hospital.admins.vDate.json
 
     NOTE: As the hospitals data and the admins data will change very rarely, it is managed
     in a simple raw way, for now.
+
+
+Hospitals
+-----------
+
+The GenHospDataTool/generate_statesuts_hosps.py helper script can allow one to create the
+states/uts/districts/regions json file, as well as the hospitals json file. These inturn
+can be imported into the system using create_regions and import_hospitals command to the
+admin script.
+
+This script uses the hospitals directory data file from data.gov.in to generate the json
+files. One needs to manually download the hospitals directory data file into a folder and
+inturn run the generate script from that folder.
+
+node index.js import_hospitals path/to/hospitals.json
+
+expects the hospitals json file to mirror the data schema of the hospitals collection
+and its hospital documents. Generate helper script generates json file in this required
+format automatically.
+
+::
+
+    {
+        "HOSPID1": {
+            'Name': "Hospital Name1",
+            'PinCode': PINCODE,
+            'StateId': STATE_ID,
+            'DistrictId': DISTRICT_ID,
+            'BedsICU': ICUBEDS_FREE,
+            'BedsNormal': NORMALBEDS_FREE,
+            'BedsVntltr': VENTILATORS_FREE
+            },
+        "HOSPID2": {
+            'Name': "Hospital Name2",
+            'PinCode': PINCODE,
+            'StateId': STATE_ID,
+            'DistrictId': DISTRICT_ID,
+            'BedsICU': ICUBEDS_FREE,
+            'BedsNormal': NORMALBEDS_FREE,
+            'BedsVntltr': VENTILATORS_FREE
+            },
+        ...,
+        "HOSPIDN": {
+            'Name': "Hospital NameN",
+            'PinCode': PINCODE,
+            'StateId': STATE_ID,
+            'DistrictId': DISTRICT_ID,
+            'BedsICU': ICUBEDS_FREE,
+            'BedsNormal': NORMALBEDS_FREE,
+            'BedsVntltr': VENTILATORS_FREE
+            }
+    }
+
+If using import_hospitals command, there is no need to specify the timestamp field within
+the hospital document data schema, because it is automatically set in a suitable way.
+
+However if one is using the import_collection command, then even the timestamp field needs
+to be part of the json file.
+
+If using import_hospitals there is a additional optional argument which can be passed as
+the last argument to that command after the json file. If this argument contains the value
+TEST, then the logic will ignore any value in the json file wrt the beds related fields,
+and instead generate some value randomly. This is useful for testing without having to
+specify different values for different hospitals wrt different bed types.
 
 
 Hospital DataOwners/Admins
@@ -224,8 +288,8 @@ It is recommended to use the import_hospadmins command in general.
 NOTE that in either case the json file requires to be a valid json file, with no ',' wrt
 end of last record.
 
-import_hospadmins
-~~~~~~~~~~~~~~~~~~
+Using import_hospadmins
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The corresponding command is
 
@@ -257,8 +321,8 @@ to udpate the resource availability data wrt the hospital.
 
 In all of these 3 cases, a message is also logged to the console.
 
-import_collection
-~~~~~~~~~~~~~~~~~~~
+Using import_collection
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The command is
 
@@ -285,6 +349,22 @@ HospitalsExtra collection's data schema. i.e
 In this case, the admin's uid needs to be specified in the json file. The import_collection
 logic doesnt try to validate anything, it will blindly update the corresponding document
 in the systems' backend database.
+
+
+import_collection
+-------------------
+
+This is a generic command available for importing a simple collection of documents (firestore
+speak), into the backend firestore database.
+
+It doesnt try to validate anything, but instead just does a blind transfer into the server.
+
+Even thou import_hospitals is the recommended way to import hospital details into the system,
+one could still use import_collection to import the data and avoid the additional cost if any
+associated with server.TimeStamping (vaguely remembering reading somewhere on google site that
+there is a additional cost associated with server timestamping, which seemed bit odd, and I am
+not able to get that online page again now). However in this case you will be filling the time
+stamp yourself with what ever value you choose.
 
 
 General Note
