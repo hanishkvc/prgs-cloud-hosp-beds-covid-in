@@ -40,13 +40,19 @@ function dbupdate_callback(bSuccess, sKey, sMsg, elUI) {
 }
 
 
+const gINBedsICU = "ICU";
+const gINBedsNormal = "Normal";
+const gINBedsVntltr = "Vntltr";
+/**
+ * Handle sync button click wrt hospitals in update mode
+ */
 function updtbl_handler(e) {
     //console.debug("DBUG:UTHandler:",e);
     e.target.style.backgroundColor = '#a0a0c0';
     tId = e.target.id;
     hospId = e.target.name;
     iBedsICU = 0
-    tIns = document.getElementsByName('BedsICU');
+    tIns = document.getElementsByName(gINBedsICU);
     for(i=0; i<tIns.length; i++) {
         //console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
         if (tIns[i].id === tId) {
@@ -54,7 +60,7 @@ function updtbl_handler(e) {
         }
     }
     iBedsNormal = 0
-    tIns = document.getElementsByName('BedsNormal');
+    tIns = document.getElementsByName(gINBedsNormal);
     for(i=0; i<tIns.length; i++) {
         //console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
         if (tIns[i].id === tId) {
@@ -62,7 +68,7 @@ function updtbl_handler(e) {
         }
     }
     iBedsVntltr = 0
-    tIns = document.getElementsByName('BedsVntltr');
+    tIns = document.getElementsByName(gINBedsVntltr);
     for(i=0; i<tIns.length; i++) {
         if (tIns[i].id === tId) {
             iBedsVntltr = Number(tIns[i].value)
@@ -110,7 +116,7 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
             //console.log(lPart)
             tField = lHead[c]
             tType = mTypes[tField]
-            //console.log("ui_table:", mTypes, lHead[i], tType);
+            console.log("ui_table:", r, c, mTypes, tField, tType);
             if (tType === 'input') {
                 tHTML += ` <td> <input type="number" class="h7in" id="${r}" name="${tField}" value="${lPart}"> </td> `;
             } else if (tType === 'button') {
@@ -259,8 +265,8 @@ function fixup_elcurpath(msg) {
 
 function ui_update(el) {
     fixup_elcurpath('Update Free Hospital Beds info')
-    lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'SyncIt' ]
-    mTypes = { 'BedsICU': 'input', 'BedsNormal': 'input', 'BedsVntltr': 'input', 'SyncIt': 'button' }
+    lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
+    mTypes = { gINBedsICU: 'input', gINBedsNormal: 'input', gINBedsVntltr: 'input', 'SyncIt': 'button' }
     db_get_adminhospitals(gDB, gGotAuth)
         .then((lHosps) => {
             for(i = 0; i < lHosps.length; i++) {
@@ -322,7 +328,7 @@ function ui_sync() {
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
         set_loadingdata_timeout();
-        lHead = [ "HospId", 'BedsICU', 'BedsNormal', 'BedsVntltr', "Name", 'Pincode', 'TimeStamp' ]
+        lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
             .then((lHosps) => {
                 //console.log(lHosps)
