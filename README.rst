@@ -393,14 +393,14 @@ The Main screen
 State level screen
 
 .. image:: Notes/Images/HBCIn_DistrictLvl1.png
-   :alt: District Lvl screen - filter on BedsICU
+   :alt: District Lvl screen - filter and sort on BedsNormal
 
-District level screen - Filter on BedsICU
+District level screen - Filter-Sort on BedsNormal
 
 .. image:: Notes/Images/HBCIn_DistrictLvl2.png
-   :alt: District Lvl screen - filter on BedsVntltr
+   :alt: District Lvl screen - filter and sort on BedsVentilator
 
-District level screen - Filter on BedsVntltr
+District level screen - Filter-Sort on BedsVentilator
 
 .. image:: Notes/Images/HBCIn_UpdateModeSignIn.png
    :alt: UpdateMode SignIn screen
@@ -410,12 +410,12 @@ UpdateMode signin screen
 .. image:: Notes/Images/HBCIn_UpdateModeUpdate.png
    :alt: UpdateMode Update screen
 
-UpdateMode update screen
+UpdateMode update availability screen
 
 .. image:: Notes/Images/HBCIn_StateLvl2.png
    :alt: State Lvl screen - signed in
 
-State level screen (signed in)
+State level screen (signed in - shows user email)
 
 
 At the End
