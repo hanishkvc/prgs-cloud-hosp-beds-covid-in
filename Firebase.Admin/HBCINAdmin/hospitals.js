@@ -57,7 +57,7 @@ exports.import = async function (db, cHospsFile) {
     try {
         oHosps = require(cHospsFile);
     } catch(error) {
-        console.error(`ERRR:Hospitals:Import:[${cHospsFile}] invalid???:${error.message}`);
+        console.error(`ERRR:Hospitals:ImportHosps:[${cHospsFile}] invalid???:${error.message}`);
         return
     }
     dcHosps = db.collection('Hospitals');
@@ -66,8 +66,9 @@ exports.import = async function (db, cHospsFile) {
             tHosp = oHosps[tHospId]
             await dcHosps.doc(tHospId)
                 .set(tHosp);
+            console.log(`INFO:Hospitals:ImportHosps:${tHospId}`);
         } catch(error) {
-            console.error(`ERRR:Hospitals:Hosp:${tHospId}:${tHosp}:While adding:${error.message}`);
+            console.error(`ERRR:Hospitals:ImportHosps:${tHospId}:${tHosp}:While adding:${error.message}`);
         }
     }
 }
