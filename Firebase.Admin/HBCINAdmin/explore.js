@@ -12,16 +12,24 @@ function list_states(oRegions) {
 }
 
 
+function list_districts(oRegions, stateId) {
+    for(tDistCode in oRegions[stateId]) {
+        console.log(`States:${tDistCode}:${oRegions[stateId][tDistCode]}`)
+    }
+}
+
+
 exports.explore_jsons = function(cmdArgs) {
     cRegionsFile = cmdArgs[1];
     cHospsFile = cmdArgs[2];
     cmd = cmdArgs[3];
+    stateId = cmdArgs[4];
+    districtId = cmdArgs[5];
     oRegions = require(cRegionsFile);
     oHosps = require(cHospsFile);
     bQuit = false;
-    if (cmd == 'statesls') {
-        list_states(oRegions);
-    }
+    if (cmd == 'statesls') list_states(oRegions);
+    if (cmd == 'districtsls') list_districts(oRegions, stateId);
 }
 
 
