@@ -19,6 +19,18 @@ function list_districts(oRegions, stateId) {
 }
 
 
+function list_hosps(oHosps, stateId, districtId) {
+    console.log("Explore: Hospitals in", stateId, districtId);
+    for(tHospId in oHosps) {
+        tHosp = oHosps[tHospId]
+        if ((tHosp.StateId == stateId) && (tHosp.DistrictId == districtId)) {
+            console.log(`Hosp:${tHospId}:`);
+            console.log(tHosp);
+        }
+    }
+}
+
+
 exports.explore_jsons = function(cmdArgs) {
     cRegionsFile = cmdArgs[1];
     cHospsFile = cmdArgs[2];
@@ -30,6 +42,7 @@ exports.explore_jsons = function(cmdArgs) {
     bQuit = false;
     if (cmd == 'statesls') list_states(oRegions);
     if (cmd == 'districtsls') list_districts(oRegions, stateId);
+    if (cmd == 'hospsls') list_hosps(oHosps, stateId, districtId);
 }
 
 
