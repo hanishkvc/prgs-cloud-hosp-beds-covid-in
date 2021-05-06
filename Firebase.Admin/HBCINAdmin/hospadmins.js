@@ -37,6 +37,23 @@ async function transform(db, oData, mTransform) {
 }
 
 
+exports.enable_testadmin = function(db, testAdmin="test@india.world") {
+    admin.auth().getUserByEmail(testAdmin)
+        .then((adminAuth) => {
+            admin.auth().updateUser(adminAuth.uid, { emailVerified: true })
+                .then((mUser) => {
+                    console.log("INFO:HospAdmins:EnableTestAdmin: Enabled", mUser.email);
+                })
+                .catch((error) => {
+                    console.error("ERRR:HospAdmins:EnableTestAdmin: Failed", error);
+                });
+        })
+        .catch((error) => {
+            console.error("DBUG:HospAdmins:EnableTestAdmin:", error);
+        });
+}
+
+
 exports.import = async function (db, cAdminsFile) {
     try {
         oAdmins = require(cAdminsFile);

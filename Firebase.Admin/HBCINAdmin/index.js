@@ -51,6 +51,12 @@ function import_hospitals(db, cmdArgs) {
 }
 
 
+function add_testadmin(db, cmdArgs) {
+    console.log(`INFO:add testadmin...`);
+    hospAdmins.enable_testadmin(db);
+}
+
+
 function import_hospadmins(db, cAdminsFile) {
     console.log(`INFO:importing admins [${cAdminsFile}]...`);
     hospAdmins.import(db, cAdminsFile);
@@ -71,6 +77,8 @@ try {
         import_collection(db, appArgs[1], appArgs[2])
     } else if (appArgs[0] === 'import_hospitals') {
         import_hospitals(db, appArgs)
+    } else if (appArgs[0] === 'add_testadmin') {
+        add_testadmin(db, appArgs)
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
     }
