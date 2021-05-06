@@ -179,6 +179,21 @@ with a randomly generated set of hospitals data, run
 
     node index.js create_testdata
 
+To create a test admin user using which one can look at updating hospital bed availabiity
+status, one needs to do the following.
+
+    Create a user called test@india.world in the SignIn UI of the WebApp.
+
+    Next run the following to set the email verified flag for this dummy email id
+
+        node index.js enable_testadmin
+
+    Then use import_hospadmins to enable test@india.world as the data owner for few of the
+    hospitals in the system. Its assumed that you have created a sample admins file called
+    sample.admins.json within the subfolder called config, wrt pwd/cur directory.
+
+        node index.js import_hospadmins ./config/sample.admins.json
+
 To create a actual dataset for deployment, one could use the default regions data, which
 is already there for India, or create a new statesuts_districts.json file. Inturn create
 the json file containing hospitals data and the json file containing the hospital admins

@@ -51,8 +51,8 @@ function import_hospitals(db, cmdArgs) {
 }
 
 
-function add_testadmin(db, cmdArgs) {
-    console.log(`INFO:add testadmin...`);
+function enable_testadmin(db, cmdArgs) {
+    console.log(`INFO:enable testadmin...`);
     hospAdmins.enable_testadmin(db);
 }
 
@@ -77,8 +77,8 @@ try {
         import_collection(db, appArgs[1], appArgs[2])
     } else if (appArgs[0] === 'import_hospitals') {
         import_hospitals(db, appArgs)
-    } else if (appArgs[0] === 'add_testadmin') {
-        add_testadmin(db, appArgs)
+    } else if (appArgs[0] === 'enable_testadmin') {
+        enable_testadmin(db, appArgs)
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
     }
