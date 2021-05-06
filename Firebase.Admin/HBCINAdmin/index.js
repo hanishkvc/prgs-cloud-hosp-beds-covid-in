@@ -10,6 +10,7 @@ var goStates = require("./statesuts_districts");
 var hospitals = require('./hospitals');
 var hospAdmins = require('./hospadmins');
 var dbx = require('./dbx');
+var explore = require('./explore');
 
 
 console.log('INFO: HBCIn Admin tool')
@@ -63,6 +64,12 @@ function import_hospadmins(db, cAdminsFile) {
 }
 
 
+function explore_jsons(cmdArgs) {
+    console.log("INFO:explore ...");
+    explore.explore_jsons(cmdArgs);
+}
+
+
 var appArgs=process.argv.slice(2); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
@@ -81,6 +88,8 @@ try {
         enable_testadmin(db, appArgs)
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
+    } else if (appArgs[0] === 'explore_jsons') {
+        explore_jsons(appArgs)
     }
 } catch(error) {
     console.error("ERRR:AdminTool:", error);
