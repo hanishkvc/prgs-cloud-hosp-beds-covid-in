@@ -243,6 +243,15 @@ This script uses the hospitals directory data file from data.gov.in to generate 
 files. One needs to manually download the hospitals directory data file into a folder and
 inturn run the generate script from that folder.
 
+    Even thou currently all the hospitals in the data set from data.gov.in is blindly
+    translated into the hospitals json file, without any filtering. From someone looking
+    at a actual deployment perspective it doesnt matter because. In a deployed system,
+    where hospitals json file is imported without the TEST mode, all these hospitals
+    will be hidden by default (bcas beds availability value will be -1). ONly when a
+    data owner is assigned to a hospital and inturn the data owner sets a value greater
+    than 0 wrt beds availability for a given hospital, that hospital will appear in the
+    list of hospitals from the end user's perspective.
+
 This helper script generates hospitals json file to match the data schema of the hospitals
 collection and its hospital documents, as used by this system.
 
@@ -321,13 +330,19 @@ to be part of the json file.
 Hospital DataOwners/Admins
 ----------------------------
 
+Data owners need to setup accounts in auth system, by using the web based signin ui provided
+by the web based app of this system. Next they need to get their email verified with the auth
+system by clicking on the verification link sent to their email ids. Once the email associated
+with the accounts are verified, then one can assign them as data owners to specific hospitals
+in the system.
+
 One can import hospital admins by using either the import_hospadmins helper command or by
 using the generic import_collection command.
 
 It is recommended to use the import_hospadmins command in general.
 
 NOTE that in either case the json file requires to be a valid json file, with no ',' wrt
-end of last record.
+end of last record or any other issues.
 
 Using import_hospadmins
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -356,9 +371,10 @@ On the other hand, if the email id is found in the system's auth database, then 
 as to whether the hospital admin (data owner) has got their email verified with the auth system
 or not. If email is already verified, then the related hospital's admin record is updated to
 reflect that user as the admin, else a dummy invalid auth id is written into corresponding
-hospital's admin record, so that no one else can edit that hospital's record. And the admin
-needs to get their email id verified with the system at the earliest, so that they get access
-to udpate the resource availability data wrt the hospital.
+hospital's admin record, so that no one else can edit that hospital's record. And the hospital
+admins' need to get their email ids verified with the system at the earliest, so that they get
+access to udpate the resource availability data wrt the hospitals. Once they have got their email
+verified, the system admin needs to run the import_hospadmins for these hospital admins.
 
 In all of these 3 cases, a message is also logged to the console.
 
