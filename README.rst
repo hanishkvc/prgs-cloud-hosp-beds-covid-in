@@ -216,6 +216,9 @@ data and then run
 Hospitals
 -----------
 
+Generating Hospitals Json file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The GenHospDataTool/generate_statesuts_hosps.py helper script can allow one to create the
 states/uts/districts/regions json file, as well as the hospitals json file. These inturn
 can be imported into the system using create_regions and import_hospitals command to the
@@ -225,11 +228,11 @@ This script uses the hospitals directory data file from data.gov.in to generate 
 files. One needs to manually download the hospitals directory data file into a folder and
 inturn run the generate script from that folder.
 
-node index.js import_hospitals path/to/hospitals.json
+This helper script generates hospitals json file to match the data schema of the hospitals
+collection and its hospital documents, as used by this system.
 
-expects the hospitals json file to mirror the data schema of the hospitals collection
-and its hospital documents. Generate helper script generates json file in this required
-format automatically.
+The Schema
+~~~~~~~~~~~~
 
 ::
 
@@ -264,17 +267,40 @@ format automatically.
             }
     }
 
-If using import_hospitals command, there is no need to specify the timestamp field within
-the hospital document data schema, because it is automatically set in a suitable way.
+
+import_hospitals
+~~~~~~~~~~~~~~~~~~~
+
+node index.js import_hospitals path/to/hospitals.json [--mode=<Normal|TEST>] [--start=<Number>]
+
+This is the command to import hospitals json file (following the above mentioned schema)
+into the system. It sets the timestamp field automatically in a suitable way. By default
+this means using the server timestamp currently.
+
+It supports two optional arguments
+
+--mode=Normal
+
+    Allow the command to run in normal mode, in which case the hospitals data is
+    duplicated as it exists in the json file.
+
+--mode=TEST
+
+    Run the command in TEST mode, in which case the beds availability data is
+    randomly generated, ignoring any value already specified in the json file.
+
+    This is useful for testing without having to specify different values for
+    different hospitals wrt different bed types.
+
+--start=N
+
+    Skip N hospital records from the begining of the hospitals json file and
+    import the remaining hospitals.
+
 
 However if one is using the import_collection command, then even the timestamp field needs
 to be part of the json file.
 
-If using import_hospitals there is a additional optional argument which can be passed as
-the last argument to that command after the json file. If this argument contains the value
-TEST, then the logic will ignore any value in the json file wrt the beds related fields,
-and instead generate some value randomly. This is useful for testing without having to
-specify different values for different hospitals wrt different bed types.
 
 
 Hospital DataOwners/Admins

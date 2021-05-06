@@ -37,9 +37,17 @@ function import_collection(db, cName, cFile) {
 }
 
 
-function import_hospitals(db, cHospsFile, cMode) {
-    console.log(`INFO:importing hospitals [${cHospsFile}]...`);
-    hospitals.import(db, cHospsFile, cMode);
+function import_hospitals(db, cmdArgs) {
+    cHospsFile = cmdArgs[1]
+    cMode = 'NORMAL'
+    iStart = 0
+    for(i=2; i < cmdArgs.length; i++) {
+        arg = cmdArgs[i].split('=')
+        if (arg[0] == '--mode') cMode = arg[1];
+        if (arg[0] == '--start') iStart = Number(arg[1]);
+    }
+    console.log(`INFO:importing hospitals [${cHospsFile}] [${iStart}] [${cMode}]...`);
+    hospitals.import(db, cHospsFile, iStart, cMode);
 }
 
 
@@ -62,7 +70,7 @@ try {
     } else if (appArgs[0] === 'import_collection') {
         import_collection(db, appArgs[1], appArgs[2])
     } else if (appArgs[0] === 'import_hospitals') {
-        import_hospitals(db, appArgs[1], appArgs[2])
+        import_hospitals(db, appArgs)
     } else if (appArgs[0] === 'import_hospadmins') {
         import_hospadmins(db, appArgs[1])
     }

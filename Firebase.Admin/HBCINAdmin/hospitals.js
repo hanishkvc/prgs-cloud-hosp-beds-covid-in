@@ -53,7 +53,7 @@ exports.create_hosps_testdata = async function(db, oStates) {
 }
 
 
-exports.import = async function (db, cHospsFile, mode) {
+exports.import = async function (db, cHospsFile, start, mode) {
     try {
         oHosps = require(cHospsFile);
     } catch(error) {
@@ -61,7 +61,10 @@ exports.import = async function (db, cHospsFile, mode) {
         return
     }
     dcHosps = db.collection('Hospitals');
+    iCur = -1;
     for(tHospId in oHosps) {
+        iCur += 1
+        if (iCur < start) continue;
         try {
             tHosp = oHosps[tHospId]
             if (mode == 'TEST') {
