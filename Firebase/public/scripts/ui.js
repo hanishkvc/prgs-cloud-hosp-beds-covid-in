@@ -95,8 +95,12 @@ function updtbl_handler(e) {
  */
 function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     bOverwrite = opts['bOverwrite'];
+    tableClass = opts['TableClass'];
     if (bOverwrite === undefined) bOverwrite = true;
-    tHTML = " <table> ";
+    if (tableClass === undefined)
+        tHTML = " <table> ";
+    else
+        tHTML = ` <table class="${tableClass}"> `;
     tHTML += "<thead> <tr> ";
     for (tField of lHead) {
         //console.log(lPart)
@@ -342,7 +346,7 @@ function ui_sync() {
                 //console.log(lHosps)
                 clear_loadingdata_timeout();
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
-                ui_table(elMain, { 'bOverwrite': false }, lHosps, lHead, { 'HospId': 'hide' });
+                ui_table(elMain, { 'bOverwrite': false, 'TableClass': '.h7table' }, lHosps, lHead, { 'HospId': 'hide' });
                 ui_select_changehandler('hospParam', selparam_change);
                 elAuth.innerHTML = "Upto a maximum of 10 hospitals from sorted list will be shown";
             })
