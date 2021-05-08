@@ -47,6 +47,18 @@ function get_stateid(oRegions, stateIdIn) {
 }
 
 
+function get_districtid(oRegions, stateId, dIdIn) {
+    if (dIdIn == undefined) return dIdIn;
+    dIdInB = hlpr.bland_str(dIdIn);
+    if (dIdInB.match(/DID\d*$/g) !== null) return dIdIn;
+    for(tDistId in oRegions[stateId]) {
+        tDistNameB = hlpr.bland_str(oRegions[stateId][tDistId])
+        if(tDistNameB === dIdInB) return tDistId;
+    }
+    return dIdIn;
+}
+
+
 exports.explore_jsons = function(cmdArgs) {
     cRegionsFile = cmdArgs[1];
     cHospsFile = cmdArgs[2];
@@ -54,7 +66,7 @@ exports.explore_jsons = function(cmdArgs) {
     oHosps = require(cHospsFile);
     cmd = cmdArgs[3];
     stateId = get_stateid(oRegions, cmdArgs[4]);
-    districtId = cmdArgs[5];
+    districtId = get_districtid(oRegions, stateId, cmdArgs[5]);
     bQuit = false;
     if (cmd == 'statesls') list_states(oRegions);
     if (cmd == 'districtsls') list_districts(oRegions, stateId);
