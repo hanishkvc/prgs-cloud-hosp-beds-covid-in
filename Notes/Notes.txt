@@ -107,6 +107,17 @@ then use firebase firestore:indexes to retrieve the currently defined set of
 indexes from the backend server and update the indexes configuration on the
 local machine.
 
+Once everything seems fine from testing locally, one can deploy the webapp
+to the live server by running
+
+firebase deploy
+
+This will copy the files refered in hosting-public section of firebase.json
+to the firebase hosting server. It will also copy the firestore related files
+refered in the firebase.json (i.e the indexes and rules files) to the firestore
+associated with the project.
+
+
 
 Create Admin tool
 ===================
