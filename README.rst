@@ -87,6 +87,13 @@ the system will automatically update the time stamp wrt the corresponding hospit
     value and press sync button to sync it to the backend server.
 
 
+General Note
+==============
+
+Reloading the page will reset the app to main screen and the user will have to login again,
+if they are data owners/hospital admins.
+
+
 Developer view
 ===============
 
@@ -424,11 +431,23 @@ not able to get that online page again now). However in this case you will be fi
 stamp yourself with what ever value you choose.
 
 
-General Note
-==============
+explore_jsons
+---------------
 
-Reloading the page will reset the app to main screen and the user will have to login again,
-if they are data owners/hospital admins.
+One can explore the regions and hospitals jsons using the following explore_jsons commands.
+
+TO get a list of all the states run
+
+    node index.js explore_jsons path/to/regions.json path/to/hospitals.json statesls
+
+TO get a list of all districts in a given state run
+
+    node index.js explore_jsons path/to/regions.json path/to/hospitals.json districtsls stateNameOrId
+
+To get a list of all hospitals in a given state-district along with their details run
+
+    node index.js explore_jsons path/to/regions.json path/to/hospitals.json hospsls stateNameOrId districtNameOrId
+
 
 
 History
