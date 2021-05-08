@@ -31,14 +31,27 @@ function list_hosps(oHosps, stateId, districtId) {
 }
 
 
+/**
+ * Return the stateId given stateId or State Name
+ */
+function get_stateid(oRegions, stateIdIn) {
+    if (stateIdIn == undefined) return stateIdIn;
+    if (stateIdIn.length <= 2) return stateIdIn;
+    for(stateId in oRegions) {
+        if (stateIdIn === oRegions[stateId].Name) return stateId;
+    }
+    return stateIdIn;
+}
+
+
 exports.explore_jsons = function(cmdArgs) {
     cRegionsFile = cmdArgs[1];
     cHospsFile = cmdArgs[2];
-    cmd = cmdArgs[3];
-    stateId = cmdArgs[4];
-    districtId = cmdArgs[5];
     oRegions = require(cRegionsFile);
     oHosps = require(cHospsFile);
+    cmd = cmdArgs[3];
+    stateId = get_stateid(oRegions, cmdArgs[4]);
+    districtId = cmdArgs[5];
     bQuit = false;
     if (cmd == 'statesls') list_states(oRegions);
     if (cmd == 'districtsls') list_districts(oRegions, stateId);
