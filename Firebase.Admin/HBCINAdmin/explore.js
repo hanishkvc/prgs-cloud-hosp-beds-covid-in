@@ -5,6 +5,9 @@
  */
 
 
+var hlpr = require('./hlpr');
+
+
 function list_states(oRegions) {
     for(tStateCode in oRegions) {
         console.log(`States:${tStateCode}:${oRegions[tStateCode]['Name']}`)
@@ -38,7 +41,7 @@ function get_stateid(oRegions, stateIdIn) {
     if (stateIdIn == undefined) return stateIdIn;
     if (stateIdIn.length <= 2) return stateIdIn;
     for(stateId in oRegions) {
-        if (stateIdIn === oRegions[stateId].Name) return stateId;
+        if (hlpr.bland_str(stateIdIn) === hlpr.bland_str(oRegions[stateId].Name)) return stateId;
     }
     return stateIdIn;
 }

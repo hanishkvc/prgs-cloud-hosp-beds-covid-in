@@ -23,3 +23,10 @@ exports.busy_sleep = function(x,y) {
 }
 
 
+exports.bland_str = function(strIn) {
+	strOut = strIn.replace(/ /g, ""); // Remove empty space inbtw
+	return strOut.toUpperCase()
+}
+
+
+/* vim: set ts=4 sts=4 sw=4 expandtab :*/
