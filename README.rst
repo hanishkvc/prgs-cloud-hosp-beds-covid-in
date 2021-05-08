@@ -448,6 +448,11 @@ To get a list of all hospitals in a given state-district along with their detail
 
     node index.js explore_jsons path/to/regions.json path/to/hospitals.json hospsls stateNameOrId districtNameOrId
 
+NOTE: If the state or district name contains spaces in them and you want to keep that space when
+passing the name to this command, then remember to put them in quotes i.e 'State name with spaces'.
+However one could also pass 'Statenamewithspaces' or 'StateNameWithSpaces' or 'STaTENaMeWiTHSPACes'
+or so ... i.e when specifying a name - spaces in the NameOrId string are ignored, similarly case
+is also ignored.
 
 
 History
