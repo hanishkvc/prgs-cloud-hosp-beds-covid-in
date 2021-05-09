@@ -22,7 +22,7 @@ function popstate_handler(e) {
     } else {
         gStateId = null;
     }
-    ui_sync();
+    aui_sync();
 }
 
 
@@ -79,7 +79,7 @@ var gHospParam =  'BedsICU'
 function selparam_change(e) {
     console.log(e.target.value);
     gHospParam = e.target.value;
-    ui_sync();
+    aui_sync();
 }
 
 
@@ -95,11 +95,11 @@ function update_handler(e) {
             history.pushState({state: 'UPD'}, 'UpdateStatus');
         }
     }
-    ui_sync()
+    aui_sync()
 }
 
 
-function ui_getauth(el) {
+function aui_getauth(el) {
     el.innerHTML = "<h1>For use by authorised people updating hospital beds+ status</h1>"
     el.innerHTML += "<h2>People checking availability status, do not sign in, there is no need for same</h2>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
@@ -111,7 +111,7 @@ function state_handler(e) {
     gStateId = this.id;
     gStateName = this.textContent;
     history.pushState({state: 'S2D'}, 'Districts');
-    ui_sync();
+    aui_sync();
 }
 
 
@@ -120,7 +120,7 @@ function district_handler(e) {
     gDistrictId = this.id;
     gDistrictName = this.textContent;
     history.pushState({state: 'D2H'}, 'Hospitals');
-    ui_sync();
+    aui_sync();
 }
 
 
@@ -150,8 +150,8 @@ function fixup_elcurpath(msg) {
 }
 
 
-function ui_update(el) {
-    fixup_elcurpath('Update Free Hospital Beds info')
+function aui_update(el) {
+    fixup_elcurpath('Update Hospital Beds Availability Data')
     lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
     mTypes = { [gINBedsICU]: 'input', [gINBedsNormal]: 'input', [gINBedsVntltr]: 'input', 'SyncIt': 'button', 'HospId': 'hide' }
     db_get_adminhospitals(gDB, gGotAuth)
@@ -186,16 +186,16 @@ function clear_loadingdata_timeout() {
 
 
 let gLoadingDataTimeOut = null
-function ui_sync() {
+function aui_sync() {
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
-        ui_getauth(elAuth);
+        aui_getauth(elAuth);
         aui_start(authed_handler);
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
         elMain.innerHTML = ""
-        ui_update(elAuth)
+        aui_update(elAuth)
         return;
     }
     if (gStateId === null) {
@@ -227,7 +227,7 @@ function ui_sync() {
                 elAuth.innerHTML = "Upto a maximum of 10 hospitals from sorted list will be shown";
             })
             .catch((error) => {
-                console.log("ERRR:UISync:State+Dist", error);
+                console.log("ERRR:AUISync:State+Dist", error);
             })
     }
 }
