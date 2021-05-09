@@ -5,8 +5,8 @@
  */
 
 
-function aui_start(authed_handler) {
-    gAUI.start('#firebaseui-auth-container', {
+function authui_start(authed_handler) {
+    gAuthUI.start('#firebaseui-auth-container', {
         signInSuccessUrl: 'GotAuthed',
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID
@@ -21,8 +21,8 @@ function aui_start(authed_handler) {
 }
 
 
-function aui_init() {
-    gAUI = new firebaseui.auth.AuthUI(firebase.auth());
+function authui_init() {
+    gAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
 }
 
 
@@ -31,7 +31,7 @@ function fb_init() {
         console.log("INFO:FBInit: started...");
         gApp = firebase.app();
         gDB = firebase.firestore();
-        aui_init()
+        authui_init()
         firebase.analytics();
         firebase.performance();
         console.log("INFO:FBInit: doing ok...");
