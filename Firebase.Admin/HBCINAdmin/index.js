@@ -84,9 +84,16 @@ gDBCmds = {
 
 
 gCmds = {
-    'help': do_help,
     'explore_jsons': explore_jsons,
+    'help': do_help,
     };
+
+
+function do_help(cmdArgs) {
+    console.log("INFO:AdminTool: List of commands");
+    for (tFunc in gDBCmds) console.log("\t", tFunc);
+    for (tFunc in gCmds) console.log("\t", tFunc);
+}
 
 
 var appArgs=process.argv.slice(2); // skip node and scriptName args
