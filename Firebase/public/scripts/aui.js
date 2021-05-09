@@ -99,7 +99,7 @@ function updatemode_handler(e) {
 }
 
 
-function aui_getauth(el) {
+function aui_getauth_prep(el) {
     el.innerHTML = "<h1>For use by authorised people updating hospital beds+ status</h1>"
     el.innerHTML += "<h2>People checking availability status, do not sign in, there is no need for same</h2>"
     el.innerHTML += '<div id="firebaseui-auth-container"></div>'
@@ -189,8 +189,8 @@ let gLoadingDataTimeOut = null
 function aui_sync() {
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
-        aui_getauth(elAuth);
-        aui_start(authed_handler);
+        aui_getauth_prep(elAuth);
+        authui_start(authed_handler);
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {

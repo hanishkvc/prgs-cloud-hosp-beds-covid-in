@@ -74,6 +74,7 @@
 
     <script defer src="/data/statesuts_districts.js"></script>
     <script defer src="/scripts/ui.js"></script>
+    <script defer src="/scripts/aui.js"></script>
     <script>
       let elMain = null
       let elAuth = null
@@ -100,10 +101,10 @@
         // firebase.analytics().logEvent('tutorial_completed');
         //
         // //
-        ui_init();
+        aui_init();
         if (fb_init()) {
           elLoad.textContent = 'Save Nature Save Earth';
-          ui_sync()
+          aui_sync()
         } else {
           elLoad.textContent = 'Error loading main logic, check the console.';
         }
