@@ -19,20 +19,22 @@ console.log('INFO: Create a sample hospital dataset')
 console.log('INFO: Import hospitals, hospitals admins, ...')
 
 
-function create_testdata() {
+function create_testdata(db) {
     console.log("INFO:creating testdata...");
     regions.create_states(db, goStates)
     hospitals.create_hosps_testdata(db, goStates)
 }
 
 
-function create_regions() {
+function create_regions(db) {
     console.log("INFO:creating regions...");
     regions.create_states(db, goStates)
 }
 
 
-function import_collection(db, cName, cFile) {
+function import_collection(db, cmdArgs) {
+    cName = cmdArgs[1]
+    cFile = cmdArgs[2]
     console.log(`INFO:importing collection [${cName}] [${cFile}]...`);
     dbx.import_collection(db, cName, cFile);
 }
@@ -58,7 +60,8 @@ function enable_testadmin(db, cmdArgs) {
 }
 
 
-function import_hospadmins(db, cAdminsFile) {
+function import_hospadmins(db, cmdArgs) {
+    cAdminsFile = cmdArgs[1]
     console.log(`INFO:importing admins [${cAdminsFile}]...`);
     hospAdmins.import(db, cAdminsFile);
 }
@@ -81,13 +84,13 @@ try {
     } else if (appArgs[0] === 'create_regions') {
         create_regions();
     } else if (appArgs[0] === 'import_collection') {
-        import_collection(db, appArgs[1], appArgs[2])
+        import_collection(db, appArgs)
     } else if (appArgs[0] === 'import_hospitals') {
         import_hospitals(db, appArgs)
     } else if (appArgs[0] === 'enable_testadmin') {
         enable_testadmin(db, appArgs)
     } else if (appArgs[0] === 'import_hospadmins') {
-        import_hospadmins(db, appArgs[1])
+        import_hospadmins(db, appArgs)
     } else if (appArgs[0] === 'explore_jsons') {
         explore_jsons(appArgs)
     }
