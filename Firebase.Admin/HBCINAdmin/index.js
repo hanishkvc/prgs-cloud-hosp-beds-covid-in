@@ -73,26 +73,33 @@ function explore_jsons(cmdArgs) {
 }
 
 
+gDBCmds = {
+    'create_testdata': create_testdata,
+    'create_regions': create_regions,
+    'import_collection': import_collection,
+    'import_hospitals': import_hospitals,
+    'enable_testadmin': enable_testadmin,
+    'import_hospadmins': import_hospadmins,
+    };
+
+
+gCmds = {
+    'help': do_help,
+    'explore_jsons': explore_jsons,
+    };
+
+
 var appArgs=process.argv.slice(2); // skip node and scriptName args
 try {
     var app = admin.initializeApp({
         credential: admin.credential.applicationDefault(),
         });
     var db = app.firestore();
-    if (appArgs[0] === 'create_testdata') {
-        create_testdata();
-    } else if (appArgs[0] === 'create_regions') {
-        create_regions();
-    } else if (appArgs[0] === 'import_collection') {
-        import_collection(db, appArgs)
-    } else if (appArgs[0] === 'import_hospitals') {
-        import_hospitals(db, appArgs)
-    } else if (appArgs[0] === 'enable_testadmin') {
-        enable_testadmin(db, appArgs)
-    } else if (appArgs[0] === 'import_hospadmins') {
-        import_hospadmins(db, appArgs)
-    } else if (appArgs[0] === 'explore_jsons') {
-        explore_jsons(appArgs)
+    for (tFunc in gDBCmds) {
+        if (tFunc === appArgs[0]) gDBCmds[tFunc](db, appArgs);
+    }
+    for (tFunc in gCmds) {
+        if (tFunc === appArgs[0]) gCmds[tFunc](appArgs);
     }
 } catch(error) {
     console.error("ERRR:AdminTool:", error);
