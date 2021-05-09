@@ -5,13 +5,13 @@
  */
 
 
-exports.msg_success = function(sStateKey, sMsg) {
-    console.log("DONE:",sMsg, sStateKey);
+exports.msg_success = function(sDataRef, sMsg) {
+    console.log("DONE:",sMsg, sDataRef);
 }
 
 
-exports.msg_failure = function(sStateKey, sMsg, error) {
-    console.error("ERRR:", sMsg, sStateKey, error.message);
+exports.msg_failure = function(sDataRef, sMsg, error) {
+    console.error("ERRR:", sMsg, sDataRef, error.message);
 }
 
 
