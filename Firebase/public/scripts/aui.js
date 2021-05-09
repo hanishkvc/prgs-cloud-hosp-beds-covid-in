@@ -76,7 +76,7 @@ function updtbl_handler(e) {
 
 
 var gHospParam =  'BedsICU'
-function selparam_change(e) {
+function hospparam_change(e) {
     console.log(e.target.value);
     gHospParam = e.target.value;
     aui_sync();
@@ -223,7 +223,7 @@ function aui_sync() {
                 clear_loadingdata_timeout();
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
                 ui_table(elMain, { 'bOverwrite': false, 'TableClass': '.h7table' }, lHosps, lHead, { 'HospId': 'hide' });
-                ui_select_changehandler('hospParam', selparam_change);
+                ui_select_changehandler('hospParam', hospparam_change);
                 elAuth.innerHTML = "Upto a maximum of 10 hospitals from sorted list will be shown";
             })
             .catch((error) => {
