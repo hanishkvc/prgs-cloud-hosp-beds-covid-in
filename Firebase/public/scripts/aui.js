@@ -83,7 +83,7 @@ function selparam_change(e) {
 }
 
 
-function update_handler(e) {
+function updatemode_handler(e) {
     if (gGotAuth === null) {
         if (!gbGetAuth) {
             gbGetAuth = true
@@ -137,7 +137,7 @@ function authed_handler(authResult, redirectUrl) {
         console.log("INFO:AuthHandler: User with verified email");
     }
     elAuth.innerHTML = "";
-    setTimeout(update_handler, 0, null)
+    setTimeout(updatemode_handler, 0, null)
     return false;
 }
 
@@ -236,7 +236,7 @@ function aui_sync() {
 function aui_init() {
     window.onpopstate = popstate_handler;
     elHome.onclick = home_handler;
-    elUpdateMode.onclick = update_handler;
+    elUpdateMode.onclick = updatemode_handler;
 }
 
 
