@@ -1,5 +1,5 @@
 /*
- * UI Related helper logics
+ * ApplicationUI Related helper logics
  * HanishKVC, 2021
  * GPL
  */
@@ -26,7 +26,7 @@ function popstate_handler(e) {
 }
 
 
-function dbupdate_callback(bSuccess, sKey, sMsg, elUI) {
+function hospdbupdate_callback(bSuccess, sKey, sMsg, elUI) {
     if (elUI === null) return;
     if (bSuccess) {
         elUI.style.backgroundColor='#a0c0a0';
@@ -71,7 +71,7 @@ function hospsync_handler(e) {
         }
     }
     console.debug("DBUG:HospSyncHandler:", iBedsICU, iBedsNormal, iBedsVntltr);
-    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, iBedsVntltr, dbupdate_callback, e.target);
+    db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, iBedsVntltr, hospdbupdate_callback, e.target);
 }
 
 
