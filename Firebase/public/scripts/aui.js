@@ -42,15 +42,15 @@ const gINBedsVntltr = "Vntltr";
 /**
  * Handle sync button click wrt hospitals in update mode
  */
-function updtbl_handler(e) {
-    //console.debug("DBUG:UTHandler:",e);
+function hospsync_handler(e) {
+    //console.debug("DBUG:HospSyncHandler:",e);
     e.target.style.backgroundColor = '#a0a0c0';
     tId = e.target.id;
     hospId = e.target.name;
     iBedsICU = 0
     tIns = document.getElementsByName(gINBedsICU);
     for(i=0; i<tIns.length; i++) {
-        //console.log("DBUG:UTHandler:BedsICU:",tIns[i]);
+        //console.log("DBUG:HospSyncHandler:BedsICU:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsICU = parseInt(tIns[i].value)
         }
@@ -58,7 +58,7 @@ function updtbl_handler(e) {
     iBedsNormal = 0
     tIns = document.getElementsByName(gINBedsNormal);
     for(i=0; i<tIns.length; i++) {
-        //console.log("DBUG:UTHandler:BedsNormal:",tIns[i]);
+        //console.log("DBUG:HospSyncHandler:BedsNormal:",tIns[i]);
         if (tIns[i].id === tId) {
             iBedsNormal = Number(tIns[i].value)
         }
@@ -70,7 +70,7 @@ function updtbl_handler(e) {
             iBedsVntltr = Number(tIns[i].value)
         }
     }
-    console.debug("DBUG:UpdTblHandler:", iBedsICU, iBedsNormal, iBedsVntltr);
+    console.debug("DBUG:HospSyncHandler:", iBedsICU, iBedsNormal, iBedsVntltr);
     db_update_hospital(gDB, hospId, iBedsICU, iBedsNormal, iBedsVntltr, dbupdate_callback, e.target);
 }
 
@@ -159,12 +159,12 @@ function aui_update(el) {
             for(i = 0; i < lHosps.length; i++) {
                 lHosps[i].push("sync");
             }
-            ui_table(el, {}, lHosps, lHead, mTypes, updtbl_handler);
+            ui_table(el, {}, lHosps, lHead, mTypes, hospsync_handler);
             if (lHosps.length === 0)
                 el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
         })
         .catch((error) => {
-            console.log("ERRR:UIUpdate:", error);
+            console.log("ERRR:AUIUpdate:", error);
         });
 }
 
