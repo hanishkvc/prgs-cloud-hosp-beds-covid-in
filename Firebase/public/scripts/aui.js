@@ -106,6 +106,12 @@ function aui_getauth_prep(el) {
 }
 
 
+function authui_do() {
+        aui_getauth_prep(elAuth);
+        authui_start(authed_handler);
+}
+
+
 function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
     gStateId = this.id;
@@ -189,9 +195,7 @@ let gLoadingDataTimeOut = null
 function aui_sync() {
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
-        authui_init()
-        aui_getauth_prep(elAuth);
-        authui_start(authed_handler);
+        authui_init(authui_do)
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
