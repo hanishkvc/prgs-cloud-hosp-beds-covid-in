@@ -481,6 +481,7 @@ potentially if required, while at the same time being needed for a relatively sh
 only, cloud makes sense. Else one may need to think twice before going with a purely cloud based
 system.
 
+
 Changelogs (some)
 -------------------
 
@@ -564,6 +565,17 @@ Explore Jsons to look into regions and hospitals jsons.
 A more structured command dispatch logic in admin scripts.
 
 Decouple generic and app specific ui js wrt WebApp.
+
+BranchOff: v01_BedStatusCheckOrUpdate
+
+    Contains the original basic hospital beds availability status checking and controlled
+    decentralised updating logic.
+
+
+v202105
+~~~~~~~~~
+
+Load AuthUI resources, only if user triggers signin.
 
 
 
