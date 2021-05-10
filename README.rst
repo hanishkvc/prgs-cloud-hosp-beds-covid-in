@@ -458,6 +458,9 @@ is also ignored.
 History
 =========
 
+Prelude/Prologue
+-------------------
+
 Given some of the issues faced by people during the covid pandemic 2nd wave recently, there
 was a discussion online if a system could be developed to help with some of the issues like
 knowing the availability status wrt beds and so. So I thought of creating this as a small
@@ -465,7 +468,7 @@ way of doing something hopefully positive. This could either be used as such by 
 it, and or with modifications as people find fit to their needs, and or as some initial
 thoughts for ones own experimentation.
 
-This is something which has been created over a 3-5 day period, with minimal previous experimenting
+This is something where core was created over a 3-5 day period, with minimal previous experimenting
 wrt html and javascript, as well as first time use of cloud from my end. I have done quick glances
 at docs based on need, as I went about developing this. So do take this with a pinch of salt, as it
 may not follow the usual conventions used by developers in these domains. However hopefully here
@@ -477,6 +480,91 @@ this current system, which was needed to come up on short notice and be able to 
 potentially if required, while at the same time being needed for a relatively short period of time
 only, cloud makes sense. Else one may need to think twice before going with a purely cloud based
 system.
+
+Changelogs (some)
+-------------------
+
+v20210428IST2333
+~~~~~~~~~~~~~~~~~~
+
+After thinking about how to go about with such a system, Start with experimenting on / getting a
+feel of firebase, html and javascript.
+
+
+v20210501IST1029
+~~~~~~~~~~~~~~~~~~
+
+Initial release with showing of hospital beds (ICE,Normal) status and mechanism to update the same
+by data owners after they sign in.
+
+NOTE: a basic workable system.
+
+
+v20210502IST1958
+~~~~~~~~~~~~~~~~~
+
+Load regions info in WebApp from json (instead of firestore/db).
+
+Color code success/failure into sync button wrt data sync updates
+
+End user can filter+sort based on BedType.
+
+Add Ventilator data to system.
+
+Make WebApp UI show important fields first so that they fit within a portrait Mobile's visible
+viewport.
+
+
+v20210503IST2344
+~~~~~~~~~~~~~~~~~~~~~
+
+Send email verification mail.
+
+Initial take at cloud costing, size of logic.
+
+Less verbose WebApp.
+
+NOTE: a practical system.
+
+
+v20210504IST2152
+~~~~~~~~~~~~~~~~~~
+
+Cleanup Admin scripts, allow generic collection of documents (regions/hospitals/hospadmins) to
+be imported into the system in a structured uniform manner.
+
+Improve load times wrt WebApp a bit by deferring the AuthUI related resources loading (prev
+forgotten).
+
+Show a loading data message.
+
+NOTE: a more workable admin mechanism for importing things into the system.
+
+
+v20210506IST1804
+~~~~~~~~~~~~~~~~~~~
+
+HospitalAdmins specific import command.
+
+Avoid showing HospitalId, which doesnt make sense to end users, fit more in tightly constrained
+setups.
+
+Use simpler names wrt fields in the shown table of hospital beds status
+
+Hospitals specific import command. Also create a hospitals json from data.gov.in data.
+
+NOTE: pretty practical admin mechanisms to get things into the system.
+
+
+v20210509IST1129
+~~~~~~~~~~~~~~~~~
+
+Explore Jsons to look into regions and hospitals jsons.
+
+A more structured command dispatch logic in admin scripts.
+
+Decouple generic and app specific ui js wrt WebApp.
+
 
 
 Things to cross check
