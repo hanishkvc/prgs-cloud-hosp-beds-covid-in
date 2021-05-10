@@ -22,6 +22,16 @@ function authui_start(authed_handler) {
 
 
 function authui_init() {
+    if (gAuthUI !== null) return;
+    var head = document.getElementsByTagName("head")[0]
+    var script = document.createElement("script");
+    script.src = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js";
+    head.appendChild(script);
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css";
+    head.appendChild(link);
     gAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
 }
 
@@ -31,7 +41,6 @@ function fb_init() {
         console.log("INFO:FBInit: started...");
         gApp = firebase.app();
         gDB = firebase.firestore();
-        authui_init()
         firebase.analytics();
         firebase.performance();
         console.log("INFO:FBInit: doing ok...");
