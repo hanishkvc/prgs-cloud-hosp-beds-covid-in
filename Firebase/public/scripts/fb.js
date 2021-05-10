@@ -21,18 +21,31 @@ function authui_start(authed_handler) {
 }
 
 
+function _authui_init_onerror(error) {
+    console.error("ERRR:authui:load failed:", error);
+}
+
+
+function _authui_init_onload() {
+    gAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
+    console.log("INFO:authui:inited");
+}
+
+
 function authui_init() {
     if (gAuthUI !== null) return;
     var head = document.getElementsByTagName("head")[0]
-    var script = document.createElement("script");
-    script.src = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js";
-    head.appendChild(script);
     var link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
+    link.onerror = _authui_init_onerror;
     link.href = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css";
     head.appendChild(link);
-    gAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
+    var script = document.createElement("script");
+    script.onerror = _authui_init_onerror;
+    script.onload = _authui_init_onload;
+    script.src = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js";
+    head.appendChild(script);
 }
 
 
