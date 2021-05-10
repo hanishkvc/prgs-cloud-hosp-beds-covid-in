@@ -106,8 +106,8 @@ function aui_getauth_prep(el) {
 }
 
 
-function authui_do() {
-        aui_getauth_prep(elAuth);
+function authui_do(el) {
+        aui_getauth_prep(el);
         authui_start(authed_handler);
 }
 
@@ -195,7 +195,7 @@ let gLoadingDataTimeOut = null
 function aui_sync() {
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
-        authui_init(authui_do)
+        authui_init(authui_do, elAuth)
         return;
     }
     if ((gGotAuth !== null) && gbUpdateMode) {
