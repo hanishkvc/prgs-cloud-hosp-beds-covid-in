@@ -34,6 +34,7 @@ function _authui_init_onload(do_auth, el) {
 
 
 function authui_init(do_auth, el) {
+    el.innerHTML = "If its taking too much time, check internet connection...";
     if (gAuthUI !== null) {
         do_auth(el);
         return;
