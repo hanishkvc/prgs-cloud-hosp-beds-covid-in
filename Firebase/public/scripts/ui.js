@@ -28,26 +28,26 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
     bOverwrite = opts['bOverwrite'];
     tableClass = opts['TableClass'];
     if (bOverwrite === undefined) bOverwrite = true;
-    if (tableClass === undefined)
-        tHTML = " <table> ";
-    else
-        tHTML = ` <table class="${tableClass}"> `;
-    tHTML += "<thead> <tr> ";
+    tTable = document.createElement("table");
+    if (tableClass !== undefined)
+        tTable.className = tableClass;
+    tHead = document.createElement("thead");
+    tRow = document.createElement("tr");
     for (tField of lHead) {
         //console.log(lPart)
+        tH = document.createElement("th");
+        tH.textContent = tField;
         tType = mTypes[tField]
-        if (tType === 'hide') {
-            tHTML += ` <th style="display:none;">${tField}</th> `;
-        } else {
-            tHTML += ` <th>${tField}</th> `;
-        }
+        if (tType === 'hide') tH.style.display = "none";
+        tRow.appendChild(tH);
     }
-    tHTML += " </tr> </thead> ";
-    tHTML += "<tbody> ";
+    tHead.appendChild(tRow);
+    tTable.appendChild(tHead);
+    tBody = document.createElement("tbody");
     r = -1
     for (lCur of lDataMxN) {
         r += 1
-        tHTML += "<tr> ";
+        tRow = document.createElement("tr");
         //console.log(lCur)
         tEntityId = lCur[0]
         c = -1
@@ -57,31 +57,37 @@ function ui_table(el, opts, lDataMxN, lHead, mTypes={}, clickHandler=null) {
             tField = lHead[c]
             tType = mTypes[tField]
             //console.log("ui_table:", r, c, mTypes, tField, tType);
+            tD = document.createElement("td");
             if (tType === 'input') {
-                tHTML += ` <td> <input type="number" class="h7in" id="${r}" name="${tField}" value="${lPart}"> </td> `;
+                tInput = document.createElement("input");
+                tInput.type = "number";
+                tInput.className = "h7in";
+                tInput.id = r;
+                tInput.name = tField;
+                tInput.defaultValue = lPart;
+                tD.appendChild(tInput);
             } else if (tType === 'button') {
-                tHTML += ` <td> <button type="button" class="h7btn" id="${r}" name="${tEntityId}"> ${lPart} </button> </td> `;
+                tBtn = document.createElement("button");
+                tBtn.type = "button";
+                tBtn.className = "h7btn";
+                tBtn.id = r;
+                tBtn.name = tEntityId;
+                tBtn.textContent = lPart;
+                if (clickHandler !== null) tBtn.onclick = clickHandler
+                tD.appendChild(tBtn);
             } else if (tType === 'hide') {
-                tHTML += ` <td style="display:none;">${lPart}</td> `;
+                tD.style.display = "none";
+                tD.textContent = lPart;
             } else {
-                tHTML += ` <td>${lPart}</td> `;
+                tD.textContent = lPart;
             }
+            tRow.appendChild(tD);
         }
-        tHTML += " </tr>";
+        tBody.appendChild(tRow);
     }
-    tHTML += " </tbody>";
-    tHTML += " </table>";
-    if (bOverwrite) {
-        el.innerHTML = tHTML;
-    } else {
-        el.innerHTML += tHTML;
-    }
-    if (clickHandler === null) return;
-    elBtns = document.getElementsByClassName('h7btn')
-    for(i = 0; i < elBtns.length; i++) {
-        elBtns[i].onclick = clickHandler
-        //console.log(elBtns[i])
-    }
+    tTable.appendChild(tBody);
+    if (bOverwrite) el.replaceChildren(tTable);
+    else el.appendChild(tTable);
 }
 
 

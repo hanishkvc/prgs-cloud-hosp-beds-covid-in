@@ -222,7 +222,7 @@ function aui_sync() {
                 //console.log(lHosps)
                 clear_loadingdata_timeout();
                 ui_select(elMain, 'hospParam', [ 'BedsICU', 'BedsNormal', 'BedsVntltr' ], gHospParam);
-                ui_table(elMain, { 'bOverwrite': false, 'TableClass': '.h7table' }, lHosps, lHead, { 'HospId': 'hide' });
+                ui_table(elMain, { 'bOverwrite': false, 'TableClass': 'h7table' }, lHosps, lHead, { 'HospId': 'hide' });
                 ui_select_changehandler('hospParam', hospparam_change);
                 elAuth.innerHTML = "Upto a maximum of 10 hospitals from sorted list will be shown";
             })
