@@ -560,6 +560,9 @@ NOTE: pretty practical admin mechanisms to get things into the system.
 v20210509IST1129
 ~~~~~~~~~~~~~~~~~
 
+NOTE: Now that the basic logic, which could help anyone interested in using/deploying this
+system is done. Look at non critical cleaning up and others.
+
 Explore Jsons to look into regions and hospitals jsons.
 
 A more structured command dispatch logic in admin scripts.
@@ -572,11 +575,14 @@ BranchOff: v01_BedStatusCheckOrUpdate
     decentralised updating logic.
 
 
-v202105
-~~~~~~~~~
+v20210512IST0023
+~~~~~~~~~~~~~~~~~~~
 
 Load AuthUI resources, only if user triggers signin.
 
+Use createElement instead of directly changing innerHTML wrt ui_ functions.
+
+BranchOff: v02_BedStatusCheckOrUpdate
 
 
 Things to cross check
