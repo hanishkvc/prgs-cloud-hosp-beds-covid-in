@@ -202,14 +202,14 @@ function aui_sync() {
         fixup_elcurpath("Select State - District")
         db_get_states(gDB).then((lStates) => {
             //console.log(lStates)
-            ui_list_buttons(elMain, lStates, state_handler);
+            ui_list_buttons(elMain, {}, lStates, state_handler);
             });
     }
     if ((gStateId !== null) && (gDistrictId === null)) {
         fixup_elcurpath(gStateName)
         db_get_state(gDB, gStateId).then((lDists) => {
             //console.log(lDists)
-            ui_list_buttons(elMain, lDists, district_handler);
+            ui_list_buttons(elMain, {}, lDists, district_handler);
             });
         elAuth.innerHTML = "";
     }

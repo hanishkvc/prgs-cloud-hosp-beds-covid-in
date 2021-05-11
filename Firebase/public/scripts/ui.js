@@ -118,6 +118,13 @@ function ui_list_anchors(el, lDataNx2) {
 }
 
 
+/**
+ * Create a bunch of buttons within html element el, based on the info
+ * in the passed lDataNx2.
+ * User can control whether these buttons get appended into el or
+ * replace the existing contents (default) of el, by passing bOverwrite
+ * through opts.
+ */
 function ui_list_buttons(el, opts, lDataNx2, clickHandler) {
     bOverwrite = opts['bOverwrite'];
     if (bOverwrite === undefined) bOverwrite = true;
