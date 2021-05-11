@@ -118,15 +118,22 @@ function ui_list_anchors(el, lDataNx2) {
 }
 
 
-function ui_list_buttons(el, lDataNx2, clickHandler) {
-    el.innerHTML = ""
+function ui_list_buttons(el, opts, lDataNx2, clickHandler) {
+    bOverwrite = opts['bOverwrite'];
+    if (bOverwrite === undefined) bOverwrite = true;
+    tDiv = document.createElement("div");
     for(lCur of lDataNx2) {
-        el.innerHTML += `<button id="${lCur[0]}" name="${lCur[0]}">${lCur[1]}</button> `;
+        tBtn = document.createElement("button");
+        tBtn.id = lCur[0];
+        tBtn.name = lCur[0];
+        tBtn.textContent = lCur[1];
+        tBtn.onclick = clickHandler;
+        tDiv.appendChild(tBtn);
     }
-    for(lCur of lDataNx2) {
-        elBtn = document.getElementById(lCur[0]);
-        elBtn.onclick = clickHandler;
-    }
+    if (bOverwrite)
+        el.replaceChildren(tDiv);
+    else
+        el.appendChild(tDiv);
 }
 
 
