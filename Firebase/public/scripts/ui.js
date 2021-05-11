@@ -110,11 +110,19 @@ function ui_select_changehandler(sId, changeHandler) {
 }
 
 
-function ui_list_anchors(el, lDataNx2) {
-    el.innerHTML = ""
+function ui_list_anchors(el, opts, lDataNx2) {
+    bOverwrite = opts['bOverwrite'];
+    if (bOverwrite === undefined) bOverwrite = true;
+    tDiv = document.createElement("div");
     for(lCur of lDataNx2) {
-        el.innerHTML += `<a>${lCur[1]}</a> `
+        tA = document.createElement("a");
+        tA.id = lCur[0];
+        tA.name = lCur[0];
+        tA.textContent = lCur[1];
+        tDiv.appendChild(tA);
     }
+    if (bOverwrite) el.replaceChildren(tDiv);
+    else el.appendChild(tDiv);
 }
 
 
@@ -137,10 +145,8 @@ function ui_list_buttons(el, opts, lDataNx2, clickHandler) {
         tBtn.onclick = clickHandler;
         tDiv.appendChild(tBtn);
     }
-    if (bOverwrite)
-        el.replaceChildren(tDiv);
-    else
-        el.appendChild(tDiv);
+    if (bOverwrite) el.replaceChildren(tDiv);
+    else el.appendChild(tDiv);
 }
 
 
