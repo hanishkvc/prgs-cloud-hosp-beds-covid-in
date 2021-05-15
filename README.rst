@@ -7,10 +7,50 @@ Version: 20210502IST1822
 Overview
 ###########
 
+Bed Availability
+===================
+
 This is a keep it simple online hospital beds+ status system, where the hospitals are
 grouped into states and inturn districts. One can look at the status of availability
 of the tracked type of resources wrt the hospitals.
 
+Users: Can check the status of bed availability wrt the state and district they are
+interested in.
+
+HospitalAdmin/DataOwner: Can update the availability status of beds for the hospitals,
+they are responsible for.
+
+
+Bed Allocation
+===============
+
+Status: TODO
+
+Again follows a simple minded kiss approach, which doesnt get in the way of how things are
+managed on the ground based on practical needs/issues that may come day in and day out in
+a medical setup.
+
+It uses the bed availability status updated by the hospital admins/data owners, to inturn
+allocate people needing beds to the nearest available one and inturn update the bed
+availability status.
+
+This extends/builds on the bed availability status logic.
+
+PatientAdmins(district lvl): They can add patients needing beds into the system, along with
+the identification of the nearest hospital wrt the given patient.
+
+AllocationAdmins(district lvl): The person responsible for allocating the beds at the
+district level, triggers the allocation logic.
+
+NOTE: The hospitals along with district administration may decide to keep some percentage
+of beds outside this allocation system, so that they can cater to emergency needs as and
+when they may develop at their end. If a situation warrants additional beds to be used,
+beyond what they had originally anticipated, they can always reduce the number of beds
+provided through this shared system.
+
+
+Details
+##########
 
 People view
 =============
