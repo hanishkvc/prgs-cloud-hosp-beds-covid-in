@@ -26,10 +26,21 @@ function _authui_init_onerror(error) {
 }
 
 
-function _authui_init_onload(do_auth, el) {
+function _authui_init_onload2(do_auth, el) {
     gAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
     console.log("INFO:authui:inited");
     do_auth(el);
+}
+
+
+function _authui_init_onload1(do_auth, el) {
+    console.log("INFO:authui:init chugging along");
+    var head = document.getElementsByTagName("head")[0]
+    var script = document.createElement("script");
+    script.onerror = _authui_init_onerror;
+    script.onload = _authui_init_onload2.bind(null, do_auth, el);
+    script.src = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js";
+    head.appendChild(script);
 }
 
 
@@ -44,13 +55,9 @@ function authui_init(do_auth, el) {
     link.rel = "stylesheet";
     link.type = "text/css";
     link.onerror = _authui_init_onerror;
+    link.onload = _authui_init_onload1.bind(null, do_auth, el);
     link.href = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css";
     head.appendChild(link);
-    var script = document.createElement("script");
-    script.onerror = _authui_init_onerror;
-    script.onload = _authui_init_onload.bind(null, do_auth, el);
-    script.src = "https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js";
-    head.appendChild(script);
 }
 
 
