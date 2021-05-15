@@ -585,6 +585,14 @@ Use createElement instead of directly changing innerHTML wrt ui_ functions.
 BranchOff: v02_BedStatusCheckOrUpdate
 
 
+v20210515IST1506
+------------------
+
+Cleanup/Sequence the on demand auth ui loading, to avoid redrawing of the same.
+
+Rename branches v01_Bed... v02_Bed.. to vA01_Bed... and vA02_Bed...
+
+
 Things to cross check
 =======================
 
