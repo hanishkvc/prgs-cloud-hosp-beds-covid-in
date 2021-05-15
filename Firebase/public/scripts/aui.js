@@ -193,6 +193,7 @@ function clear_loadingdata_timeout() {
 
 let gLoadingDataTimeOut = null
 function aui_sync() {
+    elAddPatient.hidden = true;
     if ((gGotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
         authui_init(authui_do, elAuth)
@@ -220,6 +221,7 @@ function aui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
+        elAddPatient.hidden = false;
         set_loadingdata_timeout();
         lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
