@@ -221,7 +221,8 @@ function aui_sync() {
     }
     if ((gStateId !== null) && (gDistrictId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        elAddPatient.hidden = false;
+        if (gGotAuth)
+            elAddPatient.hidden = false;
         set_loadingdata_timeout();
         lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
