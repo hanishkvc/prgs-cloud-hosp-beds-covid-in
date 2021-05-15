@@ -17,10 +17,10 @@ function popstate_handler(e) {
     } else if (gbUpdateMode) {
         gbUpdateMode = false
         elAuth.innerHTML = ""
-    } else if (gDistrictId !== null) {
-        gDistrictId = null;
+    } else if (gMe.districtId !== null) {
+        gMe.districtId = null;
     } else {
-        gStateId = null;
+        gMe.stateId = null;
     }
     aui_sync();
 }
@@ -84,7 +84,7 @@ function hospparam_change(e) {
 
 
 function updatemode_handler(e) {
-    if (gGotAuth === null) {
+    if (gMe.gotAuth === null) {
         if (!gbGetAuth) {
             gbGetAuth = true
             history.pushState({state: 'ATH'}, 'UserAuth');
@@ -114,7 +114,7 @@ function authui_do(el) {
 
 function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
-    gStateId = this.id;
+    gMe.stateId = this.id;
     gStateName = this.textContent;
     history.pushState({state: 'S2D'}, 'Districts');
     aui_sync();
@@ -123,7 +123,7 @@ function state_handler(e) {
 
 function district_handler(e) {
     console.log("INFO:DistrictHandler:", this.id, this.textContent);
-    gDistrictId = this.id;
+    gMe.districtId = this.id;
     gDistrictName = this.textContent;
     history.pushState({state: 'D2H'}, 'Hospitals');
     aui_sync();
@@ -132,7 +132,7 @@ function district_handler(e) {
 
 function authed_handler(authResult, redirectUrl) {
     console.log("INFO:Auth:Ok", redirectUrl);
-    gGotAuth = authResult.user.uid;
+    gMe.gotAuth = authResult.user.uid;
     if (!authResult.user.emailVerified) {
         authResult.user.sendEmailVerification().then(function() {
                 console.log("INFO:AuthHandler:Sent verification email");
@@ -150,7 +150,7 @@ function authed_handler(authResult, redirectUrl) {
 
 function fixup_elcurpath(msg) {
     elCurPath.textContent = msg
-    if (gGotAuth !== null) {
+    if (gMe.gotAuth !== null) {
         elCurPath.textContent += ` [${firebase.auth().currentUser.email}] `
     }
 }
@@ -160,7 +160,7 @@ function aui_update(el) {
     fixup_elcurpath('Update Hospital Beds Availability Data')
     lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
     mTypes = { [gINBedsICU]: 'input', [gINBedsNormal]: 'input', [gINBedsVntltr]: 'input', 'SyncIt': 'button', 'HospId': 'hide' }
-    db_get_adminhospitals(gDB, gGotAuth)
+    db_get_adminhospitals(gDB, gMe.gotAuth)
         .then((lHosps) => {
             for(i = 0; i < lHosps.length; i++) {
                 lHosps[i].push("sync");
@@ -194,38 +194,38 @@ function clear_loadingdata_timeout() {
 let gLoadingDataTimeOut = null
 function aui_sync() {
     elAddPatient.hidden = true;
-    if ((gGotAuth === null) && gbGetAuth) {
+    if ((gMe.gotAuth === null) && gbGetAuth) {
         elMain.innerHTML = ""
         authui_init(authui_do, elAuth)
         return;
     }
-    if ((gGotAuth !== null) && gbUpdateMode) {
+    if ((gMe.gotAuth !== null) && gbUpdateMode) {
         elMain.innerHTML = ""
         aui_update(elAuth)
         return;
     }
-    if (gStateId === null) {
+    if (gMe.stateId === null) {
         fixup_elcurpath("Select State - District")
         db_get_states(gDB).then((lStates) => {
             //console.log(lStates)
             ui_list_buttons(elMain, {}, lStates, state_handler);
             });
     }
-    if ((gStateId !== null) && (gDistrictId === null)) {
+    if ((gMe.stateId !== null) && (gMe.districtId === null)) {
         fixup_elcurpath(gStateName)
-        db_get_state(gDB, gStateId).then((lDists) => {
+        db_get_state(gDB, gMe.stateId).then((lDists) => {
             //console.log(lDists)
             ui_list_buttons(elMain, {}, lDists, district_handler);
             });
         elAuth.innerHTML = "";
     }
-    if ((gStateId !== null) && (gDistrictId !== null)) {
+    if ((gMe.stateId !== null) && (gMe.districtId !== null)) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
-        if (gGotAuth)
+        if (gMe.gotAuth)
             elAddPatient.hidden = false;
         set_loadingdata_timeout();
         lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'TimeStamp' ]
-        db_get_hospitals(gDB, gStateId, gDistrictId, gHospParam)
+        db_get_hospitals(gDB, gMe.stateId, gMe.districtId, gHospParam)
             .then((lHosps) => {
                 //console.log(lHosps)
                 clear_loadingdata_timeout();
