@@ -81,7 +81,17 @@
       let elMain = null
       let elAuth = null
       let elLoad = null
-      let gMe = { 'stateId': null, 'districtId': null, 'gotAuth': null }
+      let PRGSTATES = {
+        'national': 0,
+        'state': 1,
+        'district': 2,
+        'multiface': 3,
+        'auth': 3,
+        'update': 4,
+        'add': 5,
+        'alloc': 6
+        };
+      let gMe = { 'stateId': null, 'districtId': null, 'gotAuth': null, 'prgState': PRGSTATES.national }
       let gbGetAuth = false
       let gbUpdateMode = false
       let gApp = null
