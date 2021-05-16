@@ -110,6 +110,15 @@ function updatemode_handler(e) {
 }
 
 
+function addpatient_handler(e) {
+    if (gMe.prgState !== PRGSTATES.add) {
+        gMe.prgState = PRGSTATES.add;
+        history.pushState(gMe.prgState, 'AddPatient');
+    }
+    aui_sync()
+}
+
+
 function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
     gMe.stateId = this.id;
@@ -246,6 +255,7 @@ function aui_init() {
     window.onpopstate = popstate_handler;
     elHome.onclick = home_handler;
     elUpdateMode.onclick = updatemode_handler;
+    elAddPatient.onclick = addpatient_handler;
     gMe.prgState = PRGSTATES.national;
     history.replaceState(gMe.prgState, 'States');
 }
