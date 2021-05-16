@@ -69,7 +69,7 @@
     </div>
     <div id="bottom">
       <button id="Home" name="Home" hidden=true> Home </button>
-      <button id="UpdateMode" name="UpdateMode"> UpdateMode </button>
+      <button id="UpdateBeds" name="UpdateBeds"> UpdateBeds </button>
       <button id="Patients" name="Patients" hidden> Patients </button>
       <p id="load">Satyameva Jayathe &hellip;</p>
     </div>
@@ -87,7 +87,7 @@
         'district': 2,
         'multiface': 3,
         'auth': 3,
-        'update': 4,
+        'beds': 4,
         'patients': 5,
         'alloc': 6
         };
@@ -97,7 +97,7 @@
       let gAuthUI = null
       const elCurPath = document.querySelector('#curpath');
       const elHome = document.querySelector('#Home');
-      const elUpdateMode = document.querySelector('#UpdateMode');
+      const elUpdateBeds = document.querySelector('#UpdateBeds');
       const elPatients = document.querySelector('#Patients');
 
       document.addEventListener('DOMContentLoaded', function() {

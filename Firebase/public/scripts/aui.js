@@ -101,9 +101,9 @@ function aui_update(el) {
 }
 
 
-function updatemode_handler(e) {
-    if (gMe.prgState !== PRGSTATES.update) {
-        gMe.prgState = PRGSTATES.update;
+function updatebeds_handler(e) {
+    if (gMe.prgState !== PRGSTATES.beds) {
+        gMe.prgState = PRGSTATES.beds;
         history.pushState(gMe.prgState, 'UpdateStatus');
     }
     aui_sync()
@@ -165,7 +165,7 @@ function authed_handler(authResult, redirectUrl) {
         console.log("INFO:AuthHandler: User with verified email");
     }
     elAuth.innerHTML = "";
-    setTimeout(updatemode_handler, 0, null)
+    setTimeout(updatebeds_handler, 0, null)
     return false;
 }
 
@@ -209,7 +209,7 @@ function aui_sync() {
         authui_init(authui_do, elAuth)
         return;
     }
-    if (gMe.prgState === PRGSTATES.update) {
+    if (gMe.prgState === PRGSTATES.beds) {
         elMain.innerHTML = ""
         aui_update(elAuth)
         return;
@@ -254,7 +254,7 @@ function aui_sync() {
 function aui_init() {
     window.onpopstate = popstate_handler;
     elHome.onclick = home_handler;
-    elUpdateMode.onclick = updatemode_handler;
+    elUpdateBeds.onclick = updatebeds_handler;
     elPatients.onclick = patients_handler;
     gMe.prgState = PRGSTATES.national;
     history.replaceState(gMe.prgState, 'States');
