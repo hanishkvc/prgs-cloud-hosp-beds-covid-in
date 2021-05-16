@@ -82,25 +82,31 @@ function hospparam_change(e) {
 }
 
 
+function aui_update(el) {
+    fixup_elcurpath('Update Hospital Beds Availability Data')
+    lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
+    mTypes = { [gINBedsICU]: 'input', [gINBedsNormal]: 'input', [gINBedsVntltr]: 'input', 'SyncIt': 'button', 'HospId': 'hide' }
+    db_get_adminhospitals(gDB, gMe.gotAuth)
+        .then((lHosps) => {
+            for(i = 0; i < lHosps.length; i++) {
+                lHosps[i].push("sync");
+            }
+            ui_table(el, {}, lHosps, lHead, mTypes, hospsync_handler);
+            if (lHosps.length === 0)
+                el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
+        })
+        .catch((error) => {
+            console.log("ERRR:AUIUpdate:", error);
+        });
+}
+
+
 function updatemode_handler(e) {
     if (gMe.prgState !== PRGSTATES.update) {
         gMe.prgState = PRGSTATES.update;
         history.pushState(gMe.prgState, 'UpdateStatus');
     }
     aui_sync()
-}
-
-
-function aui_getauth_prep(el) {
-    el.innerHTML = "<h1>For use by authorised people updating hospital beds+ status</h1>"
-    el.innerHTML += "<h2>People checking availability status, do not sign in, there is no need for same</h2>"
-    el.innerHTML += '<div id="firebaseui-auth-container"></div>'
-}
-
-
-function authui_do(el) {
-        aui_getauth_prep(el);
-        authui_start(authed_handler);
 }
 
 
@@ -121,6 +127,19 @@ function district_handler(e) {
     gMe.prgState = PRGSTATES.district;
     history.pushState(gMe.prgState, 'Hospitals');
     aui_sync();
+}
+
+
+function aui_getauth_prep(el) {
+    el.innerHTML = "<h1>For use by authorised people updating hospital beds+ status</h1>"
+    el.innerHTML += "<h2>People checking availability status, do not sign in, there is no need for same</h2>"
+    el.innerHTML += '<div id="firebaseui-auth-container"></div>'
+}
+
+
+function authui_do(el) {
+        aui_getauth_prep(el);
+        authui_start(authed_handler);
 }
 
 
@@ -150,25 +169,6 @@ function fixup_elcurpath(msg) {
 }
 
 
-function aui_update(el) {
-    fixup_elcurpath('Update Hospital Beds Availability Data')
-    lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'SyncIt' ]
-    mTypes = { [gINBedsICU]: 'input', [gINBedsNormal]: 'input', [gINBedsVntltr]: 'input', 'SyncIt': 'button', 'HospId': 'hide' }
-    db_get_adminhospitals(gDB, gMe.gotAuth)
-        .then((lHosps) => {
-            for(i = 0; i < lHosps.length; i++) {
-                lHosps[i].push("sync");
-            }
-            ui_table(el, {}, lHosps, lHead, mTypes, hospsync_handler);
-            if (lHosps.length === 0)
-                el.innerHTML = "<h1> No Hospitals assigned yet </h1>"
-        })
-        .catch((error) => {
-            console.log("ERRR:AUIUpdate:", error);
-        });
-}
-
-
 function set_loadingdata_timeout() {
     gLoadingDataTimeOut = window.setTimeout(function() {
         elAuth.innerHTML = "<p> Loading data...</p>"
@@ -186,7 +186,7 @@ function clear_loadingdata_timeout() {
 
 
 function best_prgstate() {
-
+    if ((gMe.stateId === null) && (gMe.districtId === null)) gMe.prgState = PRGSTATES.national;
     if ((gMe.stateId !== null) && (gMe.districtId === null)) gMe.prgState = PRGSTATES.state;
     if ((gMe.stateId !== null) && (gMe.districtId !== null)) gMe.prgState = PRGSTATES.district;
 }
