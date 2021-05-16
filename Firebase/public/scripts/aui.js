@@ -110,10 +110,10 @@ function updatemode_handler(e) {
 }
 
 
-function addpatient_handler(e) {
+function patients_handler(e) {
     if (gMe.prgState !== PRGSTATES.add) {
         gMe.prgState = PRGSTATES.add;
-        history.pushState(gMe.prgState, 'AddPatient');
+        history.pushState(gMe.prgState, 'Patients');
     }
     aui_sync()
 }
@@ -203,7 +203,7 @@ function best_prgstate() {
 
 let gLoadingDataTimeOut = null
 function aui_sync() {
-    elAddPatient.hidden = true;
+    elPatients.hidden = true;
     if ((gMe.prgState >= PRGSTATES.auth) && (gMe.gotAuth === null)) {
         elMain.innerHTML = ""
         authui_init(authui_do, elAuth)
@@ -232,7 +232,7 @@ function aui_sync() {
     if (gMe.prgState === PRGSTATES.district) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
         if (gMe.gotAuth)
-            elAddPatient.hidden = false;
+            elPatients.hidden = false;
         set_loadingdata_timeout();
         lHead = [ "HospId", gINBedsICU, gINBedsNormal, gINBedsVntltr, "Name", 'Pincode', 'TimeStamp' ]
         db_get_hospitals(gDB, gMe.stateId, gMe.districtId, gHospParam)
@@ -255,7 +255,7 @@ function aui_init() {
     window.onpopstate = popstate_handler;
     elHome.onclick = home_handler;
     elUpdateMode.onclick = updatemode_handler;
-    elAddPatient.onclick = addpatient_handler;
+    elPatients.onclick = patients_handler;
     gMe.prgState = PRGSTATES.national;
     history.replaceState(gMe.prgState, 'States');
 }
