@@ -82,16 +82,9 @@ function hospparam_change(e) {
 
 
 function updatemode_handler(e) {
-    if (gMe.gotAuth === null) {
-        if (!gbGetAuth) {
-            gbGetAuth = true
-            history.pushState({state: 'ATH'}, 'UserAuth');
-        }
-    } else {
-        if (!gbUpdateMode) {
-            gbUpdateMode = true
-            history.pushState({state: 'UPD'}, 'UpdateStatus');
-        }
+    if (gMe.prgState !== PRGSTATES.update) {
+        gMe.prgState = PRGSTATES.update;
+        history.pushState(gMe.prgState, 'UpdateStatus');
     }
     aui_sync()
 }
@@ -253,8 +246,6 @@ function aui_init() {
     elHome.onclick = home_handler;
     elUpdateMode.onclick = updatemode_handler;
     gMe.prgState = PRGSTATES.national;
-    //history.state = gMe.prgState;
-    //history.pushState(gMe.prgState, 'States');
     history.replaceState(gMe.prgState, 'States');
 }
 
