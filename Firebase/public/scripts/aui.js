@@ -11,6 +11,7 @@ function home_handler(e) {
 
 
 function popstate_handler(e) {
+    console.log(e);
     if (gMe.prgState >= PRGSTATES.multiface) {
         elAuth.innerHTML = ""
     }
@@ -251,6 +252,10 @@ function aui_init() {
     window.onpopstate = popstate_handler;
     elHome.onclick = home_handler;
     elUpdateMode.onclick = updatemode_handler;
+    gMe.prgState = PRGSTATES.national;
+    //history.state = gMe.prgState;
+    //history.pushState(gMe.prgState, 'States');
+    history.replaceState(gMe.prgState, 'States');
 }
 
 
