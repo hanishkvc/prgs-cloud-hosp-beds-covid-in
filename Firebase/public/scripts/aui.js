@@ -18,6 +18,7 @@ function popstate_handler(e) {
     gMe.prgState = e.state;
     if (gMe.prgState >= PRGSTATES.multiface) {
         window.history.back();
+        return;
     }
     if (gMe.prgState === null) gMe.prgState = PRGSTATES.national;
     aui_sync();
