@@ -11,17 +11,14 @@ function home_handler(e) {
 
 
 function popstate_handler(e) {
-    if (gbGetAuth) {
-        gbGetAuth = false
+    if (gMe.prgState >= PRGSTATES.multiface) {
         elAuth.innerHTML = ""
-    } else if (gbUpdateMode) {
-        gbUpdateMode = false
-        elAuth.innerHTML = ""
-    } else if (gMe.districtId !== null) {
-        gMe.districtId = null;
-    } else {
-        gMe.stateId = null;
     }
+    gMe.prgState = e.state;
+    if (gMe.prgState >= PRGSTATES.multiface) {
+        window.history.back();
+    }
+    if (gMe.prgState === null) gMe.prgState = PRGSTATES.national;
     aui_sync();
 }
 
@@ -116,7 +113,8 @@ function state_handler(e) {
     console.log("INFO:StateHandler:", this.id, this.textContent);
     gMe.stateId = this.id;
     gStateName = this.textContent;
-    history.pushState({state: 'S2D'}, 'Districts');
+    gMe.prgState = PRGSTATES.state;
+    history.pushState(gMe.prgState, 'Districts');
     aui_sync();
 }
 
@@ -125,7 +123,8 @@ function district_handler(e) {
     console.log("INFO:DistrictHandler:", this.id, this.textContent);
     gMe.districtId = this.id;
     gDistrictName = this.textContent;
-    history.pushState({state: 'D2H'}, 'Hospitals');
+    gMe.prgState = PRGSTATES.district;
+    history.pushState(gMe.prgState, 'Hospitals');
     aui_sync();
 }
 
@@ -191,27 +190,34 @@ function clear_loadingdata_timeout() {
 }
 
 
+function best_prgstate() {
+
+    if ((gMe.stateId !== null) && (gMe.districtId === null)) gMe.prgState = PRGSTATES.state;
+    if ((gMe.stateId !== null) && (gMe.districtId !== null)) gMe.prgState = PRGSTATES.district;
+}
+
+
 let gLoadingDataTimeOut = null
 function aui_sync() {
     elAddPatient.hidden = true;
-    if ((gMe.gotAuth === null) && gbGetAuth) {
+    if ((gMe.prgState >= PRGSTATES.auth) && (gMe.gotAuth === null)) {
         elMain.innerHTML = ""
         authui_init(authui_do, elAuth)
         return;
     }
-    if ((gMe.gotAuth !== null) && gbUpdateMode) {
+    if (gMe.prgState === PRGSTATES.update) {
         elMain.innerHTML = ""
         aui_update(elAuth)
         return;
     }
-    if (gMe.stateId === null) {
+    if (gMe.prgState === PRGSTATES.national) {
         fixup_elcurpath("Select State - District")
         db_get_states(gDB).then((lStates) => {
             //console.log(lStates)
             ui_list_buttons(elMain, {}, lStates, state_handler);
             });
     }
-    if ((gMe.stateId !== null) && (gMe.districtId === null)) {
+    if (gMe.prgState === PRGSTATES.state) {
         fixup_elcurpath(gStateName)
         db_get_state(gDB, gMe.stateId).then((lDists) => {
             //console.log(lDists)
@@ -219,7 +225,7 @@ function aui_sync() {
             });
         elAuth.innerHTML = "";
     }
-    if ((gMe.stateId !== null) && (gMe.districtId !== null)) {
+    if (gMe.prgState === PRGSTATES.district) {
         fixup_elcurpath(` ${gStateName} [${gDistrictName}] `)
         if (gMe.gotAuth)
             elAddPatient.hidden = false;
