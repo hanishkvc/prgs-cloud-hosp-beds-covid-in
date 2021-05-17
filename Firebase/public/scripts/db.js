@@ -179,7 +179,7 @@ function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallb
 async function db_get_patients2allot(db, stateId, districtId, nameStart=null, limitTo=100) {
     let lPats = []
     console.debug("INFO:dbGetPatients2Allot");
-    dcPats = db.collection(`/Pats2Allot_${stateId}${districtId}`)
+    dcPats = db.collection(`/Patients/${stateId}${districtId}/ToAllot`)
     try {
         if (nameStart === null) {
             var qPats = await dcPats.limit(limitTo).get();
