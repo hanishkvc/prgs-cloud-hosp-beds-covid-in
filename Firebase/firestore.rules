@@ -32,13 +32,16 @@ service cloud.firestore {
                   && resource.data.AdminId == request.auth.uid;
       allow write: if false;
     }
-    match /Patients/{region}/ToAllot/{PatientId} {
-      // Allow anyone to read the patients needing beds list
-      allow read: if request.query.limit <= 100;
+    match /Patients/{RegionId}/ToAllot/{PatientId} {
+      // For now Only Authorised Patient admins can see the patients-needing-bed allocation list
+      allow read: if request.auth != null
+                  && request.query.limit <= 100
+                  && request.auth.token.pat_stateid == get(/databases/$(database)/documents/Patients/$(RegionId)).data.StateId
+                  && request.auth.token.pat_districtid == get(/databases/$(database)/documents/Patients/$(RegionId)).data.DistrictId;
       // Only Authorised Patient admins can update the patients list
       allow write: if request.auth != null
-                   && request.auth.token.pat_stateid == region.StateId
-                   && request.auth.token.pat_districtid == region.DistrictId;
+                   && request.auth.token.pat_stateid == get(/databases/$(database)/documents/Patients/$(RegionId)).data.StateId
+                   && request.auth.token.pat_districtid == get(/databases/$(database)/documents/Patients/$(RegionId)).data.DistrictId;
     }
   }
 }
