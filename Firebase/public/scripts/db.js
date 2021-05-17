@@ -176,10 +176,10 @@ function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallb
 }
 
 
-async function db_get_patients(db, stateId, districtId, nameStart=null, limitTo=100) {
+async function db_get_patients2allot(db, stateId, districtId, nameStart=null, limitTo=100) {
     let lPats = []
-    console.debug("INFO:dbGetPatients");
-    dcPats = db.collection(`/Pats_${stateId}${districtId}`)
+    console.debug("INFO:dbGetPatients2Allot");
+    dcPats = db.collection(`/Pats2Allot_${stateId}${districtId}`)
     try {
         if (nameStart === null) {
             var qPats = await dcPats.limit(limitTo).get();
@@ -189,15 +189,15 @@ async function db_get_patients(db, stateId, districtId, nameStart=null, limitTo=
             nameEnd = nameEndP1 + String.fromCharCode(nameEndP2.charCodeAt(0)+1);
             var qPats = await dcPats.where('Name', '>=', nameStart).where('Name', '<', nameEnd).limit(limitTo).get();
         }
-        //console.debug("INFO:GetPatients:",stateId, districtId,qPats);
+        //console.debug("INFO:GetPatients2Allot:", stateId, districtId, qPats);
         qPats.forEach((doc) => {
             tPat = doc.data();
             tData = [doc.id, tPat['Name'], tPat['IdType'], tPat['IdValue'], tPat['Severity'], tPat['Near'] ]
             lPats.push(tData);
-            //console.debug("INFO:GetPatients:", tData);
+            //console.debug("INFO:GetPatients2Allot:", tData);
             });
     } catch(error){
-        console.error("ERRR:GetPatients:", error);
+        console.error("ERRR:GetPatients2Allot:", error);
     }
     return lPats
 }

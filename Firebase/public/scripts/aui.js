@@ -115,10 +115,10 @@ function patdel_handler(e) {
 
 
 function aui_patients(el) {
-    fixup_elcurpath('Update Patients dataset')
+    fixup_elcurpath('Update Patients2AllotBeds dataset')
     lHead = [ "PatId", "Name", "IdType", "IdValue", "Severity", "Near", "Delete" ]
     mTypes = { 'PatId': 'hide' }
-    db_get_patients(gDB, gMe.stateId, gMe.districtId, null, 100)
+    db_get_patients2allot(gDB, gMe.stateId, gMe.districtId, null, 100)
         .then((lPats) => {
             for(i = 0; i < lPats.length; i++) {
                 lPats[i].push("del");
