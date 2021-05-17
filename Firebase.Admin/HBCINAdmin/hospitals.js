@@ -10,21 +10,21 @@ var hlpr = require('./hlpr');
 
 
 exports.create_hosps_testdata = async function(db, oStates) {
-    dcHosps = db.collection('Hospitals');
-    dcHospsExtra = db.collection('HospitalsExtra');
-    iHosp = 0
+    var dcHosps = db.collection('Hospitals');
+    var dcHospsExtra = db.collection('HospitalsExtra');
+    var iHosp = 0
     for(tStateK in oStates) {
-        tState = oStates[tStateK];
+        var tState = oStates[tStateK];
         for(tKey in tState) {
             if (tKey === 'Name') {
-                tName = tState[tKey]
+                var tName = tState[tKey]
                 continue;
             }
-            tHospNums = Math.round(Math.random()*5);
+            var tHospNums = Math.round(Math.random()*5);
             if (iHosp === 0) tHospNums = 15;
             for(i = 0; i < tHospNums; i++) {
                 iHosp += 1
-                tHosp = {
+                let tHosp = {
                     'Name': `HospName_${iHosp}`,
                     'PinCode': 123456+iHosp,
                     'DistrictId': tKey,
@@ -34,11 +34,11 @@ exports.create_hosps_testdata = async function(db, oStates) {
                     'BedsVntltr': Math.round(Math.random()*20),
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
-                tHospExtra = {
+                let tHospExtra = {
                     'AdminId': "999-555*AAA-+-888"
                     }
                 await new Promise(r => setTimeout(r, 500));
-                tHospKey = `H${tStateK}${tKey}-${iHosp}`
+                let tHospKey = `H${tStateK}${tKey}-${iHosp}`
                 dcHosps.doc(tHospKey)
                     .set(tHosp)
                     .then(hlpr.msg_success.bind(null, tHospKey, "CreateHosps:Adding"))
@@ -55,19 +55,19 @@ exports.create_hosps_testdata = async function(db, oStates) {
 
 exports.import = async function (db, cHospsFile, start, mode) {
     try {
-        oHosps = require(cHospsFile);
+        var oHosps = require(cHospsFile);
     } catch(error) {
         console.error(`ERRR:Hospitals:ImportHosps:[${cHospsFile}] invalid???:${error.message}`);
         return
     }
-    dcHosps = db.collection('Hospitals');
-    iCur = -1;
+    var dcHosps = db.collection('Hospitals');
+    var iCur = -1;
     for(tHospId in oHosps) {
         iCur += 1
         if (iCur < start) continue;
         try {
-            tHosp = oHosps[tHospId]
-            if (mode == 'TEST') {
+            var tHosp = oHosps[tHospId]
+            if (mode === 'TEST') {
                 tHosp['BedsICU'] = 1+Math.round(Math.random()*10)
                 tHosp['BedsNormal'] = 1+Math.round(Math.random()*10)
                 tHosp['BedsVntltr'] = 1+Math.round(Math.random()*10)
