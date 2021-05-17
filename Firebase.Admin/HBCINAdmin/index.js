@@ -11,18 +11,18 @@ var hospitals = require('./hospitals');
 var hospAdmins = require('./hospadmins');
 var dbx = require('./dbx');
 var explore = require('./explore');
+var patients = require('./patients');
 
 
 console.log('INFO: HBCIn Admin tool')
-console.log('INFO: Setup States/UTs and their Districts/Regions')
-console.log('INFO: Create a sample hospital dataset')
-console.log('INFO: Import hospitals, hospitals admins, ...')
+console.log('INFO: Helps setup/create/import the regions/hospitals/patients/admins/...')
 
 
 function create_testdata(db) {
     console.log("INFO:creating testdata...");
     regions.create_states(db, goStates)
     hospitals.create_hosps_testdata(db, goStates)
+    patients.create_patients2allot_testdata(db, goStates)
 }
 
 
