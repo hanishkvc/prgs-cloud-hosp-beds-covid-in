@@ -134,8 +134,8 @@ function aui_patients(el) {
 
 
 function patients_handler(e) {
-    if (gMe.prgState !== PRGSTATES.add) {
-        gMe.prgState = PRGSTATES.add;
+    if (gMe.prgState !== PRGSTATES.patients) {
+        gMe.prgState = PRGSTATES.patients;
         history.pushState(gMe.prgState, 'Patients');
     }
     aui_sync()
@@ -239,7 +239,7 @@ function aui_sync() {
     }
     if (gMe.prgState === PRGSTATES.patients) {
         elMain.innerHTML = ""
-        aui_update(elAuth)
+        aui_patients(elAuth)
         return;
     }
     if (gMe.prgState === PRGSTATES.national) {
