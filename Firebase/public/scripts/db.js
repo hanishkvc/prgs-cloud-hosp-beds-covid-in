@@ -178,7 +178,7 @@ function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallb
 
 async function db_get_patients2allot(db, stateId, districtId, nameStart=null, limitTo=100) {
     let lPats = []
-    console.debug("INFO:dbGetPatients2Allot");
+    console.debug("INFO:dbGetPatients2Allot", stateId, districtId, nameStart, limitTo);
     dcPats = db.collection(`/Patients/${stateId}${districtId}/ToAllot`)
     try {
         if (nameStart === null) {
@@ -189,12 +189,12 @@ async function db_get_patients2allot(db, stateId, districtId, nameStart=null, li
             nameEnd = nameEndP1 + String.fromCharCode(nameEndP2.charCodeAt(0)+1);
             var qPats = await dcPats.where('Name', '>=', nameStart).where('Name', '<', nameEnd).limit(limitTo).get();
         }
-        //console.debug("INFO:GetPatients2Allot:", stateId, districtId, qPats);
+        console.debug("INFO:GetPatients2Allot:", stateId, districtId, qPats);
         qPats.forEach((doc) => {
             tPat = doc.data();
             tData = [doc.id, tPat['Name'], tPat['IdType'], tPat['IdValue'], tPat['Severity'], tPat['Near'] ]
             lPats.push(tData);
-            //console.debug("INFO:GetPatients2Allot:", tData);
+            console.debug("INFO:GetPatients2Allot:", tData);
             });
     } catch(error){
         console.error("ERRR:GetPatients2Allot:", error);

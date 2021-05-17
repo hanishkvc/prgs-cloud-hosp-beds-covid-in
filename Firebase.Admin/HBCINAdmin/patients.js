@@ -21,7 +21,7 @@ exports.create_patients2allot_testdata = async function(db, oStates) {
             }
             regionId = `${tStateK}${tKey}`;
             await dcPats.doc(regionId).set({ "StateId": tStateK, "DistrictId": tKey });
-            dcToAllow = db.collection(`/Patients/${regionId}/ToAllow`);
+            dcToAllot = db.collection(`/Patients/${regionId}/ToAllot`);
             tPatsNum = Math.round(Math.random()*5);
             for(i = 0; i < tPatsNum; i++) {
                 iPat += 1
@@ -35,7 +35,7 @@ exports.create_patients2allot_testdata = async function(db, oStates) {
                     'TimeStamp': admin.firestore.FieldValue.serverTimestamp(),
                     }
                 await new Promise(r => setTimeout(r, 500));
-                dcToAllow.doc()
+                dcToAllot.doc()
                     .set(tPat)
                     .then(hlpr.msg_success.bind(null, iPat, "CreatePat2AllotTD:Adding"))
                     .catch(hlpr.msg_failure.bind(null, iPat, "CreatePat2AllotTD:Adding"));

@@ -32,6 +32,12 @@ service cloud.firestore {
                   && resource.data.AdminId == request.auth.uid;
       allow write: if false;
     }
+    match /Patients/{RegionId} {
+      // Allow anyone to read the Regions list
+      allow read: if true;
+      // No one can modify the Regions list
+      allow write: if false;
+    }
     match /Patients/{RegionId}/ToAllot/{PatientId} {
       // For now Only Authorised Patient admins can see the patients-needing-bed allocation list
       allow read: if request.auth != null
