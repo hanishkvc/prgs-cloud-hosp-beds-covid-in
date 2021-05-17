@@ -110,6 +110,29 @@ function updatebeds_handler(e) {
 }
 
 
+function patdel_handler(e) {
+}
+
+
+function aui_patients(el) {
+    fixup_elcurpath('Update Patients dataset')
+    lHead = [ "PatId", "Name", "IdType", "IdValue", "Severity", "Near", "Delete" ]
+    mTypes = { 'PatId': 'hide' }
+    db_get_patients(gDB, gMe.stateId, gMe.districtId, null, 100)
+        .then((lPats) => {
+            for(i = 0; i < lPats.length; i++) {
+                lPats[i].push("del");
+            }
+            ui_table(el, {}, lPats, lHead, mTypes, patdel_handler);
+            if (lPats.length === 0)
+                el.innerHTML = "<h1> No Patients to allot beds, added yet </h1>";
+        })
+        .catch((error) => {
+            console.error("ERRR:AUIPatients:", error);
+        });
+}
+
+
 function patients_handler(e) {
     if (gMe.prgState !== PRGSTATES.add) {
         gMe.prgState = PRGSTATES.add;
@@ -210,6 +233,11 @@ function aui_sync() {
         return;
     }
     if (gMe.prgState === PRGSTATES.beds) {
+        elMain.innerHTML = ""
+        aui_update(elAuth)
+        return;
+    }
+    if (gMe.prgState === PRGSTATES.patients) {
         elMain.innerHTML = ""
         aui_update(elAuth)
         return;

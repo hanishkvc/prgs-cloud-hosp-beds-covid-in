@@ -176,4 +176,31 @@ function db_update_hospital(db, hospId, bedsICU, bedsNormal, bedsVntltr, uiCallb
 }
 
 
+async function db_get_patients(db, stateId, districtId, nameStart=null, limitTo=100) {
+    let lPats = []
+    console.debug("INFO:dbGetPatients");
+    dcPats = db.collection(`/Pats_${stateId}${districtId}`)
+    try {
+        if (nameStart === null) {
+            var qPats = await dcPats.limit(limitTo).get();
+        } else {
+            nameEndP1 = nameStart.slice(0,nameStart.length-1);
+            nameEndP2 = nameStart.slice(nameStart.length-1);
+            nameEnd = nameEndP1 + String.fromCharCode(nameEndP2.charCodeAt(0)+1);
+            var qPats = await dcPats.where('Name', '>=', nameStart).where('Name', '<', nameEnd).limit(limitTo).get();
+        }
+        //console.debug("INFO:GetPatients:",stateId, districtId,qPats);
+        qPats.forEach((doc) => {
+            tPat = doc.data();
+            tData = [doc.id, tPat['Name'], tPat['IdType'], tPat['IdValue'], tPat['Severity'], tPat['Near'] ]
+            lPats.push(tData);
+            //console.debug("INFO:GetPatients:", tData);
+            });
+    } catch(error){
+        console.error("ERRR:GetPatients:", error);
+    }
+    return lPats
+}
+
+
 /* vim: set ts=4 sts=4 sw=4 expandtab :*/
