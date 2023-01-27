@@ -10,11 +10,11 @@ var hlpr = require('./hlpr');
 
 
 exports.create_patients2allot_testdata = async function(db, oStates) {
-    dcPats = db.collection('/Patients');
-    iPat = 0
-    for(tStateK in oStates) {
+    var dcPats = db.collection('/Patients');
+    var iPat = 0
+    for(let tStateK in oStates) {
         tState = oStates[tStateK];
-        for(tKey in tState) {
+        for(let tKey in tState) {
             if (tKey === 'Name') {
                 tName = tState[tKey]
                 continue;
